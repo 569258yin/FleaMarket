@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <RadioGroup
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/main_pink"
+        >
+        <RadioButton 
+            android:layout_marginLeft="30dp"
+            android:drawableLeft="@drawable/icon_dian"
+            android:button="@null"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_dian_tuijian"
+            />
+        <RadioButton 
+            android:drawableLeft="@drawable/icon_dian"
+            android:button="@null"
+            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/main_dian_zuixin"
+            />
+    </RadioGroup>
+    
+  	  <com.agjsj.fleamarket.view.myview.PullToRefreshView
+        android:id="@+id/ll_home_pullToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ListView 
+            android:id="@+id/list_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            style="@style/ListStyle"
+            />
+  	      
+    </com.agjsj.fleamarket.view.myview.PullToRefreshView>
+  
+   
+
+</LinearLayout>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- 标题容器：三个标题 -->
+
+    <RelativeLayout
+        android:visibility="gone"
+        android:id="@+id/ii_common_container"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/back" >
+
+      
+    </RelativeLayout>
+
+    <!-- 主界面搜索标题 -->
+
+    <RelativeLayout
+        android:id="@+id/ii_search_title"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:background="@color/title_red"
+        android:visibility="visible" >
+		
+          <ImageView 
+            android:layout_alignParentRight="true"
+            android:id="@+id/ii_type_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_arragment"
+            />
+
+        <EditText
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:background="@drawable/search_main_background"
+            android:id="@+id/ii_serach_title"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:hint="@string/main_search_hnit"
+            android:drawableLeft="@drawable/search_main"
+            android:ems="10"
+            android:maxWidth="250dp" >
+
+            <requestFocus />
+        </EditText>
+      
+    </RelativeLayout>
+
+</RelativeLayout>
