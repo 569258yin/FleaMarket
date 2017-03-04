@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray"
+    android:orientation="vertical" >
+
+    <com.agjsj.secondhand.view.myview.PullToRefreshView
+        android:id="@+id/ll_pullToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <ScrollView
+            android:id="@+id/sv_first_sc"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:fillViewport="true"
+            android:scrollbars="none" >
+
+            <!-- 广告位 -->
+
+            <FrameLayout
+                android:id="@+id/ll_dd"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal" >
+
+                <!-- <include layout="@layout/include_first_viewpage" /> -->
+                <fragment
+                    android:id="@+id/fragment_cycle_viewpager_content"
+                    android:name="com.agjsj.secondhand.view.myview.CycleViewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dip" />
+            </FrameLayout>
+        </ScrollView>
+    </com.agjsj.secondhand.view.myview.PullToRefreshView>
+
+</LinearLayout>

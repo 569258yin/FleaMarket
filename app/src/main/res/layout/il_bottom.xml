@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 底部导航 -->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="70dp"
+    >
+    <View 
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/gray"/>
+    <FrameLayout
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <ImageView
+                android:layout_gravity="center"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/iv_main_send"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@drawable/send_main" />
+        </LinearLayout>
+    </FrameLayout>
+    <!-- 购彩通用导航 -->
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:gravity="bottom"
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <RadioGroup
+            android:id="@+id/rg_main_tab"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <RadioButton
+                android:id="@+id/rb_main_home"
+                style="@style/RadioButtonBottomTab"
+                android:text="宝贝"
+                android:checked="true"
+                android:drawableTop="@drawable/icon_home"
+                />
+
+            <RadioButton
+                android:id="@+id/rb_main_type"
+                style="@style/RadioButtonBottomTab"
+                android:drawableTop="@drawable/icon_type" />
+
+            <RadioButton
+                android:id="@+id/rb_main_send"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:button="@null" />
+
+            <RadioButton
+                android:id="@+id/rb_main_message"
+                style="@style/RadioButtonBottomTab"
+                android:drawableTop="@drawable/icon_message" />
+
+            <RadioButton
+                android:id="@+id/rb_main_me"
+                style="@style/RadioButtonBottomTab"
+                android:drawableTop="@drawable/icon_me"
+                />
+        </RadioGroup>
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.agjsj.fleamarket.view.user.LoginActivity">
+
+    <LinearLayout
+        android:id="@+id/login_top"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:background="@color/orange3"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="50dp"
+            android:src="@drawable/logo" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:text="一句话介绍该应用"
+            android:textColor="@android:color/white"
+            android:textSize="20sp" />
+    </LinearLayout>
+
+
+
+
+    <LinearLayout
+        android:id="@+id/login_editlayout"
+        android:layout_width="320dp"
+        android:layout_height="90dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/login_edit_backgroud"
+        android:orientation="vertical"
+        android:layout_below="@+id/login_top"
+        android:layout_alignLeft="@+id/btn_login"
+        android:layout_alignStart="@+id/btn_login">
+
+        <EditText
+            android:id="@+id/et_username"
+            style="@style/login_edittext_style"
+            android:drawableLeft="@drawable/login_edit_username_icon"
+            android:hint="学号/工号" />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/color_emote_divder" />
+
+        <EditText
+            android:id="@+id/et_password"
+            style="@style/login_edittext_style"
+            android:drawableLeft="@drawable/login_edit_password_icon"
+            android:hint="密码"
+            android:inputType="textPassword" />
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/btn_login"
+        android:layout_width="320dp"
+        android:layout_height="45dp"
+        android:layout_below="@id/login_editlayout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:background="@color/orange3"
+        android:gravity="center"
+        android:text="登陆"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+</RelativeLayout>
