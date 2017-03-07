@@ -1,11 +1,18 @@
 package com.agjsj.fleamarket.view;
 
 import android.content.Context;
+import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.agjsj.fleamarket.adapter.base.OnRecyclerViewImageListener;
+import com.agjsj.fleamarket.adapter.base.OnRecyclerViewListener;
+import com.agjsj.fleamarket.adapter.goods.GoodsAdapter;
+import com.agjsj.fleamarket.bean.Goods;
 import com.agjsj.fleamarket.params.ConstantValue;
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.net.procotal.IMessage;
@@ -18,18 +25,31 @@ import com.agjsj.fleamarket.view.myview.PullToRefreshView.OnHeaderRefreshListene
 import com.agjsj.fleamarket.view.search.SearchUI;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 
 /**
- * 第一个简答的界面
- * @author Administrator
+ * 第一个界面，为商品展示界面
+ * @author YH
  *
  */
-public class HomeUI  extends BaseUI{
+public class HomeUI  extends BaseUI implements SwipeRefreshLayout.OnRefreshListener, OnRecyclerViewListener, OnRecyclerViewImageListener {
 	
 	//上拉下滑有关的
-	private PullToRefreshView pullToRefresh;
-	private ListView list_main;
+	@Bind(R.id.swiprefreshlayout_home)
+	SwipeRefreshLayout swipeRefreshLayout;
+	@Bind(R.id.recyclerview_home)
+	RecyclerView recyclerView;
+
+	private LinearLayoutManager layoutManager;
+
+	private List<Goods> goodsList;
+	private GoodsAdapter adapter;
+
 
 	public HomeUI(Context context) {
 		super(context);
@@ -45,33 +65,27 @@ public class HomeUI  extends BaseUI{
 	@Override
 	public void init() {
 		showInMiddle = (LinearLayout) View.inflate(context, R.layout.activity_home, null);
-		LogUtil.info(HomeUI.class, "onInit");
-		pullToRefresh = (PullToRefreshView) findViewById(R.id.ll_home_pullToRefresh);
-		LogUtil.info(HomeUI.class, "onInitPull");
-		list_main = (ListView) findViewById(R.id.list_main);
-
+		ButterKnife.bind(this, showInMiddle);
+		swipeRefreshLayout.setOnRefreshListener(this);
 
 
 
 	//	getDataByNet();
 		
 		LogUtil.info(HomeUI.class, "首次从服务器上获取数据");
-		pullToRefresh.setOnFooterRefreshListener(new OnFootRefresh());
-		pullToRefresh.setOnHeaderRefreshListener(new OnHeadRefresh());
 	}
 
-	/**
-	 * 下拉刷新时网络请求任务
-	 */
-	class OnHeadRefresh implements OnHeaderRefreshListener {
+	private void initRecycleView() {
+		goodsList = new ArrayList<>();
+		layoutManager = new LinearLayoutManager(context);
+		recyclerView.setLayoutManager(layoutManager);
 
-		@Override
-		public void onHeaderRefresh(PullToRefreshView view) {
-			getDataByNet();
-			LogUtil.info(HomeUI.class, "下拉刷新");
-		}
-
+		adapter = new GoodsAdapter(context,goodsList);
+		adapter.setOnRecyclerViewListener(this);
+		adapter.setOnRecyclerViewImageListener(this);
+		recyclerView.setAdapter(adapter);
 	}
+
 	/**
 	 * 从服务器上获取数据
 	 */
@@ -89,42 +103,11 @@ public class HomeUI  extends BaseUI{
 			}
 			@Override
 			protected void onPostExecute(IMessage result) {
-				pullToRefresh.onHeaderRefreshComplete("更新于："+getCurrentDataTime());
 				super.onPostExecute(result);
 			}
 		}.executeProxy("ll");
 	}
-	/**
-	 * 下拉加载时异步任务
-	 * @author yh
-	 * 
-	 */
-	class OnFootRefresh implements OnFooterRefreshListener {
 
-		@Override
-		public void onFooterRefresh(PullToRefreshView view) {
-			new MyHttpTask<Integer>() {
-
-				@Override
-				protected IMessage doInBackground(Integer... params) {
-					try {
-						Thread.sleep(2000);
-					} catch (InterruptedException e) {
-						e.printStackTrace();
-					}
-					return null;
-				}
-
-				@Override
-				protected void onPostExecute(IMessage result) {
-					pullToRefresh.onFooterRefreshComplete();
-					LogUtil.info(HomeUI.class, "下拉加载");
-					super.onPostExecute(result);
-				}
-			}.executeProxy(0);
-
-		}
-	}
 
 	
 
@@ -136,5 +119,30 @@ public class HomeUI  extends BaseUI{
 	@Override
 	public void setListener() {
 		
+	}
+
+	@Override
+	public void onRefresh() {
+
+	}
+
+	@Override
+	public void onItemClick(int position) {
+
+	}
+
+	@Override
+	public void onItemClick(int position, int id) {
+
+	}
+
+	@Override
+	public boolean onItemLongClick(int position) {
+		return false;
+	}
+
+	@Override
+	public void onImageItemClick(int itemPosition, int imagePosition) {
+
 	}
 }

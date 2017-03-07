@@ -9,9 +9,11 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
-        android:background="@color/main_pink"
+        android:background="@color/orange3"
         >
-        <RadioButton 
+        <RadioButton
+            android:checked="true"
+            android:id="@+id/rd_home_recommend"
             android:layout_marginLeft="30dp"
             android:drawableLeft="@drawable/icon_dian"
             android:button="@null"
@@ -20,7 +22,8 @@
             android:layout_height="wrap_content"
             android:text="@string/main_dian_tuijian"
             />
-        <RadioButton 
+        <RadioButton
+            android:id="@+id/rd_home_new"
             android:drawableLeft="@drawable/icon_dian"
             android:button="@null"
             android:layout_weight="1"
@@ -29,20 +32,19 @@
             android:text="@string/main_dian_zuixin"
             />
     </RadioGroup>
-    
-  	  <com.agjsj.fleamarket.view.myview.PullToRefreshView
-        android:id="@+id/ll_home_pullToRefresh"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" >
 
-        <ListView 
-            android:id="@+id/list_main"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiprefreshlayout_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_home"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            style="@style/ListStyle"
-            />
-  	      
-    </com.agjsj.fleamarket.view.myview.PullToRefreshView>
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </android.support.v4.widget.SwipeRefreshLayout>
   
    
 

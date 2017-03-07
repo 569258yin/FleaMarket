@@ -7,7 +7,6 @@ import android.widget.ListView;
 
 import com.agjsj.fleamarket.params.ConstantValue;
 import com.agjsj.fleamarket.R;
-import com.agjsj.fleamarket.adapter.GoodsAdapter;
 import com.agjsj.fleamarket.bean.Goods;
 import com.agjsj.fleamarket.net.procotal.IMessage;
 import com.agjsj.fleamarket.util.LogUtil;
