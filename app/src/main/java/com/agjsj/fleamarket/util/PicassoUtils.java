@@ -28,7 +28,7 @@ public class PicassoUtils {
 
         Picasso.Builder builder = new Picasso.Builder(context);
         picasso = builder.memoryCache(new LruCache(10 << 20)).defaultBitmapConfig(Bitmap.Config.RGB_565)
-                .indicatorsEnabled(true).build();
+                .indicatorsEnabled(false).build();
 
         Picasso.setSingletonInstance(picasso);
 

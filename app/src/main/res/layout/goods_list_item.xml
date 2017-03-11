@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/ll_goods_item"
+    android:layout_marginTop="10dp"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical" >
 
     <RelativeLayout
         android:layout_margin="5dp"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="70dp"
         android:orientation="horizontal" >
 
         <LinearLayout
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -24,6 +29,7 @@
                 android:layout_height="50dp" />
 
             <LinearLayout
+                android:layout_marginLeft="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
@@ -34,6 +40,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
+                    android:textColor="@color/black"
                     android:text="可可" />
 
                 <TextView
@@ -79,15 +86,14 @@
     </RelativeLayout>
 
     <LinearLayout
-        android:layout_margin="10dp"
+        android:layout_margin="5dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycleview_goods_item"
             android:layout_width="match_parent"
-            android:layout_height="200dp">
-
+            android:layout_height="160dp">
         </android.support.v7.widget.RecyclerView>
     </LinearLayout>
 
@@ -97,6 +103,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:maxLines="3"
+        android:textColor="@color/black"
         android:text="打打打打啥的打打算等我亲爱的撒打算的阿萨德阿萨德按时打算的的撒的啥的撒 的爱疯舞让发  打的阿达的撒" />
 
     <View

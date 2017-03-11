@@ -40,7 +40,7 @@ public interface ConstantValue {
 	/**
 	 * 请求地址
 	 */
-	String URL_ROOT = "http://192.168.5.12:8080/FileMaketServer/";
+	String URL_ROOT = "http://192.168.5.6:8080/FileMaketServer/";
 	/** 用户登录 */
 	String URL_USER_LOGIN = "account/login.action";
 	/** 检测token是否存在或过期 */

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
+import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.adapter.base.OnRecyclerViewImageListener;
 import com.agjsj.fleamarket.adapter.base.OnRecyclerViewListener;
 import com.agjsj.fleamarket.bean.Goods;
@@ -27,17 +28,17 @@ public class GoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return null;
+        return new GoodsViewHolder(context,parent, onRecyclerViewListener,onRecyclerViewImageListener);
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-
+        ((GoodsViewHolder)holder).bindData(goodsList.get(position));
     }
 
     @Override
     public int getItemCount() {
-        return 0;
+        return goodsList.size();
     }
 
     private OnRecyclerViewListener onRecyclerViewListener;

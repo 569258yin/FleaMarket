@@ -26,6 +26,8 @@ public class GlobalParams {
 	 */
 	public static String DESPASSWORD = "d6f9c12f970b843a";
 
+	public static String SPLIT_IMAGE_URL = ";";
+
 	
 	public static final String[] imageUrls = {
 			"http://geekpark-img.qiniudn.com/uploads/reading/seed/71ff810dbe0efafa4ece214c3fa38c6e.png",

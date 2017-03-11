@@ -36,7 +36,6 @@ public class SecondUI extends BaseUI {
 	// 上拉下滑有关的
 	private PullToRefreshView pullToRefresh;
 	
-	private GoodsAdapter adapter;
 	private List<Goods> listData;
 
 	// 第一步：加载layout（布局参数设置）
@@ -57,9 +56,6 @@ public class SecondUI extends BaseUI {
 		
 		getDataByNet();
 		
-		adapter = new GoodsAdapter(context, listData);
-		listView.setAdapter(adapter);
-
 		pullToRefresh.setOnFooterRefreshListener(new OnFootRefresh());
 		pullToRefresh.setOnHeaderRefreshListener(new OnHeadRefresh());
 	}

@@ -1,6 +1,7 @@
 package com.agjsj.fleamarket.adapter.goods;
 
 import android.content.Context;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,11 +11,19 @@ import android.widget.Toast;
 
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.adapter.base.BaseViewHolder;
+import com.agjsj.fleamarket.adapter.base.OnRecyclerViewImageListener;
 import com.agjsj.fleamarket.adapter.base.OnRecyclerViewListener;
 import com.agjsj.fleamarket.bean.Goods;
 import com.agjsj.fleamarket.bean.UserInfo;
+import com.agjsj.fleamarket.params.ConstantValue;
+import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.util.PicassoUtils;
+import com.agjsj.fleamarket.util.TimeUtil;
 import com.agjsj.fleamarket.view.myview.CircleImageView;
+
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.Bind;
 
@@ -41,11 +50,19 @@ public class GoodsViewHolder extends BaseViewHolder {
     TextView goods_replay_num;
     @Bind(R.id.tv_goods_zan_number)
     TextView goods_zan_num;
+    private GoodsImageAdapter goodsImageAdapter;
+    private OnRecyclerViewImageListener onRecyclerViewImageListener;
+    private Context context;
+    private LinearLayoutManager layoutManager;
 
-
-
-    public GoodsViewHolder(Context context, ViewGroup root, int layoutRes, OnRecyclerViewListener listener) {
+    public GoodsViewHolder(Context context, ViewGroup root,OnRecyclerViewListener listener,OnRecyclerViewImageListener onRecyclerViewImageListener) {
         super(context, root, R.layout.goods_list_item, listener);
+        this.context = context;
+        this.onRecyclerViewImageListener = onRecyclerViewImageListener;
+        layoutManager = new LinearLayoutManager(context);
+        layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        recyclerView.setLayoutManager(layoutManager);
+
     }
 
     @Override
@@ -54,19 +71,37 @@ public class GoodsViewHolder extends BaseViewHolder {
             Goods goods = (Goods) o;
             UserInfo userInfo = goods.getUserInfo();
             if(userInfo != null) {
-                PicassoUtils.loadResizeImage(userInfo.getUsericon(), R.drawable.logo, R.drawable.logo, 100, 100,user_icon);
-                user_name.setText(userInfo.getNickname());
+                PicassoUtils.loadResizeImage(userInfo.getUsericon(), R.drawable.logo, R.drawable.logo, 60, 60,user_icon);
+                user_name.setText(userInfo.getNickname()+"");
             }
-            goods_time.setText(goods.getGoodstime());
-            goods_money.setText(goods.getGoodsoldmoney());
-            goods_content.setText(goods.getGoodstext());
-            goods_replay_num.setText(goods.getGoodsrepalynumber());
-            goods_zan_num.setText(goods.getGoodslikenumber());
+            goods_time.setText(TimeUtil.getChatTime(true,Long.parseLong(goods.getGoodstime())));
+            goods_content.setText(goods.getGoodstext()+"");
+            goods_replay_num.setText(goods.getGoodsrepalynumber()+"");
+            goods_zan_num.setText(goods.getGoodslikenumber()+"");
+            goods_money.setText(getMoney(goods.getGoodsoldmoney())+"");
+
+            if(goods.getGoodsiconnumber() > 0){
+                List<String> urls = new ArrayList<>(6);
+                String[] strs = goods.getGoodsicon().split(GlobalParams.SPLIT_IMAGE_URL);
+                if(strs != null && strs.length > 0){
+                    for (int i=0; i< strs.length;i++){
+                        urls.add(strs[i]);
+                    }
+
+                    goodsImageAdapter = new GoodsImageAdapter(context,urls);
+                    recyclerView.setAdapter(goodsImageAdapter);
+                }
+            }
         }
         goodsItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onRecyclerViewListener.onItemClick(getAdapterPosition());
             }
         });
+    }
+
+    private String getMoney(int money){
+        return new BigDecimal(money).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_CEILING).toString();
     }
 }
