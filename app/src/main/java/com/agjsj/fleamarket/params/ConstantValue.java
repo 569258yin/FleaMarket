@@ -52,6 +52,7 @@ public interface ConstantValue {
 	String GOODS_COLLECT_URL = "http://192.168.67.107:8080/SHService";
 	String GOODS_TOREPLAY_URL = "http://192.168.67.107:8080/SHService";
 	String FOUND_URL = "http://192.168.67.107:8080/SHService";
+	String IMAGE_UPLOAD = "file/imgUpload.action";
 	/**
 	 * 请求码
 	 */
