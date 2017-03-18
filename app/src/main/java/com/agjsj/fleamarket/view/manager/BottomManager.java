@@ -1,6 +1,7 @@
 package com.agjsj.fleamarket.view.manager;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AnimationUtils;
@@ -14,6 +15,7 @@ import com.agjsj.fleamarket.params.ConstantValue;
 import com.agjsj.fleamarket.view.Hall;
 import com.agjsj.fleamarket.view.HomeUI;
 import com.agjsj.fleamarket.view.SecondUI;
+import com.agjsj.fleamarket.view.send.SendGoodActivity;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -134,15 +136,17 @@ public class BottomManager implements Observer,OnClickListener,OnCheckedChangeLi
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.iv_main_send:
-			if (!animal_tag) {
-				iv_send.startAnimation(
-						AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.iv_send_rotate));
-					animal_tag = true;
-			}else{
-				iv_send.startAnimation(
-						AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.iv_send_rotate_rollck));
-				animal_tag = false;
-			}
+//			if (!animal_tag) {
+//				iv_send.startAnimation(
+//						AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.iv_send_rotate));
+//					animal_tag = true;
+//			}else{
+//				iv_send.startAnimation(
+//						AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.iv_send_rotate_rollck));
+//				animal_tag = false;
+//			}
+			Intent intent = new Intent(activity, SendGoodActivity.class);
+			activity.startActivity(intent);
 			break;
 
 		default:

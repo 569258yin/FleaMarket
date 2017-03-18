@@ -92,10 +92,8 @@ public class HomeUI  extends BaseUI implements SwipeRefreshLayout.OnRefreshListe
 
 	private Goods getGoods(){
 		Goods goods = new Goods();
-		UserInfo userInfo = new UserInfo();
-		userInfo.setNickname("张三");
-		userInfo.setUsericon("https://gd2.alicdn.com/imgextra/i1/71460541/TB2H.g9gCBjpuFjy1XdXXaooVXa_!!71460541.jpg");
-		goods.setUserInfo(userInfo);
+		goods.setUserName("张三");
+		goods.setUserIcon("https://gd2.alicdn.com/imgextra/i1/71460541/TB2H.g9gCBjpuFjy1XdXXaooVXa_!!71460541.jpg");
 		goods.setGoodsiconnumber(5);
 		goods.setGoodsicon("https://gd2.alicdn.com/imgextra/i1/71460541/TB2H.g9gCBjpuFjy1XdXXaooVXa_!!71460541.jpg;https://gd1.alicdn.com/imgextra/i1/71460541/TB2xs4xh9VmpuFjSZFFXXcZApXa_!!71460541.jpg;https://gd4.alicdn.com/imgextra/i4/71460541/TB2XQUybNRDOuFjSZFzXXcIipXa_!!71460541.jpg;https://gd3.alicdn.com/imgextra/i3/71460541/TB2L_brgB0lpuFjSszdXXcdxFXa_!!71460541.jpg;https://gd2.alicdn.com/imgextra/i2/TB1iS85PVXXXXabaXXXXXXXXXXX_!!0-item_pic.jpg");
 		goods.setGoodslikenumber(10);

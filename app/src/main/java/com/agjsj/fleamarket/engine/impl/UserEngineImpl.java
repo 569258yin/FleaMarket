@@ -32,6 +32,11 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 		if(body != null){
 			if(OelementType.SUCCESS == body.getOelement().getErrorcode()){
 				BaseApplication.INSTANCE().setToken(body.getToken());
+				String userId = body.getOelement().getErrormsg();
+				UserInfo userInfo = getCurrentUser(userId);
+				if(userInfo != null){
+					BaseApplication.INSTANCE().updateLocalUser(userInfo);
+				}
 				return true;
 			}
 		}
@@ -50,6 +55,16 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 	}
 
 	@Override
+	public UserInfo getCurrentUser(String userId) {
+		Body body = sendJsonToService(userId, ConstantValue.TYPE_GET_USER);
+		if(body.getOelement().getErrorcode() == OelementType.SUCCESS) {
+			UserInfo userInfo = (UserInfo) GsonUtil.stringToObjectByBean(body.getElements(),UserInfo.class);
+			return userInfo;
+		}
+		return null;
+	}
+
+	@Override
 	public boolean register(UserInfo user) {
 		Body body = new Body();
 		body.setOelement(null);
@@ -59,58 +74,6 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 		String sendinfo = getMessageToJson(body, ConstantValue.TYPE_REGISTER);
 		// 发送数据并获取服务器返回的数据
 		return false;
-	}
-
-	//-------------------------------------获取当前用户------------------------------
-	public UserInfo getCurrentUser() {
-		SharedPreferences sharedPreferences = BaseApplication.INSTANCE().getSharedPreferences("currentUser", Context.MODE_PRIVATE);
-		if (TextUtils.isEmpty(sharedPreferences.getString("id", ""))) {
-			return null;
-		} else if (new Date().getTime() - sharedPreferences.getLong("lastLoginTime", -1) >= 3600 * 24 * 30) {
-			//登录超时，删除本地用户信息
-			deleteCurrentUser();
-			return null;
-		} else {
-			//获取用户，并返回
-			UserInfo myUser = new UserInfo();
-			myUser.setUserid(sharedPreferences.getString("id", ""));
-			myUser.setUsersex(sharedPreferences.getInt("userSex", -1));
-			myUser.setUseraddress(sharedPreferences.getString("userAddress", ""));
-			myUser.setUsername(sharedPreferences.getString("userNickName", ""));
-			myUser.setQqnumber(sharedPreferences.getString("qqNumber", ""));
-			myUser.setWxnumber(sharedPreferences.getString("wxNumber", ""));
-			myUser.setColleage(sharedPreferences.getString("colleage", ""));
-			myUser.setSchool(sharedPreferences.getString("school", ""));
-			myUser.setUsericon(sharedPreferences.getString("userIcon", ""));
-			myUser.setUserphone(sharedPreferences.getString("userPhone", ""));
-			return myUser;
-		}
-	}
-
-
-	//------------------------------------更新当前用户信息----------------------------
-	public void updateCurrentUser(UserInfo myUser) {
-		SharedPreferences sharedPreferences = BaseApplication.INSTANCE().getSharedPreferences("currentUser", Context.MODE_PRIVATE);
-		SharedPreferences.Editor editor = sharedPreferences.edit();
-		editor.putString("id", myUser.getUserid());
-		editor.putInt("userSex", myUser.getUsersex());
-		editor.putString("userAddress", myUser.getUseraddress());
-		editor.putString("userNickName", myUser.getUsername());
-		editor.putString("qqNumber", myUser.getQqnumber());
-		editor.putString("wxNumber", myUser.getWxnumber());
-		editor.putString("colleage", myUser.getColleage());
-		editor.putString("school", myUser.getSchool());
-		editor.putString("userIcon", myUser.getUsericon());
-		editor.putString("userPhone", myUser.getUserphone());
-		editor.commit();
-
-	}
-
-	//------------------------------------退出登录--------------------------------
-	public void deleteCurrentUser() {
-		SharedPreferences sharedPreferences = BaseApplication.INSTANCE().getSharedPreferences("currentUser", Context.MODE_PRIVATE);
-
-		sharedPreferences.edit().clear().commit();
 	}
 
 }

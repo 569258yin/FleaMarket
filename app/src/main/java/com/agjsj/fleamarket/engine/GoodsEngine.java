@@ -3,16 +3,25 @@ package com.agjsj.fleamarket.engine;
 import com.agjsj.fleamarket.bean.Goods;
 import com.agjsj.fleamarket.net.procotal.IMessage;
 
+import java.io.File;
+import java.util.List;
+
 public interface GoodsEngine {
 
 	/**
 	 * 发布商品
-	 * 
-	 * @param good
-	 *            （包含发布者对象和goodsType对象）
+	 * @param good （包含发布者对象和goodsType对象）
 	 * @return
 	 */
-	public IMessage sendGoods(Goods good);
+	public boolean sendGoods(Goods good);
+
+	/**
+	 * 上传图片
+	 * @param fileList
+	 * @return
+	 */
+	public String uploadImage(List<File> fileList);
+
 
 	/**
 	 * 分页加载指定用户所发布的商品

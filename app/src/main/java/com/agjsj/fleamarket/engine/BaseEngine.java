@@ -176,6 +176,12 @@ public abstract class BaseEngine {
 				break;
 			case ConstantValue.TYPE_CHECK_TOKEN:
 				URL += ConstantValue.URL_CHECK_TOKEN;
+				break;
+			case ConstantValue.TYPE_GET_USER:
+				URL += ConstantValue.URL_GET_USER;
+				break;
+			case ConstantValue.TYPE_SEND_GOODS:
+				URL += ConstantValue.URL_SEND_GOODS;
 			default:
 				break;
 		}

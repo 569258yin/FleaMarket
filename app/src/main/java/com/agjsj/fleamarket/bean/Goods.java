@@ -9,10 +9,11 @@ public class Goods implements java.io.Serializable {
 
 	// Fields
 
-	private Integer goodsid;
-	private Integer userid;
-	// 单向一对一
-	private UserInfo userInfo;
+	private String goodsid;
+
+	private String userid;
+	private String userName;
+	private String userIcon;
 	private Integer goodstypeid;
 	private Goodstype goodstype;
 	private String goodstitle;
@@ -34,19 +35,19 @@ public class Goods implements java.io.Serializable {
 	public Goods() {
 	}
 
-	public Integer getGoodsid() {
+	public String getGoodsid() {
 		return this.goodsid;
 	}
 
-	public void setGoodsid(Integer goodsid) {
+	public void setGoodsid(String goodsid) {
 		this.goodsid = goodsid;
 	}
 
-	public Integer getUserid() {
+	public String getUserid() {
 		return this.userid;
 	}
 
-	public void setUserid(Integer userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 
@@ -161,13 +162,17 @@ public class Goods implements java.io.Serializable {
 	public void setGoodsrepalynumber(Integer goodsrepalynumber) {
 		this.goodsrepalynumber = goodsrepalynumber;
 	}
-
-	public UserInfo getUserInfo() {
-		return userInfo;
+	public String getUserName() {
+		return userName;
 	}
-
-	public void setUserInfo(UserInfo userInfo) {
-		this.userInfo = userInfo;
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserIcon() {
+		return userIcon;
+	}
+	public void setUserIcon(String userIcon) {
+		this.userIcon = userIcon;
 	}
 
 	public Goodstype getGoodstype() {

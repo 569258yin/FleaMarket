@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <include layout="@layout/include_navi"/>
+
+    <EditText
+        android:id="@+id/et_title_sendgoods"
+        style="@style/editText"
+        android:hint="标题 品类品牌型号都是买家喜欢搜索的"
+        android:lines="1"
+        android:layout_height="40dp" />
+    <EditText
+        android:id="@+id/et_content_sendgoods"
+        android:layout_height="100dp"
+        style="@style/editText"
+        android:hint="宝贝描述....."
+        android:textSize="20sp" />
+
+    <GridView
+        android:id="@+id/grid_sendgoods"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="4"></GridView>
+
+    <LinearLayout
+        android:layout_marginLeft="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:orientation="horizontal"
+        >
+        <ImageView
+            android:scaleType="fitCenter"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/address"
+            />
+        <TextView
+            android:id="@+id/tv_address_sendgoods"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/base_color_text_black"
+            android:text="上海嘉定区"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center_vertical"
+            android:text="价格"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_price_sendgoods"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:text="20.00"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            style="@style/editText"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center_vertical"
+            android:text="分类"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_catogory_sendgoods"
+            android:gravity="center_vertical"
+            android:layout_marginLeft="30dp"
+            android:text="衣服"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            style="@style/editText"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:gravity="center_vertical"
+            android:text="质量"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        
+        <Spinner
+            android:id="@+id/spinner_qutity_sendgoods"
+            android:layout_marginLeft="30dp"
+            android:gravity="center_vertical"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+
+        </Spinner>
+    </LinearLayout>
+
+
+
+</LinearLayout>

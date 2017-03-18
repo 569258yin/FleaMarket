@@ -69,11 +69,8 @@ public class GoodsViewHolder extends BaseViewHolder {
     public void bindData(Object o) {
         if(o instanceof  Goods) {
             Goods goods = (Goods) o;
-            UserInfo userInfo = goods.getUserInfo();
-            if(userInfo != null) {
-                PicassoUtils.loadResizeImage(userInfo.getUsericon(), R.drawable.logo, R.drawable.logo, 60, 60,user_icon);
-                user_name.setText(userInfo.getNickname()+"");
-            }
+            PicassoUtils.loadResizeImage(goods.getUserIcon(), R.drawable.logo, R.drawable.logo, 60, 60,user_icon);
+            user_name.setText(goods.getUserName()+"");
             goods_time.setText(TimeUtil.getChatTime(true,Long.parseLong(goods.getGoodstime())));
             goods_content.setText(goods.getGoodstext()+"");
             goods_replay_num.setText(goods.getGoodsrepalynumber()+"");

@@ -1,25 +1,46 @@
 package com.agjsj.fleamarket.engine.impl;
 
+import com.agjsj.fleamarket.BaseApplication;
+import com.agjsj.fleamarket.net.HttpClient;
+import com.agjsj.fleamarket.net.HttpFileReuqest;
 import com.agjsj.fleamarket.params.ConstantValue;
 import com.agjsj.fleamarket.bean.Goods;
 import com.agjsj.fleamarket.engine.BaseEngine;
 import com.agjsj.fleamarket.engine.GoodsEngine;
 import com.agjsj.fleamarket.net.procotal.Body;
 import com.agjsj.fleamarket.net.procotal.IMessage;
+import com.agjsj.fleamarket.params.OelementType;
+import com.agjsj.fleamarket.util.GsonUtil;
+import com.google.gson.Gson;
+
+import java.io.File;
+import java.util.List;
 
 public class GoodsEngineImpl extends BaseEngine implements GoodsEngine {
 
-	@Override
-	public IMessage sendGoods(Goods good) {
-		// 1，分装body，生成json数据
-		Body body = new Body();
-//		body.setBodyStr(good);
-		// body.serializableBody();
-		String sendinfo = getMessageToJson(body, "20001");
-		// 2.向服务器发送数据,获取返回数据并封装成IMessage对象
-	//		return sendJsonToService(ConstantValue.GOODS_URL, sendinfo);
-		return null;
 
+	@Override
+	public boolean sendGoods(Goods good) {
+		if(good == null){
+			return false;
+		}
+		String json = GsonUtil.objectToString(good);
+		Body body = sendJsonToService(json, ConstantValue.TYPE_SEND_GOODS);
+		if(body != null){
+			if(OelementType.SUCCESS == body.getOelement().getErrorcode()){
+				BaseApplication.INSTANCE().setToken(body.getToken());
+				return true;
+			}
+		}
+		return false;
+	}
+
+	@Override
+	public String uploadImage(List<File> fileList) {
+		if(fileList == null || fileList.size() <= 0){
+			return null;
+		}
+		return HttpClient.getInstance().submitRequestBlock(new HttpFileReuqest(fileList));
 	}
 
 	@Override

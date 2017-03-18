@@ -1,5 +1,7 @@
 package com.agjsj.fleamarket.util;
 
+import android.util.Log;
+
 import com.agjsj.fleamarket.params.ConstantValue;
 import com.orhanobut.logger.Logger;
 
@@ -14,14 +16,15 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.util.List;
 
 public class HttpConnectionUtils {
 
 	private static HttpURLConnection getConnection(String path) {
-
 		URL url;
 		try {
+//			path = URLEncoder.encode(path, "UTF-8");
 			url = new URL(path);
 			// 打开链接
 			URLConnection connection = url.openConnection();
@@ -59,13 +62,18 @@ public class HttpConnectionUtils {
 				bufferedWriter.write(jsonString);
 				bufferedWriter.flush();
 
-				bufferedReader = new BufferedReader(
-						new InputStreamReader(httpURLConnection.getInputStream(),"UTF-8"));
-				String jsonString2 = bufferedReader.readLine();
-				Logger.d(jsonString2);
-				return jsonString2;
-			} catch (IOException e) {
+				int status = httpURLConnection.getResponseCode();
+				LogUtil.info("Http Status:"+status);
+				if(status == HttpURLConnection.HTTP_OK) {
+					bufferedReader = new BufferedReader(
+							new InputStreamReader(httpURLConnection.getInputStream(), "UTF-8"));
+					String jsonString2 = bufferedReader.readLine();
+					Logger.d(jsonString2);
+					return jsonString2;
+				}
+			} catch (Exception e) {
 				e.printStackTrace();
+				LogUtil.error("Http Connection",e);
 			}finally {
 				if(bufferedWriter != null){
 					try {

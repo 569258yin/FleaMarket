@@ -22,4 +22,10 @@ public interface UserEngine {
 	 * @return
      */
 	public boolean checkToken(String token);
+
+	/**
+	 * 根据userid获取用户信息
+	 * @param userId
+	 */
+	public UserInfo getCurrentUser(String userId);
 }

@@ -37,4 +37,8 @@
     <color name="title_red">#E8233F</color>
     <color name="main_pink">#E86779</color>
     <color name="rmb_pink">#FB8291</color>
+
+    <color name="base_color_text_black">#3e3e39</color>
+    <color name="base_color_text_gray">#9fa0a0</color>
+    <color name="base_color_text_white">#ffffff</color>
 </resources>

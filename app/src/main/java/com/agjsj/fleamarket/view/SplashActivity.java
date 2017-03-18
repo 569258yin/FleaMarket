@@ -36,14 +36,17 @@ public class SplashActivity extends AppCompatActivity {
             super.handleMessage(msg);
 
             UserEngine userEngine = BeanFactory.getImpl(UserEngine.class);
-            //判断是否登陆了
-            if (BaseApplication.INSTANCE().getToken() == null || "".equals(BaseApplication.INSTANCE().getToken())) {
-                mActivity.get().toLoginActivity();
-            } else if(userEngine.checkToken(BaseApplication.INSTANCE().getToken())){
-                mActivity.get().toMainActivity();
-            }else{
-                mActivity.get().toLoginActivity();
-            }
+//            判断是否登陆了
+//            if (BaseApplication.INSTANCE().getToken() == null || "".equals(BaseApplication.INSTANCE().getToken())) {
+//                mActivity.get().toLoginActivity();
+//            } else if(userEngine.checkToken(BaseApplication.INSTANCE().getToken())){
+//                mActivity.get().toMainActivity();
+//            }else{
+//                mActivity.get().toLoginActivity();
+//            }
+            mActivity.get().toMainActivity();
+
+//            mActivity.get().toLoginActivity();
         }
 
     }
