@@ -1,9 +1,8 @@
 package com.agjsj.fleamarket.util;
 
-import com.agjsj.fleamarket.BaseApplication;
+import com.agjsj.fleamarket.view.base.BaseApplication;
 import com.orhanobut.logger.Logger;
 
-import java.util.Properties;
 import java.util.WeakHashMap;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

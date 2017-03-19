@@ -8,12 +8,14 @@
     <include layout="@layout/include_navi"/>
 
     <EditText
+        android:layout_marginTop="10dp"
         android:id="@+id/et_title_sendgoods"
         style="@style/editText"
         android:hint="标题 品类品牌型号都是买家喜欢搜索的"
         android:lines="1"
         android:layout_height="40dp" />
     <EditText
+        android:layout_marginTop="10dp"
         android:id="@+id/et_content_sendgoods"
         android:layout_height="100dp"
         style="@style/editText"
@@ -48,37 +50,37 @@
     </LinearLayout>
 
     <LinearLayout
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="center"
-        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+
         <TextView
-            android:gravity="center_vertical"
-            android:text="价格"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="价格" />
+
         <EditText
-            android:id="@+id/et_price_sendgoods"
             android:gravity="center_vertical"
-            android:layout_marginLeft="30dp"
-            android:text="20.00"
-            android:background="@null"
+            android:id="@+id/et_price_sendgoods"
+            style="@style/editText"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            style="@style/editText"
-            />
+            android:layout_marginLeft="30dp"
+            android:background="@null"
+            android:text="20.00" />
     </LinearLayout>
+
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp">
         <TextView
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:text="分类"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
@@ -96,16 +98,14 @@
     <LinearLayout
         android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
-        android:layout_gravity="center_vertical"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="40dp">
         <TextView
-            android:gravity="center_vertical"
+            android:layout_gravity="center"
             android:text="质量"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        
         <Spinner
             android:id="@+id/spinner_qutity_sendgoods"
             android:layout_marginLeft="30dp"
@@ -113,7 +113,6 @@
             android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="40dp">
-
         </Spinner>
     </LinearLayout>
 

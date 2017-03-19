@@ -2,6 +2,7 @@ package com.agjsj.fleamarket;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.util.DisplayMetrics;
@@ -13,21 +14,28 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.agjsj.fleamarket.bean.MessageEvent;
 import com.agjsj.fleamarket.engine.UserEngine;
 import com.agjsj.fleamarket.engine.impl.UserEngineImpl;
 import com.agjsj.fleamarket.net.procotal.IMessage;
 import com.agjsj.fleamarket.params.GlobalParams;
+import com.agjsj.fleamarket.params.OelementType;
 import com.agjsj.fleamarket.view.HomeUI;
+import com.agjsj.fleamarket.view.base.BaseActivity;
 import com.agjsj.fleamarket.view.manager.BaseUI;
 import com.agjsj.fleamarket.view.manager.BottomManager;
 import com.agjsj.fleamarket.view.manager.MiddleManager;
 import com.agjsj.fleamarket.view.manager.TitleManager;
+import com.agjsj.fleamarket.view.user.LoginActivity;
+
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 
 	private RelativeLayout middle;// 中间占着位置的容器
 	private long lastTime;
@@ -91,13 +99,27 @@ public class MainActivity extends Activity {
 	//
 	// LinkedList<String>——AndroidStack
 
-
-
-
-	@Override
-	protected void onDestroy() {
-		super.onDestroy();
-	}
+	@Subscribe(threadMode = ThreadMode.MAIN)
+	public void onMessageEvent(MessageEvent event) {
+		switch (event.eventCode){
+			case OelementType.TOKEN_FAILD:
+				toast("身份验证已过期，请重新登录!");
+				Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+				startActivity(intent);
+				break;
+			case OelementType.FAILD:
+				toast("数据安全检查失败，数据存在不安全连接，请联系技术支持!");
+				break;
+			case OelementType.NET_ERROR:
+				toast("网络错误，请检查你的网络!");
+				break;
+			case OelementType.LOCAL_CHECK_MD5_ERROR:
+				toast("服务器返回的数据不正确，当前数据可能被非法劫持!");
+				break;
+			default:
+				break;
+		}
+	};
 
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {

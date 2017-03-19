@@ -1,9 +1,7 @@
 package com.agjsj.fleamarket.engine;
 
+import com.agjsj.fleamarket.bean.UserAccount;
 import com.agjsj.fleamarket.bean.UserInfo;
-import com.agjsj.fleamarket.net.procotal.IMessage;
-
-import java.util.List;
 
 public interface UserEngine {
 
@@ -14,7 +12,7 @@ public interface UserEngine {
 	 * 
 	 * @return
 	 */
-	public boolean login(UserInfo user);
+	public boolean login(UserAccount user);
 
 	/**
 	 * 检测Token是否有效

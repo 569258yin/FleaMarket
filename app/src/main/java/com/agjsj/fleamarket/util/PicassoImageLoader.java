@@ -13,7 +13,7 @@ import com.lzy.imagepicker.loader.ImageLoader;
 public class PicassoImageLoader implements ImageLoader {
     @Override
     public void displayImage(Activity activity, String path, ImageView imageView, int width, int height) {
-        PicassoUtils.loadResizeImage(path, R.drawable.logo,R.drawable.logo,width,height,imageView);
+        PicassoUtils.loadResourceImage(path,width,height,imageView);
     }
 
     @Override

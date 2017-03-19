@@ -1,21 +1,19 @@
 package com.agjsj.fleamarket.engine.impl;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.text.TextUtils;
-
-import com.agjsj.fleamarket.BaseApplication;
-import com.agjsj.fleamarket.params.ConstantValue;
+import com.agjsj.fleamarket.view.base.BaseApplication;
+import com.agjsj.fleamarket.bean.GoodsType;
+import com.agjsj.fleamarket.bean.UserAccount;
 import com.agjsj.fleamarket.bean.UserInfo;
 import com.agjsj.fleamarket.engine.BaseEngine;
 import com.agjsj.fleamarket.engine.UserEngine;
 import com.agjsj.fleamarket.net.procotal.Body;
-import com.agjsj.fleamarket.net.procotal.IMessage;
+import com.agjsj.fleamarket.params.ConstantValue;
 import com.agjsj.fleamarket.params.OelementType;
 import com.agjsj.fleamarket.util.GsonUtil;
-import com.agjsj.fleamarket.util.LogUtil;
+import com.google.gson.reflect.TypeToken;
 
-import java.util.Date;
+import org.apache.commons.lang3.StringUtils;
+
 import java.util.List;
 
 
@@ -23,7 +21,7 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 
 
 	@Override
-	public boolean login(final UserInfo user) {
+	public boolean login(final UserAccount user) {
 		if(user == null){
 			return false;
 		}
@@ -48,6 +46,13 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 		Body body = sendJsonToService("", ConstantValue.TYPE_CHECK_TOKEN);
 		if(body != null){
 			if(OelementType.SUCCESS == body.getOelement().getErrorcode()){
+				String jsonStr = body.getElements();
+				if(StringUtils.isNotEmpty(jsonStr)){
+					List<GoodsType> goodstypeList = (List<GoodsType>) GsonUtil.stringToObjectByType(jsonStr,new TypeToken<List<GoodsType>>(){}.getType());
+					if(goodstypeList != null){
+						BaseApplication.INSTANCE().setGoodstypes(goodstypeList);
+					}
+				}
 				return true;
 			}
 		}

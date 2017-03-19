@@ -17,12 +17,16 @@ public class GsonUtil {
         gson = new Gson();
     }
 
+    public static Gson getGson() {
+        return gson;
+    }
+
     public static String objectToString(Object obj){
         String str = null;
         try{
             str = gson.toJson(obj);
         }catch (Exception e){
-            Logger.e("objectToString",e);
+            LogUtil.error("objectToString",e);
         }
         return str;
     }
@@ -39,7 +43,7 @@ public class GsonUtil {
         try{
             obj = gson.fromJson(str, clazz);
         }catch (Exception e){
-            Logger.e("stringToObjectByBean",e);
+            LogUtil.error("stringToObjectByBean",e);
         }
         return obj;
     }
@@ -57,7 +61,7 @@ public class GsonUtil {
         try{
             obj = gson.fromJson(str, type);
         }catch (Exception e){
-            Logger.e("stringToObjectByType",e);
+            LogUtil.error("stringToObjectByType",e);
         }
         return obj;
     }

@@ -2,8 +2,12 @@ package com.agjsj.fleamarket.util;
 
 import android.util.Log;
 
+import com.agjsj.fleamarket.bean.MessageEvent;
 import com.agjsj.fleamarket.params.ConstantValue;
+import com.agjsj.fleamarket.params.OelementType;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
@@ -39,7 +43,8 @@ public class HttpConnectionUtils {
 			httpURLConnection.setDoOutput(true);
 			return httpURLConnection;
 		} catch (Exception e) {
-			e.printStackTrace();
+			LogUtil.error("与服务器联网失败\r\n当前连接地址为："+path,e);
+			EventBus.getDefault().post(new MessageEvent(OelementType.NET_ERROR));
 		}
 		return null;
 	}
@@ -70,10 +75,13 @@ public class HttpConnectionUtils {
 					String jsonString2 = bufferedReader.readLine();
 					Logger.d(jsonString2);
 					return jsonString2;
+				}else{
+					LogUtil.error("服务器返回码为:"+status+"\r\n请求url="+path);
+					EventBus.getDefault().post(new MessageEvent(OelementType.NET_ERROR));
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
-				LogUtil.error("Http Connection",e);
+				LogUtil.error("Http Connection post error!\r\njson = "+jsonString,e);
+				EventBus.getDefault().post(new MessageEvent(OelementType.NET_ERROR));
 			}finally {
 				if(bufferedWriter != null){
 					try {
@@ -144,7 +152,8 @@ public class HttpConnectionUtils {
 				return jsonString2;
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			LogUtil.error("上传文件失败!\r\n上传的文件路径为："+files.toString(),e);
+			EventBus.getDefault().post(new MessageEvent(OelementType.NET_ERROR));
 		}finally {
 			if(ds != null){
 				try {

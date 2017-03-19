@@ -6,10 +6,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 
-import com.agjsj.fleamarket.BaseApplication;
 import com.agjsj.fleamarket.MainActivity;
 import com.agjsj.fleamarket.engine.UserEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
+import com.agjsj.fleamarket.view.base.BaseApplication;
 import com.agjsj.fleamarket.view.user.LoginActivity;
 
 import java.lang.ref.WeakReference;
@@ -37,14 +37,14 @@ public class SplashActivity extends AppCompatActivity {
 
             UserEngine userEngine = BeanFactory.getImpl(UserEngine.class);
 //            判断是否登陆了
-//            if (BaseApplication.INSTANCE().getToken() == null || "".equals(BaseApplication.INSTANCE().getToken())) {
-//                mActivity.get().toLoginActivity();
-//            } else if(userEngine.checkToken(BaseApplication.INSTANCE().getToken())){
-//                mActivity.get().toMainActivity();
-//            }else{
-//                mActivity.get().toLoginActivity();
-//            }
-            mActivity.get().toMainActivity();
+            if (BaseApplication.INSTANCE().getToken() == null || "".equals(BaseApplication.INSTANCE().getToken())) {
+                mActivity.get().toLoginActivity();
+            } else if(userEngine.checkToken(BaseApplication.INSTANCE().getToken())){
+                mActivity.get().toMainActivity();
+            }else{
+                mActivity.get().toLoginActivity();
+            }
+//            mActivity.get().toMainActivity();
 
 //            mActivity.get().toLoginActivity();
         }

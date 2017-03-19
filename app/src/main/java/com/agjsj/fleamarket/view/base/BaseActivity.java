@@ -12,8 +12,13 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
+import com.agjsj.fleamarket.bean.MessageEvent;
 import com.agjsj.fleamarket.params.GlobalParams;
 import com.orhanobut.logger.Logger;
+
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.ButterKnife;
 
@@ -30,11 +35,13 @@ public class BaseActivity extends FragmentActivity {
     @Override
     protected void onStart() {
         super.onStart();
+        EventBus.getDefault().register(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
+        EventBus.getDefault().unregister(this);
     }
 
     @Override
@@ -57,6 +64,10 @@ public class BaseActivity extends FragmentActivity {
         ButterKnife.unbind(this);
     }
 
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onEvent(MessageEvent event) {
+
+    }
 
     /**
      * 显示软键盘

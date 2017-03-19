@@ -49,6 +49,7 @@ public interface ConstantValue {
 	String URL_GET_USER ="user/getUserInfo.action";
 	String URL_USER_REGISTER = "account/register.action";
     String URL_SEND_GOODS = "goods/sendGoods.action";
+	String URL_GET_GOODSTYPE = "goods/getGoodsType.action";
 	String GOODS_URL = "http://192.168.67.107:8080/SHService";
 	String GOODS_LIKE_URL = "http://192.168.67.107:8080/SHService";
 	String GOODS_REPLAY_URL = "http://192.168.67.107:8080/SHService";
@@ -72,5 +73,7 @@ public interface ConstantValue {
 	String TYPE_SEND_GOODS = "20001";
 	/** 上传图片 */
 	String TYPE_UPLOAD_IMAGE = "20002";
+	/** 获取商品类别 */
+	String TYPE_GET_GOODSTYPE = "20003";
 
 }

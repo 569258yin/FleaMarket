@@ -93,7 +93,7 @@ public class GridImageAdapter extends BaseAdapter {
                 }
             });
             ImageItem imageItem = imageItemList.get(position);
-            PicassoUtils.loadResizeImage(imageItem.path, R.drawable.logo, R.drawable.logo, 100, 100, viewHolder.imageView);
+            PicassoUtils.loadResourceImage(imageItem.path,100, 100, viewHolder.imageView);
         }
         return convertView;
     }

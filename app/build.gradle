@@ -42,4 +42,6 @@ dependencies {
     compile 'com.google.code.gson:gson:2.8.0'
     compile 'com.squareup.okhttp3:okhttp:3.5.0'
     compile 'com.lzy.widget:imagepicker:+'
+    compile 'org.greenrobot:eventbus:3.0.0'
+    compile 'com.github.nanchen2251:CompressHelper:+'
 }

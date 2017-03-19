@@ -1,6 +1,5 @@
 package com.agjsj.fleamarket.view.user;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
@@ -8,10 +7,9 @@ import android.widget.EditText;
 
 import com.agjsj.fleamarket.MainActivity;
 import com.agjsj.fleamarket.R;
-import com.agjsj.fleamarket.bean.User;
+import com.agjsj.fleamarket.bean.UserAccount;
 import com.agjsj.fleamarket.bean.UserInfo;
 import com.agjsj.fleamarket.engine.UserEngine;
-import com.agjsj.fleamarket.net.procotal.IMessage;
 import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.view.base.BaseActivity;
 
@@ -61,9 +59,9 @@ public class LoginActivity extends BaseActivity{
      * 登录
      */
     private void login() {
-        UserInfo userInfo = new UserInfo(etUsername.getText().toString(),etPassword.getText().toString());
+        UserAccount userAccount = new UserAccount(etUsername.getText().toString(),etPassword.getText().toString());
         UserEngine userEngine = BeanFactory.getImpl(UserEngine.class);
-        boolean bool = userEngine.login(userInfo);
+        boolean bool = userEngine.login(userAccount);
         if(bool){
             startActivity(MainActivity.class,null,true);
         }else {

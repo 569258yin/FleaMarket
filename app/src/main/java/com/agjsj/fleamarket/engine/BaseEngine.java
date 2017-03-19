@@ -1,6 +1,8 @@
 package com.agjsj.fleamarket.engine;
 
-import com.agjsj.fleamarket.BaseApplication;
+import com.agjsj.fleamarket.bean.MessageEvent;
+import com.agjsj.fleamarket.params.OelementType;
+import com.agjsj.fleamarket.view.base.BaseApplication;
 import com.agjsj.fleamarket.net.HttpClient;
 import com.agjsj.fleamarket.params.ConstantValue;
 import com.agjsj.fleamarket.params.GlobalParams;
@@ -10,11 +12,11 @@ import com.agjsj.fleamarket.net.procotal.Header;
 import com.agjsj.fleamarket.net.procotal.IMessage;
 import com.agjsj.fleamarket.util.DES;
 import com.agjsj.fleamarket.util.GsonUtil;
-import com.agjsj.fleamarket.util.HttpConnectionUtils;
 import com.agjsj.fleamarket.util.LogUtil;
 import com.agjsj.fleamarket.util.OkHttpUtils;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 1.创建并格式化body
@@ -54,10 +56,12 @@ public abstract class BaseEngine {
 				if (digest.equals(header.getDigest())) {
 					IMessage result = new IMessage();
 					body = (Body) GsonUtil.stringToObjectByBean(orgbody,Body.class);
+					EventBus.getDefault().post(new MessageEvent(body.getOelement().getErrorcode()));
 					result.setHeader(header);
 					result.setBody(body);
 					return result;
 				}else{
+					EventBus.getDefault().post(new MessageEvent(OelementType.LOCAL_CHECK_MD5_ERROR));
 					LogUtil.error("BaseEngine getResult 数据校验失败---》"+resposeStr);
 				}
 			} catch (Exception e) {
@@ -182,6 +186,10 @@ public abstract class BaseEngine {
 				break;
 			case ConstantValue.TYPE_SEND_GOODS:
 				URL += ConstantValue.URL_SEND_GOODS;
+				break;
+			case ConstantValue.TYPE_GET_GOODSTYPE:
+				URL += ConstantValue.URL_GET_GOODSTYPE;
+				break;
 			default:
 				break;
 		}

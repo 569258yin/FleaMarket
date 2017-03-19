@@ -69,7 +69,6 @@
     <style name="editText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:textColorHint">@color/gray</item>
-        <item name="android:layout_marginTop">10dp</item>
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
         <item name="android:background">@drawable/bg_edittext</item>

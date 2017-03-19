@@ -1,6 +1,7 @@
 package com.agjsj.fleamarket.engine.impl;
 
-import com.agjsj.fleamarket.BaseApplication;
+import com.agjsj.fleamarket.view.base.BaseApplication;
+import com.agjsj.fleamarket.bean.GoodsType;
 import com.agjsj.fleamarket.net.HttpClient;
 import com.agjsj.fleamarket.net.HttpFileReuqest;
 import com.agjsj.fleamarket.params.ConstantValue;
@@ -11,7 +12,9 @@ import com.agjsj.fleamarket.net.procotal.Body;
 import com.agjsj.fleamarket.net.procotal.IMessage;
 import com.agjsj.fleamarket.params.OelementType;
 import com.agjsj.fleamarket.util.GsonUtil;
-import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.List;
@@ -104,6 +107,21 @@ public class GoodsEngineImpl extends BaseEngine implements GoodsEngine {
 //		body.setBodyStr(jsonObject.toJSONString());
 		String sendinfo = getMessageToJson(body, "20006");
 //		return sendJsonToService(ConstantValue.GOODS_URL, sendinfo);
+		return null;
+	}
+
+	@Override
+	public List<GoodsType> getAllGoodsType() {
+		Body body = sendJsonToService("", ConstantValue.TYPE_GET_GOODSTYPE);
+		if(body != null){
+			if(OelementType.SUCCESS == body.getOelement().getErrorcode()){
+				String resultJson = body.getElements();
+				if(StringUtils.isNotEmpty(resultJson)){
+					List<GoodsType> goodstypeList = GsonUtil.getGson().fromJson(resultJson,new TypeToken<List<GoodsType>>(){}.getType());
+					return goodstypeList;
+				}
+			}
+		}
 		return null;
 	}
 }

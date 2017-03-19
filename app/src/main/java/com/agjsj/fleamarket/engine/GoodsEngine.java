@@ -1,6 +1,7 @@
 package com.agjsj.fleamarket.engine;
 
 import com.agjsj.fleamarket.bean.Goods;
+import com.agjsj.fleamarket.bean.GoodsType;
 import com.agjsj.fleamarket.net.procotal.IMessage;
 
 import java.io.File;
@@ -65,5 +66,11 @@ public interface GoodsEngine {
 	 * @return
 	 */
 	public IMessage getGoodsInfo(Integer goodsid);
+
+	/**
+	 * 获取所有产品分类
+	 * @return
+	 */
+	public List<GoodsType> getAllGoodsType();
 
 }

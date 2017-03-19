@@ -1,43 +1,35 @@
 package com.agjsj.fleamarket.bean;
 
-/**
- * Goodstype entity. @author MyEclipse Persistence Tools
- */
+public class GoodsType {
+    private Integer goodstypeid;
 
-public class Goodstype implements java.io.Serializable {
+    private String goodstypename;
+    
+    private Integer parentid;
 
-	// Fields
+    public Integer getGoodstypeid() {
+        return goodstypeid;
+    }
 
-	private Integer goodstypeid;
-	private String goodstypename;
+    public void setGoodstypeid(Integer goodstypeid) {
+        this.goodstypeid = goodstypeid;
+    }
 
-	// Constructors
+    public String getGoodstypename() {
+        return goodstypename;
+    }
 
-	/** default constructor */
-	public Goodstype() {
+    public void setGoodstypename(String goodstypename) {
+        this.goodstypename = goodstypename == null ? null : goodstypename.trim();
+    }
+
+	public Integer getParentid() {
+		return parentid;
 	}
 
-	/** full constructor */
-	public Goodstype(String goodstypename) {
-		this.goodstypename = goodstypename;
+	public void setParentid(Integer parentid) {
+		this.parentid = parentid;
 	}
-
-	// Property accessors
-
-	public Integer getGoodstypeid() {
-		return this.goodstypeid;
-	}
-
-	public void setGoodstypeid(Integer goodstypeid) {
-		this.goodstypeid = goodstypeid;
-	}
-
-	public String getGoodstypename() {
-		return this.goodstypename;
-	}
-
-	public void setGoodstypename(String goodstypename) {
-		this.goodstypename = goodstypename;
-	}
-
+    
+    
 }

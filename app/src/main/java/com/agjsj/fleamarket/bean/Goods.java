@@ -15,7 +15,7 @@ public class Goods implements java.io.Serializable {
 	private String userName;
 	private String userIcon;
 	private Integer goodstypeid;
-	private Goodstype goodstype;
+	private GoodsType goodstype;
 	private String goodstitle;
 	private String goodstime;
 	private String goodstext;
@@ -175,11 +175,11 @@ public class Goods implements java.io.Serializable {
 		this.userIcon = userIcon;
 	}
 
-	public Goodstype getGoodstype() {
+	public GoodsType getGoodstype() {
 		return goodstype;
 	}
 
-	public void setGoodstype(Goodstype goodstype) {
+	public void setGoodsType(GoodsType goodstype) {
 		this.goodstype = goodstype;
 	}
 

@@ -4,9 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
 
+import com.agjsj.fleamarket.R;
 import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+
+import java.io.File;
 
 /**
  * 对picasso的封装
@@ -56,15 +59,14 @@ public class PicassoUtils {
     }
 
     /**
-     * 加载指定大小的图片
-     *
+     * 加载本地文件图片
      * @param path
      * @param resizeWidth
      * @param resizeHeight
      * @param imageView
      */
     public static void loadResizeImage(String path, int resizeWidth, int resizeHeight, ImageView imageView) {
-        picasso.load(path).resize(resizeWidth, resizeHeight).into(imageView);
+        picasso.load(path).error(R.drawable.icon_error).placeholder(R.drawable.icon_empty).resize(resizeWidth, resizeHeight).into(imageView);
     }
 
     /**
@@ -82,16 +84,14 @@ public class PicassoUtils {
 
 
     /**
-     * 加载本地资源
-     *
+     * 加载本地资源  会转化为new File(path)
      * @param path
-
      * @param resizeWidth
      * @param resizeHeight
      * @param imageView
      */
-    public static void loadResourceImage(int path, int resizeWidth, int resizeHeight, ImageView imageView) {
-        picasso.load(path).resize(resizeWidth, resizeHeight).into(imageView);
+    public static void loadResourceImage(String path, int resizeWidth, int resizeHeight, ImageView imageView) {
+        picasso.load(new File(path)).error(R.drawable.icon_error).placeholder(R.drawable.icon_empty).resize(resizeWidth, resizeHeight).into(imageView);
     }
 
 
