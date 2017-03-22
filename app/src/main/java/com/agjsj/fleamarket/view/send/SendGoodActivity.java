@@ -128,6 +128,7 @@ public class SendGoodActivity extends BaseActivity {
         backBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                backClearn();
                 finish();
             }
         });
@@ -224,12 +225,6 @@ public class SendGoodActivity extends BaseActivity {
                 Toast.makeText(this, "没有数据", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        backClearn();
-        super.onDestroy();
     }
 
     private void backClearn() {

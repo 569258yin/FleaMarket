@@ -12,8 +12,8 @@ public class Goods implements java.io.Serializable {
 	private String goodsid;
 
 	private String userid;
-	private String userName;
-	private String userIcon;
+	// 单向一对一
+	private UserInfo userInfo;
 	private Integer goodstypeid;
 	private GoodsType goodstype;
 	private String goodstitle;
@@ -162,17 +162,13 @@ public class Goods implements java.io.Serializable {
 	public void setGoodsrepalynumber(Integer goodsrepalynumber) {
 		this.goodsrepalynumber = goodsrepalynumber;
 	}
-	public String getUserName() {
-		return userName;
+
+	public UserInfo getUserInfo() {
+		return userInfo;
 	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public String getUserIcon() {
-		return userIcon;
-	}
-	public void setUserIcon(String userIcon) {
-		this.userIcon = userIcon;
+
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
 	public GoodsType getGoodstype() {

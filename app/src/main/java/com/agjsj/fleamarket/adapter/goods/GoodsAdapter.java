@@ -52,4 +52,5 @@ public class GoodsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
     public void setOnRecyclerViewImageListener(OnRecyclerViewImageListener onRecyclerViewImageListener) {
         this.onRecyclerViewImageListener = onRecyclerViewImageListener;
     }
+
 }

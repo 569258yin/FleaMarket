@@ -22,8 +22,12 @@ import com.agjsj.fleamarket.util.TimeUtil;
 import com.agjsj.fleamarket.view.myview.CircleImageView;
 
 import java.math.BigDecimal;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import butterknife.Bind;
 
@@ -69,9 +73,17 @@ public class GoodsViewHolder extends BaseViewHolder {
     public void bindData(Object o) {
         if(o instanceof  Goods) {
             Goods goods = (Goods) o;
-            PicassoUtils.loadResizeImage(goods.getUserIcon(), R.drawable.logo, R.drawable.logo, 60, 60,user_icon);
-            user_name.setText(goods.getUserName()+"");
-            goods_time.setText(TimeUtil.getChatTime(true,Long.parseLong(goods.getGoodstime())));
+            UserInfo userInfo = goods.getUserInfo();
+            if(userInfo != null) {
+                PicassoUtils.loadResizeImage(userInfo.getUsericon(), R.drawable.logo, R.drawable.logo, 100, 100,user_icon);
+                user_name.setText(userInfo.getNickname());
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy K:m:s a", Locale.ENGLISH);
+            try {
+              Date date = sdf.parse(goods.getGoodstime());
+                goods_time.setText(TimeUtil.getChatTime(true,date.getTime()));
+            } catch (ParseException e) {
+            }
             goods_content.setText(goods.getGoodstext()+"");
             goods_replay_num.setText(goods.getGoodsrepalynumber()+"");
             goods_zan_num.setText(goods.getGoodslikenumber()+"");

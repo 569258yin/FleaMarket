@@ -190,6 +190,9 @@ public abstract class BaseEngine {
 			case ConstantValue.TYPE_GET_GOODSTYPE:
 				URL += ConstantValue.URL_GET_GOODSTYPE;
 				break;
+			case ConstantValue.TYPE_GET_GOODS_BY_PAGE:
+				URL += ConstantValue.URL_GET_GOODS_BY_PAGE;
+				break;
 			default:
 				break;
 		}

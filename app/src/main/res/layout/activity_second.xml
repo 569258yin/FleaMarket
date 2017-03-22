@@ -6,9 +6,9 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.yh.lotteryhm.MainActivity" >
+    tools:context="com.agjsj.fleamarket.MainActivity" >
 
-    <com.agjsj.secondhand.view.myview.PullToRefreshView
+    <com.agjsj.fleamarket.view.myview.PullToRefreshView
         android:id="@+id/ll_pullToRefresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
@@ -17,6 +17,6 @@
             android:id="@+id/list_second"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-    </com.agjsj.secondhand.view.myview.PullToRefreshView>
+    </com.agjsj.fleamarket.view.myview.PullToRefreshView>
 
 </LinearLayout>

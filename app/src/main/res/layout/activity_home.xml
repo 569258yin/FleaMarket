@@ -33,19 +33,23 @@
             />
     </RadioGroup>
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swiprefreshlayout_home"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <android.support.v7.widget.RecyclerView
-            android:background="@color/grayt"
-            android:id="@+id/recyclerview_home"
+    <com.agjsj.fleamarket.view.myview.PullToRefreshView
+        android:id="@+id/ll_pullToRefresh_home"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        </android.support.v7.widget.RecyclerView>
-    </android.support.v4.widget.SwipeRefreshLayout>
-  
+            <android.support.v7.widget.RecyclerView
+                android:background="@color/grayt"
+                android:id="@+id/recyclerview_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </android.support.v7.widget.RecyclerView>
+        </ScrollView>
+    </com.agjsj.fleamarket.view.myview.PullToRefreshView>
+
    
 
 </LinearLayout>

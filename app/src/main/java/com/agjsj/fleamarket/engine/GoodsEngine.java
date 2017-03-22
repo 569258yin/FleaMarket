@@ -32,7 +32,7 @@ public interface GoodsEngine {
 	 * @param count
 	 * @return
 	 */
-	public IMessage getGoodsOfUser(Integer userid, int start, int count);
+	public List<Goods> getGoodsOfUser(String  userid, int start, int count);
 
 	/**
 	 * 分页加载所有的商品
@@ -41,7 +41,7 @@ public interface GoodsEngine {
 	 * @param count
 	 * @return
 	 */
-	public IMessage getAllGoods(int start, int count, int type);
+	public List<Goods> getAllGoodsByPage(int start, int count, int type);
 
 	/**
 	 * 更新某件商品
@@ -49,7 +49,7 @@ public interface GoodsEngine {
 	 * @param goods
 	 * @return
 	 */
-	public IMessage updateGoods(Goods goods);
+	public boolean updateGoods(Goods goods);
 
 	/**
 	 * 删除某条商品信息
@@ -57,7 +57,7 @@ public interface GoodsEngine {
 	 * @param goodsid
 	 * @return
 	 */
-	public IMessage deleteGoods(Integer goodsid);
+	public boolean deleteGoods(Integer goodsid);
 
 	/**
 	 * 获取某条商品的详细信息
@@ -65,7 +65,7 @@ public interface GoodsEngine {
 	 * @param goodsid
 	 * @return
 	 */
-	public IMessage getGoodsInfo(Integer goodsid);
+	public Goods getGoodsInfo(String goodsid);
 
 	/**
 	 * 获取所有产品分类

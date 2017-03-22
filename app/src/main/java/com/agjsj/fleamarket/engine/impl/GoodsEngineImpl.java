@@ -1,5 +1,6 @@
 package com.agjsj.fleamarket.engine.impl;
 
+import com.agjsj.fleamarket.bean.json.PageJsonData;
 import com.agjsj.fleamarket.view.base.BaseApplication;
 import com.agjsj.fleamarket.bean.GoodsType;
 import com.agjsj.fleamarket.net.HttpClient;
@@ -47,66 +48,36 @@ public class GoodsEngineImpl extends BaseEngine implements GoodsEngine {
 	}
 
 	@Override
-	public IMessage getGoodsOfUser(Integer userid, int start, int count) {
-		// 1，分装body，生成json数据
-		Body body = new Body();
-//		JSONObject jsonObject = new JSONObject();
-//		jsonObject.put("userid", userid);
-//		jsonObject.put("start", start);
-//		jsonObject.put("count", count);
-//		body.setBodyStr(jsonObject.toJSONString());
-		// body.serializableBody();
-		String sendinfo = getMessageToJson(body, "20002");
-		// 2.向服务器发送数据,获取返回数据并封装成IMessage对象
-//		return sendJsonToService(ConstantValue.GOODS_URL, sendinfo);
+	public List<Goods> getGoodsOfUser(String userid, int start, int count) {
 		return null;
 	}
 
 	@Override
-	public IMessage getAllGoods(int start, int count, int type) {
-		// 1，分装body，生成json数据
-		Body body = new Body();
-//		JSONObject jsonObject = new JSONObject();
-//		jsonObject.put("start", start);
-//		jsonObject.put("count", count);
-//		jsonObject.put("condition", type);
-//		body.setBodyStr(jsonObject.toJSONString());
-		// body.serializableBody();
-		String sendinfo = getMessageToJson(body, "20003");
-		// 2.向服务器发送数据,并获取返回的内容（json字符串）
-//		return sendJsonToService(ConstantValue.GOODS_URL, sendinfo);
+	public List<Goods> getAllGoodsByPage(int start, int count, int type) {
+		PageJsonData pageJsonData = new PageJsonData("",start,count,type);
+		String json = GsonUtil.objectToString(pageJsonData);
+		Body body = sendJsonToService(json, ConstantValue.TYPE_GET_GOODS_BY_PAGE);
+		if(body != null){
+			if(OelementType.SUCCESS == body.getOelement().getErrorcode()){
+				List<Goods> list = (List<Goods>) GsonUtil.stringToObjectByType(body.getElements(),new TypeToken<List<Goods>>(){}.getType());
+				return list;
+			}
+		}
 		return null;
 	}
 
 	@Override
-	public IMessage updateGoods(Goods goods) {
-		Body body = new Body();
-//		body.setBodyStr(goods);
-		String sendinfo = getMessageToJson(body, "20004");
-//		return sendJsonToService(ConstantValue.GOODS_URL, sendinfo);
-		return null;
+	public boolean updateGoods(Goods goods) {
+		return false;
 	}
 
 	@Override
-	public IMessage deleteGoods(Integer goodsid) {
-
-		Body body = new Body();
-//		JSONObject jsonObject = new JSONObject();
-//		jsonObject.put("goodsid", goodsid);
-//		body.setBodyStr(jsonObject.toJSONString());
-		String sendinfo = getMessageToJson(body, "20005");
-//		return sendJsonToService(ConstantValue.GOODS_URL, sendinfo);
-		return null;
+	public boolean deleteGoods(Integer goodsid) {
+		return false;
 	}
 
 	@Override
-	public IMessage getGoodsInfo(Integer goodsid) {
-		Body body = new Body();
-//		JSONObject jsonObject = new JSONObject();
-//		jsonObject.put("goodsid", goodsid);
-//		body.setBodyStr(jsonObject.toJSONString());
-		String sendinfo = getMessageToJson(body, "20006");
-//		return sendJsonToService(ConstantValue.GOODS_URL, sendinfo);
+	public Goods getGoodsInfo(String goodsid) {
 		return null;
 	}
 
