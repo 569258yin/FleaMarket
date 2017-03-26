@@ -12,4 +12,8 @@ public class OelementType {
 	public static final int NET_ERROR = -2;
 	/** 本地检查服务器数据失败 */
 	public static final int LOCAL_CHECK_MD5_ERROR = -3;
+	/** 开启progressBar  结束 */
+	public static final int PROGRESS_START = 101;
+	/** 关闭progressbar 结束 */
+	public static final int PROGRESS_END = 102;
 }

@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.agjsj.fleamarket.dialog.ProgressDialog;
 import com.agjsj.fleamarket.util.HttpConnectionUtils;
 import com.agjsj.fleamarket.util.LogUtil;
 
@@ -41,5 +42,12 @@ public class ExampleInstrumentedTest {
         lists.add(file);
         String result = HttpConnectionUtils.uploadImage(lists);
         System.out.print(result+"");
+    }
+
+    @Test
+    public void testProgress(){
+        Context appContext = InstrumentationRegistry.getTargetContext();
+        ProgressDialog progressDialog = new ProgressDialog(appContext);
+        progressDialog.show();
     }
 }

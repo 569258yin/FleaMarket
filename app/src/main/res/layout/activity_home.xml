@@ -13,7 +13,7 @@
         >
         <RadioButton
             android:checked="true"
-            android:id="@+id/rd_home_recommend"
+            android:id="@+id/rb_home_recommend"
             android:layout_marginLeft="30dp"
             android:drawableLeft="@drawable/icon_dian"
             android:button="@null"
@@ -23,7 +23,7 @@
             android:text="@string/main_dian_tuijian"
             />
         <RadioButton
-            android:id="@+id/rd_home_new"
+            android:id="@+id/rb_home_new"
             android:drawableLeft="@drawable/icon_dian"
             android:button="@null"
             android:layout_weight="1"

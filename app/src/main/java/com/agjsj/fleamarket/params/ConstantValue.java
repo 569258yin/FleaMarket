@@ -28,9 +28,14 @@ public interface ConstantValue {
 	 */
 	String DES_PASSWORD = "4dsa2fre81v1nhyi";
 
+	/** 按时间排序 */
+	public final static int SELECT_GOODS_BY_TIME = 1;
+	/** 按距离排序　*/
+	public final static int SELECT_GOODS_BY_ADDRESS = 2;
+
 
 	/**
-	 * URL
+	 * View Type
 	 */
 	int VIEW_HALL = 0000;
 	int VIEW_SECOND = 0002;
@@ -40,7 +45,7 @@ public interface ConstantValue {
 	/**
 	 * 请求地址FileMaketServer
 	 */
-	String URL_ROOT = "http://192.168.5.40:8080/FileMaketServer/";
+	String URL_ROOT = "http://192.168.5.63:8080/FileMaketServer/";
 	/** 用户登录 */
 	String URL_USER_LOGIN ="account/loginAccount.action";
 	/** 检测token是否存在或过期 */

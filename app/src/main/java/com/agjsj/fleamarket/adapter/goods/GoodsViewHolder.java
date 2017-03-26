@@ -85,11 +85,11 @@ public class GoodsViewHolder extends BaseViewHolder {
             } catch (ParseException e) {
             }
             goods_content.setText(goods.getGoodstext()+"");
-            goods_replay_num.setText(goods.getGoodsrepalynumber()+"");
-            goods_zan_num.setText(goods.getGoodslikenumber()+"");
+            goods_replay_num.setText(goods.getGoodsrepalynum()+"");
+            goods_zan_num.setText(goods.getGoodslikenum()+"");
             goods_money.setText(getMoney(goods.getGoodsoldmoney())+"");
 
-            if(goods.getGoodsiconnumber() > 0){
+            if(goods.getGoodsiconnumber() != null && goods.getGoodsiconnumber() > 0){
                 List<String> urls = new ArrayList<>(6);
                 String[] strs = goods.getGoodsicon().split(GlobalParams.SPLIT_IMAGE_URL);
                 if(strs != null && strs.length > 0){

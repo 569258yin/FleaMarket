@@ -32,7 +32,6 @@ public class GoodsEngineImpl extends BaseEngine implements GoodsEngine {
 		Body body = sendJsonToService(json, ConstantValue.TYPE_SEND_GOODS);
 		if(body != null){
 			if(OelementType.SUCCESS == body.getOelement().getErrorcode()){
-				BaseApplication.INSTANCE().setToken(body.getToken());
 				return true;
 			}
 		}

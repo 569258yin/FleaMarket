@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
@@ -28,6 +29,8 @@ import com.agjsj.fleamarket.util.GsonUtil;
 import com.agjsj.fleamarket.view.base.BaseActivity;
 import com.agjsj.fleamarket.view.base.BaseApplication;
 import com.agjsj.fleamarket.view.myview.CircleImageView;
+import com.baidu.location.BDLocationListener;
+import com.baidu.location.LocationClient;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
@@ -46,14 +49,6 @@ import butterknife.Bind;
  */
 
 public class SendGoodActivity extends BaseActivity {
-
-    public static final int IMAGE_PICKER = 1001;
-    private GridImageAdapter gridImageAdapter;
-    private CompressHelper compressHelper;
-    //spinner
-    private ArrayAdapter<String> adapter;
-    private String[] texts;
-    private int[] values;
     @Bind(R.id.tv_left)
     CircleImageView backBtn;
     @Bind(R.id.tv_title)
@@ -70,16 +65,26 @@ public class SendGoodActivity extends BaseActivity {
     TextView tv_address;
     @Bind(R.id.et_price_sendgoods)
     EditText et_price;
-    @Bind(R.id.et_catogory_sendgoods)
-    EditText et_categoty;
-    @Bind(R.id.spinner_qutity_sendgoods)
+    @Bind(R.id.spinner_category_sendgoods)
     Spinner spinner;
+    @Bind(R.id.spinner_qutity_sendgoods)
+    Spinner spinner_qutity;
+
+    public static final int IMAGE_PICKER = 1001;
+    private GridImageAdapter gridImageAdapter;
+    private CompressHelper compressHelper;
+
+    //spinner
+    private ArrayAdapter<String> adapter;
+    private String[] texts;
+    private int[] values;
+    private String[] qutityValue = new String[]{"九九新","九成新","八成新","五成新","两成新"};
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sendgoods);
-        
+
         initData();
         setListener();
     }
@@ -113,6 +118,12 @@ public class SendGoodActivity extends BaseActivity {
             spinner.setOnItemSelectedListener(new SpinnerSelectedListener());
         }
 
+        //质量选择
+        ArrayAdapter<String> qutityAdapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, qutityValue);
+        //设置下拉列表的风格
+        qutityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner_qutity.setAdapter(qutityAdapter);
+
         compressHelper = new CompressHelper.Builder(SendGoodActivity.this)
                 .setMaxWidth(720)  // 默认最大宽度为720
                 .setMaxHeight(960) // 默认最大高度为960
@@ -121,7 +132,11 @@ public class SendGoodActivity extends BaseActivity {
                 .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
                         Environment.DIRECTORY_PICTURES).getAbsolutePath())
                 .build();
+
+
     }
+
+
 
     private void setListener() {
         //返回
@@ -189,10 +204,11 @@ public class SendGoodActivity extends BaseActivity {
                 goods.setGoodstext(context);
                 goods.setGoodstitle(title);
                 goods.setGoodsoldmoney((int) (Double.parseDouble(price) * 100));
-                goods.setGoodsrepalynumber(0);
-                goods.setGoodslikenumber(0);
+                goods.setGoodsrepalynum(0);
+                goods.setGoodslikenum(0);
                 goods.setGoodstypeid(values[spinner.getSelectedItemPosition()]);
                 goods.setGoodsiconnumber(imageCount);
+                goods.setGoodsquality(qutityValue[spinner_qutity.getSelectedItemPosition()]);
                 ImagePath imageObj = (ImagePath) GsonUtil.stringToObjectByBean(imagePath, ImagePath.class);
                 if(imageObj.getImageUrls() != null && imageObj.getImageUrls().size() > 0){
                     StringBuffer sb = new StringBuffer();
@@ -212,6 +228,8 @@ public class SendGoodActivity extends BaseActivity {
             }
         });
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -251,6 +269,18 @@ public class SendGoodActivity extends BaseActivity {
         public void onNothingSelected(AdapterView<?> parent) {
 
         }
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        BaseApplication.INSTANCE().getmLocationClient().start();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        BaseApplication.INSTANCE().getmLocationClient().stop();
     }
 
 }

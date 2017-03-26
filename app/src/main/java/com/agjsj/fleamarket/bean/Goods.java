@@ -1,182 +1,187 @@
 package com.agjsj.fleamarket.bean;
 
 
+import android.content.Intent;
+
 /**
  * Goods entity. @author MyEclipse Persistence Tools
  */
 
 public class Goods implements java.io.Serializable {
 
-	// Fields
+    private String goodsid;
 
-	private String goodsid;
+    private String userid;
 
-	private String userid;
-	// 单向一对一
-	private UserInfo userInfo;
-	private Integer goodstypeid;
-	private GoodsType goodstype;
-	private String goodstitle;
-	private String goodstime;
-	private String goodstext;
-	private Integer goodsoldmoney;
-	private Integer goodsmoney;
-	private String goodsquality;
-	private Integer goodsiconnumber;
-	private String goodsicon;
-	private String useraddress;
-	private String userphone;
-	private String coonecttime;
-	private Integer goodslikenumber;
-	// 单向一对多
-	private Integer goodsrepalynumber;
+    private Integer goodstypeid;
 
-	/** default constructor */
-	public Goods() {
-	}
+    private String goodstitle;
 
-	public String getGoodsid() {
-		return this.goodsid;
-	}
+    private String goodstime;
 
-	public void setGoodsid(String goodsid) {
-		this.goodsid = goodsid;
-	}
+    private String goodstext;
 
-	public String getUserid() {
-		return this.userid;
-	}
+    private Integer goodsmoney;
 
-	public void setUserid(String userid) {
-		this.userid = userid;
-	}
+    private Integer goodsoldmoney;
 
-	public Integer getGoodstypeid() {
-		return goodstypeid;
-	}
+    private String goodsquality;
 
-	public void setGoodstypeid(Integer goodstypeid) {
-		this.goodstypeid = goodstypeid;
-	}
+    private Integer goodsiconnumber;
 
-	public String getGoodstitle() {
-		return this.goodstitle;
-	}
+    private String useraddress;
 
-	public void setGoodstitle(String goodstitle) {
-		this.goodstitle = goodstitle;
-	}
+    private String userphone;
 
-	public String getGoodstime() {
-		return this.goodstime;
-	}
+    private String coonecttime;
 
-	public void setGoodstime(String goodstime) {
-		this.goodstime = goodstime;
-	}
+    private Integer goodslikenum;
 
-	public String getGoodstext() {
-		return this.goodstext;
-	}
+    private Integer goodsrepalynum;
 
-	public void setGoodstext(String goodstext) {
-		this.goodstext = goodstext;
-	}
+    private String goodsicon;
 
-	public Integer getGoodsoldmoney() {
-		return this.goodsoldmoney;
-	}
+    private UserInfo userInfo;
 
-	public void setGoodsoldmoney(Integer goodsoldmoney) {
-		this.goodsoldmoney = goodsoldmoney;
-	}
+    /**
+     * default constructor
+     */
+    public Goods() {
+    }
 
-	public Integer getGoodsmoney() {
-		return this.goodsmoney;
-	}
+    public String getGoodsid() {
+        return goodsid;
+    }
 
-	public void setGoodsmoney(Integer goodsmoney) {
-		this.goodsmoney = goodsmoney;
-	}
+    public void setGoodsid(String goodsid) {
+        this.goodsid = goodsid;
+    }
 
-	public String getGoodsquality() {
-		return this.goodsquality;
-	}
+    public String getUserid() {
+        return userid;
+    }
 
-	public void setGoodsquality(String goodsquality) {
-		this.goodsquality = goodsquality;
-	}
+    public void setUserid(String userid) {
+        this.userid = userid;
+    }
 
-	public Integer getGoodsiconnumber() {
-		return this.goodsiconnumber;
-	}
+    public Integer getGoodstypeid() {
+        return goodstypeid;
+    }
 
-	public void setGoodsiconnumber(Integer goodsiconnumber) {
-		this.goodsiconnumber = goodsiconnumber;
-	}
+    public void setGoodstypeid(Integer goodstypeid) {
+        this.goodstypeid = goodstypeid;
+    }
 
-	public String getGoodsicon() {
-		return this.goodsicon;
-	}
+    public String getGoodstitle() {
+        return goodstitle;
+    }
 
-	public void setGoodsicon(String goodsicon) {
-		this.goodsicon = goodsicon;
-	}
+    public void setGoodstitle(String goodstitle) {
+        this.goodstitle = goodstitle;
+    }
 
-	public String getUseraddress() {
-		return this.useraddress;
-	}
+    public String getGoodstime() {
+        return goodstime;
+    }
 
-	public void setUseraddress(String useraddress) {
-		this.useraddress = useraddress;
-	}
+    public void setGoodstime(String goodstime) {
+        this.goodstime = goodstime;
+    }
 
-	public String getUserphone() {
-		return this.userphone;
-	}
+    public String getGoodstext() {
+        return goodstext;
+    }
 
-	public void setUserphone(String userphone) {
-		this.userphone = userphone;
-	}
+    public void setGoodstext(String goodstext) {
+        this.goodstext = goodstext;
+    }
 
-	public String getCoonecttime() {
-		return this.coonecttime;
-	}
+    public Integer getGoodsmoney() {
+        return goodsmoney;
+    }
 
-	public void setCoonecttime(String coonecttime) {
-		this.coonecttime = coonecttime;
-	}
+    public void setGoodsmoney(Integer goodsmoney) {
+        this.goodsmoney = goodsmoney;
+    }
 
-	public Integer getGoodslikenumber() {
-		return this.goodslikenumber;
-	}
+    public Integer getGoodsoldmoney() {
+        return goodsoldmoney;
+    }
 
-	public void setGoodslikenumber(Integer goodslikenumber) {
-		this.goodslikenumber = goodslikenumber;
-	}
+    public void setGoodsoldmoney(Integer goodsoldmoney) {
+        this.goodsoldmoney = goodsoldmoney;
+    }
 
-	public Integer getGoodsrepalynumber() {
-		return this.goodsrepalynumber;
-	}
+    public String getGoodsquality() {
+        return goodsquality;
+    }
 
-	public void setGoodsrepalynumber(Integer goodsrepalynumber) {
-		this.goodsrepalynumber = goodsrepalynumber;
-	}
+    public void setGoodsquality(String goodsquality) {
+        this.goodsquality = goodsquality;
+    }
 
-	public UserInfo getUserInfo() {
-		return userInfo;
-	}
+    public Integer getGoodsiconnumber() {
+        return goodsiconnumber;
+    }
 
-	public void setUserInfo(UserInfo userInfo) {
-		this.userInfo = userInfo;
-	}
+    public void setGoodsiconnumber(Integer goodsiconnumber) {
+        this.goodsiconnumber = goodsiconnumber;
+    }
 
-	public GoodsType getGoodstype() {
-		return goodstype;
-	}
+    public String getUseraddress() {
+        return useraddress;
+    }
 
-	public void setGoodsType(GoodsType goodstype) {
-		this.goodstype = goodstype;
-	}
+    public void setUseraddress(String useraddress) {
+        this.useraddress = useraddress;
+    }
 
+    public String getUserphone() {
+        return userphone;
+    }
+
+    public void setUserphone(String userphone) {
+        this.userphone = userphone;
+    }
+
+    public String getCoonecttime() {
+        return coonecttime;
+    }
+
+    public void setCoonecttime(String coonecttime) {
+        this.coonecttime = coonecttime;
+    }
+
+    public Integer getGoodslikenum() {
+        return goodslikenum;
+    }
+
+    public void setGoodslikenum(Integer goodslikenum) {
+        this.goodslikenum = goodslikenum;
+    }
+
+    public Integer getGoodsrepalynum() {
+        return goodsrepalynum;
+    }
+
+    public void setGoodsrepalynum(Integer goodsrepalynum) {
+        this.goodsrepalynum = goodsrepalynum;
+    }
+
+    public String getGoodsicon() {
+        return goodsicon;
+    }
+
+    public void setGoodsicon(String goodsicon) {
+        this.goodsicon = goodsicon;
+    }
+
+    public UserInfo getUserInfo() {
+        return userInfo;
+    }
+
+    public void setUserInfo(UserInfo userInfo) {
+        this.userInfo = userInfo;
+    }
 }

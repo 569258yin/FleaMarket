@@ -70,6 +70,7 @@
             android:layout_height="40dp"
             android:layout_marginLeft="30dp"
             android:background="@null"
+            android:inputType="numberDecimal"
             android:text="20.00" />
     </LinearLayout>
 
@@ -84,16 +85,14 @@
             android:text="分类"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
-        <EditText
-            android:id="@+id/et_catogory_sendgoods"
-            android:gravity="center_vertical"
+        <Spinner
+            android:id="@+id/spinner_category_sendgoods"
             android:layout_marginLeft="30dp"
-            android:text="衣服"
+            android:gravity="center_vertical"
             android:background="@null"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            style="@style/editText"
-            />
+            android:layout_height="40dp">
+        </Spinner>
     </LinearLayout>
     <LinearLayout
         android:layout_marginTop="10dp"

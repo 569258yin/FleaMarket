@@ -1,10 +1,15 @@
 package com.agjsj.fleamarket;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
@@ -15,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.agjsj.fleamarket.bean.MessageEvent;
+import com.agjsj.fleamarket.dialog.ProgressDialog;
 import com.agjsj.fleamarket.engine.UserEngine;
 import com.agjsj.fleamarket.engine.impl.UserEngineImpl;
 import com.agjsj.fleamarket.net.procotal.IMessage;
@@ -39,7 +45,8 @@ public class MainActivity extends BaseActivity {
 
 	private RelativeLayout middle;// 中间占着位置的容器
 	private long lastTime;
-
+	private ProgressDialog progressDialog;
+	@RequiresApi(api = Build.VERSION_CODES.M)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -51,6 +58,47 @@ public class MainActivity extends BaseActivity {
 		GlobalParams.WIN_WIDTH = metrics.widthPixels;
 
 		init();
+
+//		initPermission();
+
+		progressDialog = new ProgressDialog(MainActivity.this);
+
+	}
+
+	private static final int READ_PHONE_STATE =100;
+	private static final int ACCESS_COARSE_LOCATION_STATE = 101;
+	private static final int ACCESS_FINE_LOCATION_STATE = 102;
+
+	@RequiresApi(api = Build.VERSION_CODES.M)
+	private void initPermission() {
+		if(checkSelfPermission(Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+			// 申请一个（或多个）权限，并提供用于回调返回的获取码（用户定义)
+			requestPermissions( new String[]{
+					Manifest.permission.READ_PHONE_STATE },READ_PHONE_STATE);
+		}
+		if(checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+			requestPermissions( new String[]{
+					Manifest.permission.ACCESS_COARSE_LOCATION },ACCESS_COARSE_LOCATION_STATE);
+		}
+	}
+
+	//动态请求权限
+	@Override
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		switch(requestCode) {
+			// requestCode即所声明的权限获取码，在checkSelfPermission时传入
+			case 1:
+				BAIDU_READ_PHONE_STATE:
+				if(grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+					// 获取到权限，作相应处理（调用定位SDK应当确保相关权限均被授权，否则可能引起定位失败）
+				} else{
+					// 没有获取到权限，做特殊处理
+				}
+				break;
+			default:
+				break;
+		}
 
 	}
 
@@ -99,6 +147,7 @@ public class MainActivity extends BaseActivity {
 	//
 	// LinkedList<String>——AndroidStack
 
+
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	public void onMessageEvent(MessageEvent event) {
 		switch (event.eventCode){
@@ -115,6 +164,12 @@ public class MainActivity extends BaseActivity {
 				break;
 			case OelementType.LOCAL_CHECK_MD5_ERROR:
 				toast("服务器返回的数据不正确，当前数据可能被非法劫持!");
+				break;
+			case OelementType.PROGRESS_START:
+				progressDialog.show();
+				break;
+			case OelementType.PROGRESS_END:
+				progressDialog.dismiss();
 				break;
 			default:
 				break;

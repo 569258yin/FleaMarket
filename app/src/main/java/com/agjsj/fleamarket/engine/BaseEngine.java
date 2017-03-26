@@ -156,6 +156,7 @@ public abstract class BaseEngine {
 		if(type == null || type.length() == 0){
 			return null;
 		}
+		EventBus.getDefault().post(new MessageEvent(OelementType.PROGRESS_START));
 		Body body = new Body();
 		body.setOelement(null);
 		body.setElements(requestjson);
@@ -165,9 +166,11 @@ public abstract class BaseEngine {
 		if(result != null){
 			IMessage message = getResult(result);
 			if(message != null) {
+				EventBus.getDefault().post(new MessageEvent(OelementType.PROGRESS_END));
 				return message.getBody();
 			}
 		}
+		EventBus.getDefault().post(new MessageEvent(OelementType.PROGRESS_END));
 		return null;
 	}
 

@@ -1,6 +1,7 @@
 package com.agjsj.fleamarket.dialog;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -27,13 +28,11 @@ public class ShowMegDialog extends BaseDialog {
     @Bind(R.id.btn_cancel_dialog_showmsg)
     Button btn_cancek;
 
-    private Context context;
     private String title = "提示";
     private String meessage = "";
     private String okBnt = "确定";
     private String cancelBtn = "取消";
     private boolean isAutoDismiss = true;
-
 
     /**
      * @param context
@@ -42,12 +41,11 @@ public class ShowMegDialog extends BaseDialog {
      */
     public ShowMegDialog(Context context, String title, String msg, String okBnt, String cancelBtn) {
         super(context, R.style.Dialog);
-        this.context = context;
         this.title = title;
         this.meessage = msg;
         this.okBnt = okBnt;
         this.cancelBtn = cancelBtn;
-        init();
+        initView();
     }
 
     /**
@@ -57,39 +55,20 @@ public class ShowMegDialog extends BaseDialog {
      */
     public ShowMegDialog(Context context, String title, String msg) {
         super(context, R.style.Dialog);
-        this.context = context;
         this.title = title;
         this.meessage = msg;
-        init();
+        initView();
     }
 
     public ShowMegDialog(Context context) {
         super(context, R.style.Dialog);
-        this.context = context;
-        init();
+        initView();
     }
 
-    public interface OnResultListener {
-        public void onOk();
 
-        public void onCancel();
-    }
-
-    private OnResultListener onResultListener;
-
-    /**
-     * 设置监听事件
-     *
-     * @param onResultListener
-     */
-    public void setOnResultListener(OnResultListener onResultListener) {
-        this.onResultListener = onResultListener;
-    }
-
-    private void init() {
+    protected void initView() {
         setContentView(R.layout.dialog_showmessage);
         ButterKnife.bind(this);
-
         this.setCancelable(true);
         tv_title.setText(title);
         tv_msg.setText(meessage);
@@ -120,6 +99,24 @@ public class ShowMegDialog extends BaseDialog {
             }
         });
 
+
+    }
+
+    public interface OnResultListener {
+        public void onOk();
+
+        public void onCancel();
+    }
+
+    private OnResultListener onResultListener;
+
+    /**
+     * 设置监听事件
+     *
+     * @param onResultListener
+     */
+    public void setOnResultListener(OnResultListener onResultListener) {
+        this.onResultListener = onResultListener;
     }
 
     @Override
