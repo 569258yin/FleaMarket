@@ -5,6 +5,8 @@ import android.view.ViewGroup;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 
+import java.math.BigDecimal;
+
 public class Utility {
 	public static void setListViewHeightBasedOnChildren(ListView listView) {
 		// listView Adapter 设置显示的高度，根据获取的数据值
@@ -39,5 +41,9 @@ public class Utility {
 			return true;
 		else
 			return false;
+	}
+
+	public static String getMoney(int money){
+		return new BigDecimal(money).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_CEILING).toString();
 	}
 }

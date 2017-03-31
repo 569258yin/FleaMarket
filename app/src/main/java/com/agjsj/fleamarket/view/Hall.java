@@ -65,6 +65,10 @@ public class Hall extends BaseUI {
 		//初始化选项卡的下划线
 		initTabStrip();
 	}
+	@Override
+	public void refreshView() {
+
+	}
 	
 	//初始化数据
 	private void initPagers() {
@@ -163,6 +167,6 @@ public class Hall extends BaseUI {
 	}
 	@Override
 	public int getID() {
-		return ConstantValue.VIEW_HALL;
+		return GlobalParams.VIEW_HALL;
 	}
 }

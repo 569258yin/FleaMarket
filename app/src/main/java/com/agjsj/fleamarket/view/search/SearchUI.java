@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.params.ConstantValue;
+import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.util.LogUtil;
 import com.agjsj.fleamarket.util.SearchALG;
 import com.agjsj.fleamarket.view.HomeUI;
@@ -26,27 +27,36 @@ public class SearchUI extends BaseUI {
 
     private SearchView searchView;
     private SearchALG searchALG;
+    private List<String> changedHintDatas;
+    //热搜数据
+    private List<String> hot_datas;
+    //提示列表数据
+    private List<String> hint_datas;
 
     public SearchUI(Context context) {
         super(context);
         LogUtil.info(HomeUI.class, "SearchUI onCreate");
     }
-
     @Override
     public void init() {
         showInMiddle = (LinearLayout)View.inflate(context, R.layout.activity_search, null);
         searchView = (SearchView) findViewById(R.id.searchView);
-        initData();
+
+
+    }
+    @Override
+    public void setListener() {
         searchView.setOnSearchListener(new MyOnSearchListener());
     }
-
-    private List<String> changedHintDatas;
+    @Override
+    public void refreshView() {
+        initData();
+    }
 
     /**
      * 设置searview的监听
      */
     class MyOnSearchListener implements SearchView.OnSearchListener {
-
         /**
          * 搜索回调
          * @param searchText 进行搜索的文本
@@ -90,21 +100,13 @@ public class SearchUI extends BaseUI {
         }
     }
 
-    //热搜数据
-    private List<String> hot_datas;
-    //提示列表数据
-    private List<String> hint_datas;
-
     private void initData() {
         hot_datas = new ArrayList<>();
         hint_datas = new ArrayList<>();
-
         searchALG = new SearchALG(context);
-
         for (int i = 0; i < 10; i++) {
             hot_datas.add("Android Hot " + i);
         }
-
         //设置热搜数据显示的列数
         searchView.setHotNumColumns(2);
         //设置热搜数据
@@ -116,7 +118,6 @@ public class SearchUI extends BaseUI {
         for (int i = 0; i < 10; i++) {
             hint_datas.add("ts"+"安卓学习" + "Android Hint " + i + " 你好");
         }
-
         /**
          * 设置自动保存搜索记录
          */
@@ -128,16 +129,8 @@ public class SearchUI extends BaseUI {
         searchView.setMaxHistoryRecordCount(6);
 
     }
-
-
-
-    @Override
-    public void setListener() {
-
-    }
-
     @Override
     public int getID() {
-        return ConstantValue.VIEW_SEARCH;
+        return GlobalParams.VIEW_SEARCH;
     }
 }

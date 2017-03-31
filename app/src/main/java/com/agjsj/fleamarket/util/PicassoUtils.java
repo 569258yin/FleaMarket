@@ -81,8 +81,6 @@ public class PicassoUtils {
     public static void loadResizeImage(String path, int errorPicId, int placeholderPicId, int resizeWidth, int resizeHeight, ImageView imageView) {
         picasso.load(path).error(errorPicId).placeholder(placeholderPicId).resize(resizeWidth, resizeHeight).into(imageView);
     }
-
-
     /**
      * 加载本地资源  会转化为new File(path)
      * @param path

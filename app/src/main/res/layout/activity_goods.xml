@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_margin="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/include_userinfo"/>
+        <TextView
+            android:id="@+id/tv_goodsdetail_context"
+            android:layout_marginTop="5dp"
+            android:textSize="14sp"
+            android:textColor="@color/base_color_text_black"
+            android:text=" 范德萨大方不是的办法爱上部分的是吧放大师傅就不打算买那边vjdksbvmxcbvzbsvkbds剧本时VBScriptvbdkjs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <android.support.v7.widget.RecyclerView
+            android:orientation="vertical"
+            android:id="@+id/ll_goodsdetail_img"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+
+        <include layout="@layout/include_common_bar"/>
+    </LinearLayout>
+
+</ScrollView>

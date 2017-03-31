@@ -28,6 +28,16 @@ public class GlobalParams {
 
 	public static String SPLIT_IMAGE_URL = ";";
 
+
+	/**
+	 * View Type
+	 */
+	public static final int VIEW_HALL = 0000;
+	public static final int VIEW_SECOND = 0002;
+	public static final int VIEW_HOME = 0001;
+	public static final int VIEW_SEARCH = 1000;
+	public static final int VIEW_GOODSDETAIL = 1001;
+
 	
 	public static final String[] imageUrls = {
 			"http://geekpark-img.qiniudn.com/uploads/reading/seed/71ff810dbe0efafa4ece214c3fa38c6e.png",

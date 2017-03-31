@@ -19,6 +19,7 @@ import com.agjsj.fleamarket.params.ConstantValue;
 import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.util.PicassoUtils;
 import com.agjsj.fleamarket.util.TimeUtil;
+import com.agjsj.fleamarket.util.Utility;
 import com.agjsj.fleamarket.view.myview.CircleImageView;
 
 import java.math.BigDecimal;
@@ -66,6 +67,18 @@ public class GoodsViewHolder extends BaseViewHolder {
         layoutManager = new LinearLayoutManager(context);
         layoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRecyclerViewListener.onItemClick(getAdapterPosition());
+            }
+        });
+        goodsItem.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onRecyclerViewListener.onItemClick(getAdapterPosition());
+            }
+        });
 
     }
 
@@ -87,7 +100,7 @@ public class GoodsViewHolder extends BaseViewHolder {
             goods_content.setText(goods.getGoodstext()+"");
             goods_replay_num.setText(goods.getGoodsrepalynum()+"");
             goods_zan_num.setText(goods.getGoodslikenum()+"");
-            goods_money.setText(getMoney(goods.getGoodsoldmoney())+"");
+            goods_money.setText(Utility.getMoney(goods.getGoodsoldmoney())+"");
 
             if(goods.getGoodsiconnumber() != null && goods.getGoodsiconnumber() > 0){
                 List<String> urls = new ArrayList<>(6);
@@ -96,21 +109,29 @@ public class GoodsViewHolder extends BaseViewHolder {
                     for (int i=0; i< strs.length;i++){
                         urls.add(strs[i]);
                     }
-
                     goodsImageAdapter = new GoodsImageAdapter(context,urls);
+                    goodsImageAdapter.setOnRecyclerViewListener(new OnRecyclerViewListener() {
+                        @Override
+                        public void onItemClick(int position) {
+                            onRecyclerViewListener.onItemClick(position);
+                        }
+
+                        @Override
+                        public void onItemClick(int position, int id) {
+                            onRecyclerViewListener.onItemClick(position,id);
+                        }
+
+                        @Override
+                        public boolean onItemLongClick(int position) {
+                            return onRecyclerViewListener.onItemLongClick(position);
+                        }
+                    });
                     recyclerView.setAdapter(goodsImageAdapter);
                 }
             }
         }
-        goodsItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onRecyclerViewListener.onItemClick(getAdapterPosition());
-            }
-        });
+
     }
 
-    private String getMoney(int money){
-        return new BigDecimal(money).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_CEILING).toString();
-    }
+
 }

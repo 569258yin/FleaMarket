@@ -36,18 +36,23 @@ public abstract class BaseUI implements View.OnClickListener {
 	}
 
 	/**
-	 * 界面的初始化
+	 * 界面的初始化，只在创建view的时候加载一次
 	 * 
 	 * @return
 	 */
 	public abstract void init();
 
 	/**
-	 * 设置监听
+	 * 设置监听，只在创建view的时候加载一次
 	 * 
 	 * @return
 	 */
 	public abstract void setListener();
+
+	/**
+	 * 刷新时间，每次进入view都会重新执行
+	 */
+	public abstract void refreshView();
 
 	/**
 	 * 获取需要在中间容器加载的内容

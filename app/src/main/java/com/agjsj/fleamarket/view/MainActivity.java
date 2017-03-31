@@ -1,32 +1,24 @@
-package com.agjsj.fleamarket;
+package com.agjsj.fleamarket.view;
 
 import android.Manifest;
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.WindowManager;
 import android.view.animation.AnimationUtils;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.bean.MessageEvent;
 import com.agjsj.fleamarket.dialog.ProgressDialog;
-import com.agjsj.fleamarket.engine.UserEngine;
-import com.agjsj.fleamarket.engine.impl.UserEngineImpl;
-import com.agjsj.fleamarket.net.procotal.IMessage;
 import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.params.OelementType;
-import com.agjsj.fleamarket.view.HomeUI;
 import com.agjsj.fleamarket.view.base.BaseActivity;
 import com.agjsj.fleamarket.view.manager.BaseUI;
 import com.agjsj.fleamarket.view.manager.BottomManager;
@@ -37,15 +29,15 @@ import com.agjsj.fleamarket.view.user.LoginActivity;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
+import java.util.HashMap;
 
 public class MainActivity extends BaseActivity {
 
 	private RelativeLayout middle;// 中间占着位置的容器
 	private long lastTime;
 	private ProgressDialog progressDialog;
+	private Object middleObj;
 	@RequiresApi(api = Build.VERSION_CODES.M)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +48,6 @@ public class MainActivity extends BaseActivity {
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		GlobalParams.WIN_WIDTH = metrics.widthPixels;
-
 		init();
 
 //		initPermission();
@@ -179,24 +170,39 @@ public class MainActivity extends BaseActivity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			// boolean result = MiddleManager.getInstance().goBack();
-			boolean result = false;
-			// 返回键操作失败
-			if (!result) {
-				// Toast.makeText(MainActivity.this, "是否退出系统", 1).show();
-				long currentTime = new Date().getTime();
-				if (currentTime - lastTime < 1500) {
-					MiddleManager.getInstance().clear();
-					// PromptManager.showExitSystem(this);
-					android.os.Process.killProcess(android.os.Process.myPid());
-				} else {
-					Toast.makeText(this, "再按一下退出系统", Toast.LENGTH_SHORT).show();
+			if(MiddleManager.getInstance().getCurrentUI().getClass() == HomeUI.class
+					|| MiddleManager.getInstance().getCurrentUI().getClass() == Hall.class
+					|| MiddleManager.getInstance().getCurrentUI().getClass() == SecondUI.class
+					){
+				// boolean result = MiddleManager.getInstance().goBack();
+				boolean result = false;
+				// 返回键操作失败
+				if (!result) {
+					// Toast.makeText(MainActivity.this, "是否退出系统", 1).show();
+					long currentTime = new Date().getTime();
+					if (currentTime - lastTime < 1500) {
+						MiddleManager.getInstance().clear();
+						// PromptManager.showExitSystem(this);
+						android.os.Process.killProcess(android.os.Process.myPid());
+					} else {
+						Toast.makeText(this, "再按一下退出系统", Toast.LENGTH_SHORT).show();
+					}
+					lastTime = currentTime;
 				}
-				lastTime = currentTime;
+			}else{
+				MiddleManager.getInstance().changeUI(HomeUI.class);
 			}
 			return false;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
 
+
+	public Object getMiddleObj() {
+		return middleObj;
+	}
+
+	public void setMiddleObj(Object middleObj) {
+		this.middleObj = middleObj;
+	}
 }

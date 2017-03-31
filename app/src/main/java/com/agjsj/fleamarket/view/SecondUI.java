@@ -9,6 +9,7 @@ import com.agjsj.fleamarket.params.ConstantValue;
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.bean.Goods;
 import com.agjsj.fleamarket.net.procotal.IMessage;
+import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.util.LogUtil;
 import com.agjsj.fleamarket.view.manager.BaseUI;
 import com.agjsj.fleamarket.view.myview.PullToRefreshView;
@@ -59,7 +60,10 @@ public class SecondUI extends BaseUI {
 		pullToRefresh.setOnFooterRefreshListener(new OnFootRefresh());
 		pullToRefresh.setOnHeaderRefreshListener(new OnHeadRefresh());
 	}
+	@Override
+	public void refreshView() {
 
+	}
 	/**
 	 * 下拉刷新时网络请求任务
 	 */
@@ -145,6 +149,6 @@ public class SecondUI extends BaseUI {
 
 	@Override
 	public int getID() {
-		return ConstantValue.VIEW_SECOND;
+		return GlobalParams.VIEW_SECOND;
 	}
 }

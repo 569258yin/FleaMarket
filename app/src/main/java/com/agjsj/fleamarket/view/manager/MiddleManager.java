@@ -148,6 +148,8 @@ public class MiddleManager extends Observable {
 	public void changeUI(Class<? extends BaseUI> targetClazz) {
 		// 判断：当前正在展示的界面和切换目标界面是否相同
 		if (currentUI != null && currentUI.getClass() == targetClazz) {
+			//刷新整个view
+			currentUI.refreshView();
 			return;
 		}
 
@@ -165,6 +167,7 @@ public class MiddleManager extends Observable {
 				targetUI = constructor.newInstance(getContext());
 				VIEWCACHE.put(key, targetUI);
 			} catch (Exception e) {
+				e.printStackTrace();
 				throw new RuntimeException("创建"+key+"UI对象时出错，请log或debug此UI中的代码");
 			}
 		}
@@ -197,6 +200,8 @@ public class MiddleManager extends Observable {
 
 		// 当中间容器切换成功时，处理另外的两个容器的变化
 		changeTitleAndBottom();
+		//刷新整个view
+		currentUI.refreshView();
 	}
 
 	private void changeTitleAndBottom() {
@@ -219,7 +224,7 @@ public class MiddleManager extends Observable {
 		// 方案二：更换比对依据
 
 		/*
-		 * switch (currentUI.getID()) { case ConstantValue.VIEW_FIRST: TitleManager.getInstance().showUnLoginTitle(); BottomManager.getInstrance().showCommonBottom(); //
+		 * switch (currentUI.getID()) { case ConstantValue.VIEW_HOME: TitleManager.getInstance().showUnLoginTitle(); BottomManager.getInstrance().showCommonBottom(); //
 		 * LeftManager\RightManager break; case ConstantValue.VIEW_SECOND: TitleManager.getInstance().showCommonTitle(); BottomManager.getInstrance().showGameBottom(); break; case
 		 * 3: TitleManager.getInstance().showCommonTitle(); BottomManager.getInstrance().showGameBottom(); break; }
 		 */

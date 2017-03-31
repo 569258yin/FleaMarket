@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
-            android:src="@mipmap/video_number_back" />
+            android:src="@mipmap/title_back" />
 
         <LinearLayout
             android:layout_width="0dp"

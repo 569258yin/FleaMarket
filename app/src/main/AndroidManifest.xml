@@ -43,7 +43,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".view.user.LoginActivity"/>
-        <activity android:name=".MainActivity"
+        <activity android:name=".view.MainActivity"
             android:windowSoftInputMode="adjustPan|stateHidden"
             android:configChanges="keyboardHidden|orientation">
         </activity>

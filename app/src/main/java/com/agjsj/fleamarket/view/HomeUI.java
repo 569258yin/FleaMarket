@@ -13,11 +13,13 @@ import com.agjsj.fleamarket.adapter.base.OnRecyclerViewListener;
 import com.agjsj.fleamarket.adapter.goods.GoodsAdapter;
 import com.agjsj.fleamarket.bean.Goods;
 import com.agjsj.fleamarket.engine.GoodsEngine;
-import com.agjsj.fleamarket.net.procotal.IMessage;
 import com.agjsj.fleamarket.params.ConstantValue;
+import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.util.LogUtil;
+import com.agjsj.fleamarket.view.goods.GoodsDetailUI;
 import com.agjsj.fleamarket.view.manager.BaseUI;
+import com.agjsj.fleamarket.view.manager.MiddleManager;
 import com.agjsj.fleamarket.view.myview.PullToRefreshView;
 
 import java.text.SimpleDateFormat;
@@ -65,23 +67,41 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
 
     }
 
-    @Override
-    public int getID() {
-        return ConstantValue.VIEW_FIRST;
-    }
+
 
     @Override
     public void init() {
         showInMiddle = (LinearLayout) View.inflate(context, R.layout.activity_home, null);
         ButterKnife.bind(this, showInMiddle);
-
         initRecycleView();
+        currentType = ConstantValue.SELECT_GOODS_BY_TIME;
         getGoodsFromServer();
+    }
 
+    @Override
+    public void refreshView() {
+
+    }
+    @Override
+    public void setListener() {
+        rb_new.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentType = ConstantValue.SELECT_GOODS_BY_TIME;
+                onRefresh();
+            }
+        });
+
+        rb_recommend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                currentPageNum = ConstantValue.SELECT_GOODS_BY_ADDRESS;
+                onRefresh();
+            }
+        });
         pullToRefresh.setOnFooterRefreshListener(this);
         pullToRefresh.setOnHeaderRefreshListener(this);
     }
-
 
     private void initRecycleView() {
         goodsList = new ArrayList<>();
@@ -118,26 +138,6 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
         return sdf.format(new Date());
     }
 
-    @Override
-    public void setListener() {
-        rb_new.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentType = ConstantValue.SELECT_GOODS_BY_TIME;
-                onRefresh();
-            }
-        });
-
-        rb_recommend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                currentPageNum = ConstantValue.SELECT_GOODS_BY_ADDRESS;
-                onRefresh();
-            }
-        });
-    }
-
-
 
     private void onRefresh() {
         currentPageNum = 1;
@@ -147,22 +147,20 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
         pullToRefresh.onHeaderRefreshComplete("更新于："
                 + getCurrentDataTime());
     }
-
     private void onLoad() {
         getGoodsFromServer();
         pullToRefresh.onFooterRefreshComplete();
     }
-
     @Override
     public void onItemClick(int position) {
-
+        ((MainActivity)context).setMiddleObj(goodsList.get(position));
+        MiddleManager.getInstance().changeUI(GoodsDetailUI.class);
     }
 
     @Override
     public void onItemClick(int position, int id) {
 
     }
-
     @Override
     public boolean onItemLongClick(int position) {
         return false;
@@ -170,10 +168,9 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
 
     @Override
     public void onImageItemClick(int itemPosition, int imagePosition) {
-
+        ((MainActivity)context).setMiddleObj(goodsList.get(itemPosition));
+        MiddleManager.getInstance().changeUI(GoodsDetailUI.class);
     }
-
-
     @Override
     public void onFooterRefresh(PullToRefreshView view) {
         onLoad();
@@ -182,5 +179,9 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
     @Override
     public void onHeaderRefresh(PullToRefreshView view) {
         onRefresh();
+    }
+    @Override
+    public int getID() {
+        return GlobalParams.VIEW_HOME;
     }
 }

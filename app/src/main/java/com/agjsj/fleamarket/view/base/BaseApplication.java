@@ -3,7 +3,9 @@ package com.agjsj.fleamarket.view.base;
 import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Point;
 import android.text.TextUtils;
+import android.view.WindowManager;
 
 import com.agjsj.fleamarket.bean.GoodsType;
 import com.agjsj.fleamarket.bean.UserInfo;
@@ -24,6 +26,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
+
+import static java.security.AccessController.getContext;
 
 public class BaseApplication extends Application {
 
@@ -49,6 +53,9 @@ public class BaseApplication extends Application {
 
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
+    public int phoneWidth;
+    public int phoneHeight;
+
 
     @Override
     public void onCreate() {
@@ -74,6 +81,13 @@ public class BaseApplication extends Application {
             Logger.d("Token:" + token);
 
             currentUser = getLocalUser();
+
+            WindowManager wm = (WindowManager) getApplicationContext()
+                    .getSystemService(Context.WINDOW_SERVICE);
+            Point point = new Point();
+            wm.getDefaultDisplay().getSize(point);
+            phoneWidth = point.x;
+            phoneHeight = point.y;
 
         }
     }

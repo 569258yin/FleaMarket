@@ -6,7 +6,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 
-import com.agjsj.fleamarket.MainActivity;
 import com.agjsj.fleamarket.engine.UserEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.view.base.BaseApplication;

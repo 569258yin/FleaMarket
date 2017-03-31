@@ -12,6 +12,7 @@ import android.widget.RelativeLayout;
 
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.params.ConstantValue;
+import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.view.Hall;
 import com.agjsj.fleamarket.view.HomeUI;
 import com.agjsj.fleamarket.view.SecondUI;
@@ -121,7 +122,8 @@ public class BottomManager implements Observer,OnClickListener,OnCheckedChangeLi
 		if (data != null && StringUtils.isNumeric(data.toString())) {
 			int id = Integer.parseInt(data.toString());
 			switch (id){
-				case ConstantValue.VIEW_SEARCH:
+				case GlobalParams.VIEW_SEARCH:
+				case GlobalParams.VIEW_GOODSDETAIL:
 					changeBottomVisiblity(View.GONE);
 					break;
 				default:

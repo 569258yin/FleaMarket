@@ -5,10 +5,9 @@ import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.agjsj.fleamarket.MainActivity;
+import com.agjsj.fleamarket.view.MainActivity;
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.bean.UserAccount;
-import com.agjsj.fleamarket.bean.UserInfo;
 import com.agjsj.fleamarket.engine.UserEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.view.base.BaseActivity;
