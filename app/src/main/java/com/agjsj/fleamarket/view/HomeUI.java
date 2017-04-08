@@ -57,14 +57,13 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
     private GoodsAdapter adapter;
 
     private int currentPageNum = 1;
-    private static final int PAGE_SIZE = 2;
+    private static final int PAGE_SIZE = 5;
     private boolean isLoading = false;
     private int currentType = ConstantValue.SELECT_GOODS_BY_TIME;
 
     public HomeUI(Context context) {
         super(context);
         LogUtil.info(HomeUI.class, "HomeUI onCreate");
-
     }
 
 
@@ -75,6 +74,7 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
         ButterKnife.bind(this, showInMiddle);
         initRecycleView();
         currentType = ConstantValue.SELECT_GOODS_BY_TIME;
+        currentPageNum = 1;
         getGoodsFromServer();
     }
 

@@ -39,7 +39,7 @@ public interface ConstantValue {
 	/**
 	 * 请求地址FileMaketServer
 	 */
-	String URL_ROOT = "http://192.168.5.40:8080/FileMaketServer/";
+	String URL_ROOT = "http://192.168.5.23:8080/FileMaketServer/";
 	/** 用户登录 */
 	String URL_USER_LOGIN ="account/loginAccount.action";
 	/** 检测token是否存在或过期 */
@@ -50,6 +50,10 @@ public interface ConstantValue {
     String URL_SEND_GOODS = "goods/sendGoods.action";
 	String URL_GET_GOODSTYPE = "goods/getGoodsType.action";
 	String URL_GET_GOODS_BY_PAGE = "goods/getGoodsByPage.action";
+	/** 发布商品品论 */
+	String URL_SEND_GOODS_REPLAY = "goodsReplay/sendReplay.action";
+	String URL_GET_GOODS_REPLAY = "goodsReplay/getAllGoodsReplay.action";
+
 	String GOODS_URL = "http://192.168.67.107:8080/SHService";
 	String GOODS_LIKE_URL = "http://192.168.67.107:8080/SHService";
 	String GOODS_REPLAY_URL = "http://192.168.67.107:8080/SHService";
@@ -77,5 +81,9 @@ public interface ConstantValue {
 	String TYPE_GET_GOODSTYPE = "20003";
 	/** 分页获取所有商品 */
 	String TYPE_GET_GOODS_BY_PAGE = "20004";
+
+	String TYPE_SEND_GOODS_REPLAY = "20005";
+
+	String TYPR_GET_GOODS_REPLAY = "20006";
 
 }

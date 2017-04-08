@@ -8,9 +8,12 @@ public class Torepaly implements java.io.Serializable {
 
 	// Fields
 
-	private Integer torepalyid;
-	private Integer goodsreplayid;
-	private Integer userid;
+	private String torepalyid;
+	private String goodsreplayid;
+	private String userid;
+	private String username;
+	private String touserid;
+	private String tousername;
 	private String torepalycontext;
 	private String torepalytime;
 
@@ -20,43 +23,70 @@ public class Torepaly implements java.io.Serializable {
 	public Torepaly() {
 	}
 
-	/** full constructor */
-	public Torepaly(Integer goodsreplayid, Integer userid,
-			String torepalycontext, String torepalytime) {
+	public Torepaly(String torepalyid, String goodsreplayid, String userid, String username, String touserid, String tousername, String torepalycontext, String torepalytime) {
+		this.torepalyid = torepalyid;
 		this.goodsreplayid = goodsreplayid;
 		this.userid = userid;
+		this.username = username;
+		this.touserid = touserid;
+		this.tousername = tousername;
 		this.torepalycontext = torepalycontext;
 		this.torepalytime = torepalytime;
 	}
 
 	// Property accessors
 
-	public Integer getTorepalyid() {
-		return this.torepalyid;
+
+	public String getTorepalyid() {
+		return torepalyid;
 	}
 
-	public void setTorepalyid(Integer torepalyid) {
+	public void setTorepalyid(String torepalyid) {
 		this.torepalyid = torepalyid;
 	}
 
-	public Integer getGoodsreplayid() {
-		return this.goodsreplayid;
+	public String getGoodsreplayid() {
+		return goodsreplayid;
 	}
 
-	public void setGoodsreplayid(Integer goodsreplayid) {
+	public void setGoodsreplayid(String goodsreplayid) {
 		this.goodsreplayid = goodsreplayid;
 	}
 
-	public Integer getUserid() {
-		return this.userid;
+	public String getUserid() {
+		return userid;
 	}
 
-	public void setUserid(Integer userid) {
+	public void setUserid(String userid) {
 		this.userid = userid;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getTouserid() {
+		return touserid;
+	}
+
+	public void setTouserid(String touserid) {
+		this.touserid = touserid;
+	}
+
+	public String getTousername() {
+		return tousername;
+	}
+
+	public void setTousername(String tousername) {
+		this.tousername = tousername;
+	}
+
 	public String getTorepalycontext() {
-		return this.torepalycontext;
+		return torepalycontext;
 	}
 
 	public void setTorepalycontext(String torepalycontext) {
@@ -64,11 +94,10 @@ public class Torepaly implements java.io.Serializable {
 	}
 
 	public String getTorepalytime() {
-		return this.torepalytime;
+		return torepalytime;
 	}
 
 	public void setTorepalytime(String torepalytime) {
 		this.torepalytime = torepalytime;
 	}
-
 }

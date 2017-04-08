@@ -1,5 +1,8 @@
 package com.agjsj.fleamarket.bean;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * Goodsrepaly entity. @author MyEclipse Persistence Tools
  */
@@ -7,12 +10,19 @@ package com.agjsj.fleamarket.bean;
 public class Goodsrepaly implements java.io.Serializable {
 
 	// Fields
+	private String goodsreplayid;
 
-	private Integer goodsreplayid;
-	private Integer userid;
-	private Integer goodsid;
-	private String goodsreplaytime;
+	private String goodsid;
+
+	private String userid;
+
+	private UserInfo userInfo;
+
+	private Date goodsreplaytime;
+
 	private String goodsreplaycontent;
+
+	private List<Torepaly> torepalyList;
 
 	// Constructors
 
@@ -20,55 +30,57 @@ public class Goodsrepaly implements java.io.Serializable {
 	public Goodsrepaly() {
 	}
 
-	/** full constructor */
-	public Goodsrepaly(Integer userid, Integer goodsid, String goodsreplaytime,
-			String goodsreplaycontent) {
-		this.userid = userid;
+	public Goodsrepaly(String goodsid, String userid, String goodsreplaycontent) {
 		this.goodsid = goodsid;
-		this.goodsreplaytime = goodsreplaytime;
+		this.userid = userid;
 		this.goodsreplaycontent = goodsreplaycontent;
 	}
 
-	// Property accessors
-
-	public Integer getGoodsreplayid() {
-		return this.goodsreplayid;
+	public UserInfo getUserInfo() {
+		return userInfo;
 	}
 
-	public void setGoodsreplayid(Integer goodsreplayid) {
-		this.goodsreplayid = goodsreplayid;
+	public void setUserInfo(UserInfo userInfo) {
+		this.userInfo = userInfo;
 	}
 
-	public Integer getUserid() {
-		return this.userid;
+	public Date getGoodsreplaytime() {
+		return goodsreplaytime;
 	}
 
-	public void setUserid(Integer userid) {
-		this.userid = userid;
-	}
-
-	public Integer getGoodsid() {
-		return this.goodsid;
-	}
-
-	public void setGoodsid(Integer goodsid) {
-		this.goodsid = goodsid;
-	}
-
-	public String getGoodsreplaytime() {
-		return this.goodsreplaytime;
-	}
-
-	public void setGoodsreplaytime(String goodsreplaytime) {
+	public void setGoodsreplaytime(Date goodsreplaytime) {
 		this.goodsreplaytime = goodsreplaytime;
 	}
 
+	public String getGoodsreplayid() {
+		return goodsreplayid;
+	}
+
+	public void setGoodsreplayid(String goodsreplayid) {
+		this.goodsreplayid = goodsreplayid;
+	}
+
+	public String getGoodsid() {
+		return goodsid;
+	}
+
+	public void setGoodsid(String goodsid) {
+		this.goodsid = goodsid;
+	}
+
 	public String getGoodsreplaycontent() {
-		return this.goodsreplaycontent;
+		return goodsreplaycontent;
 	}
 
 	public void setGoodsreplaycontent(String goodsreplaycontent) {
 		this.goodsreplaycontent = goodsreplaycontent;
 	}
 
+	public List<Torepaly> getTorepalyList() {
+		return torepalyList;
+	}
+
+	public void setTorepalyList(List<Torepaly> torepalyList) {
+		this.torepalyList = torepalyList;
+	}
 }

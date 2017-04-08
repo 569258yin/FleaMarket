@@ -1,17 +1,29 @@
 package com.agjsj.fleamarket.view.goods;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.agjsj.fleamarket.R;
+import com.agjsj.fleamarket.adapter.base.OnRecyclerViewListener;
+import com.agjsj.fleamarket.adapter.discuss.DiscussAdapter;
 import com.agjsj.fleamarket.adapter.goods.GoodsImageAdapter;
 import com.agjsj.fleamarket.bean.Goods;
+import com.agjsj.fleamarket.bean.Goodsrepaly;
+import com.agjsj.fleamarket.bean.Torepaly;
 import com.agjsj.fleamarket.bean.UserInfo;
+import com.agjsj.fleamarket.engine.ReplayEngine;
 import com.agjsj.fleamarket.params.GlobalParams;
+import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.util.PicassoUtils;
 import com.agjsj.fleamarket.util.TimeUtil;
 import com.agjsj.fleamarket.util.Utility;
@@ -19,6 +31,8 @@ import com.agjsj.fleamarket.view.MainActivity;
 import com.agjsj.fleamarket.view.base.BaseApplication;
 import com.agjsj.fleamarket.view.manager.BaseUI;
 import com.agjsj.fleamarket.view.myview.CircleImageView;
+
+import org.apache.commons.lang3.StringUtils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -35,6 +49,8 @@ import butterknife.ButterKnife;
  */
 
 public class GoodsDetailUI extends BaseUI {
+    @Bind(R.id.scrollView_goodsinfo)
+    ScrollView scrollView;
     @Bind(R.id.ll_goodsdetail_img)
     RecyclerView recyclerView;
 //    LinearLayout ll_img;
@@ -52,10 +68,24 @@ public class GoodsDetailUI extends BaseUI {
     TextView goods_zan_num;
     @Bind(R.id.tv_goodsdetail_context)
     TextView goods_context;
+    @Bind(R.id.recyclerview_discuss)
+    RecyclerView recyclerView_discuss;
+    @Bind(R.id.btn_chat_keyboard)
+    Button keyBtn;
+    @Bind(R.id.edit_msg)
+    EditText editText;
+    @Bind(R.id.btn_chat_send)
+    Button sendBtn;
     
     private LinearLayoutManager layoutManager;
     private List<String> imagePathList;
     private GoodsImageAdapter adapter;
+    private LinearLayoutManager linearLayoutManager_dis;
+    //当前回复哪个人评论，默认为本宝贝发布在id
+    private String currentToUserID = null;
+    private Goods goods;
+    private List<Goodsrepaly> goodsrepalyList = new ArrayList<Goodsrepaly>();
+    private DiscussAdapter discussAdapter;
 
     public GoodsDetailUI(Context context) {
         super(context);
@@ -63,66 +93,150 @@ public class GoodsDetailUI extends BaseUI {
 
     @Override
     public void init() {
-        this.showInMiddle = (ScrollView) View.inflate(context, R.layout.activity_goods, null);
+        this.showInMiddle = (RelativeLayout) View.inflate(context, R.layout.activity_goods, null);
         ButterKnife.bind(this, showInMiddle);
         initRecycleView();
     }
     @Override
     public void refreshView() {
-        this.showInMiddle.scrollTo(0,0);
-        Goods goods = (Goods) ((MainActivity)context).getMiddleObj();
-        imagePathList.clear();
-        UserInfo userInfo = goods.getUserInfo();
-        if(userInfo != null) {
-            PicassoUtils.loadResizeImage(userInfo.getUsericon(), R.drawable.logo, R.drawable.logo, 100, 100,user_icon);
-            user_name.setText(userInfo.getNickname());
-        }
-        SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy K:m:s a", Locale.ENGLISH);
-        try {
-            Date date = sdf.parse(goods.getGoodstime());
-            goods_time.setText(TimeUtil.getChatTime(true,date.getTime()));
-        } catch (ParseException e) {
-        }
-        goods_context.setText(goods.getGoodstext()+"");
-        goods_replay_num.setText(goods.getGoodsrepalynum()+"");
-        goods_zan_num.setText(goods.getGoodslikenum()+"");
-        goods_money.setText(Utility.getMoney(goods.getGoodsoldmoney())+"");
-        if(goods.getGoodsiconnumber() != null && goods.getGoodsiconnumber() > 0) {
-            String[] strs = goods.getGoodsicon().split(GlobalParams.SPLIT_IMAGE_URL);
-            if (strs != null && strs.length > 0) {
-                for (int i = 0; i < strs.length; i++) {
-                    imagePathList.add(strs[i]);
+        scrollView.scrollTo(0,0);
+        goods = (Goods) ((MainActivity)context).getMiddleObj();
+        if(goods != null) {
+            goodsrepalyList.clear();
+            getGoodsReplay(goods);
+            imagePathList.clear();
+            UserInfo userInfo = goods.getUserInfo();
+            if (userInfo != null) {
+                PicassoUtils.loadResizeImage(userInfo.getUsericon(), R.drawable.logo, R.drawable.logo, 100, 100, user_icon);
+                user_name.setText(userInfo.getNickname());
+            }
+            SimpleDateFormat sdf = new SimpleDateFormat("MMM d, yyyy K:m:s a", Locale.ENGLISH);
+            try {
+                Date date = sdf.parse(goods.getGoodstime());
+                goods_time.setText(TimeUtil.getChatTime(true, date.getTime()));
+            } catch (ParseException e) {
+            }
+            goods_context.setText(goods.getGoodstext() + "");
+            goods_replay_num.setText(goods.getGoodsrepalynum() + "");
+            goods_zan_num.setText(goods.getGoodslikenum() + "");
+            goods_money.setText(Utility.getMoney(goods.getGoodsoldmoney()) + "");
+            if (goods.getGoodsiconnumber() != null && goods.getGoodsiconnumber() > 0) {
+                String[] strs = goods.getGoodsicon().split(GlobalParams.SPLIT_IMAGE_URL);
+                if (strs != null && strs.length > 0) {
+                    for (int i = 0; i < strs.length; i++) {
+                        imagePathList.add(strs[i]);
+                    }
                 }
             }
-//            for (String imgPath :
-//                    imagePathList) {
-//                ImageView iv = new ImageView(context);
-//                ll_img.addView(iv);
-//                ViewGroup.LayoutParams layoutParams = iv.getLayoutParams();
-//                int width = BaseApplication.INSTANCE().phoneWidth - 20;
-//                int height = BaseApplication.INSTANCE().phoneHeight / 5 * 4;
-//                layoutParams.width = width;
-//                layoutParams.height = height ;
-//                iv.setLayoutParams(layoutParams);
-//                PicassoUtils.loadResizeImage(imgPath, R.drawable.logo, R.drawable.logo, width, height,iv);
-//
-//            }
+            //加载评论
+                discussAdapter = new DiscussAdapter(context, goodsrepalyList);
+                discussAdapter.setOnRecyclerViewListener(new OnRecyclerViewListener() {
+                    @Override
+                    public void onItemClick(int position) {
+                        String toUserName = goods.getGoodsrepalyList().get(position).getUserInfo().getUsername();
+                        currentToUserID = goods.getGoodsrepalyList().get(position).getUserInfo().getUserid();
+                        editText.setHint("@"+toUserName);
+                        InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(0,InputMethodManager.HIDE_NOT_ALWAYS);
+                    }
+
+                    @Override
+                    public void onItemClick(int position, int id) {
+
+                    }
+
+                    @Override
+                    public boolean onItemLongClick(int position) {
+                        return false;
+                    }
+                });
+                recyclerView_discuss.setAdapter(discussAdapter);
+            adapter.notifyDataSetChanged();
         }
-        adapter.notifyDataSetChanged();
     }
 
     private void initRecycleView() {
         imagePathList = new ArrayList<>();
-        layoutManager = new LinearLayoutManager(context);
+        layoutManager = new LinearLayoutManager(context){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new GoodsImageAdapter(context,imagePathList,BaseApplication.INSTANCE().phoneWidth - 20,BaseApplication.INSTANCE().phoneHeight / 5 * 4 - 20);
+        adapter = new GoodsImageAdapter(context,imagePathList,-1,BaseApplication.INSTANCE().phoneWidth - 20,BaseApplication.INSTANCE().phoneHeight / 5 * 4 - 20);
         recyclerView.setAdapter(adapter);
+
+
+        linearLayoutManager_dis = new LinearLayoutManager(context){
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+        recyclerView_discuss.setLayoutManager(linearLayoutManager_dis);
+    }
+
+    private void getGoodsReplay(Goods goods){
+        ReplayEngine replayEngine = BeanFactory.getImpl(ReplayEngine.class);
+        if (replayEngine != null){
+            goodsrepalyList.addAll(replayEngine.getAllReplayOfgoodsid(goods.getGoodsid()));
+            goods.setGoodsrepalyList(goodsrepalyList);
+        }
     }
 
     @Override
     public void setListener() {
+        keyBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
+                editText.setText("");
+                editText.setHint("输入文字信息");
+            }
+        });
+        sendBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String text = editText.getText().toString();
+                if(StringUtils.isNotEmpty(text)){
+                    //回复当前宝贝发布人
+                    if(currentToUserID == null){
+                        ReplayEngine replayEngine = BeanFactory.getImpl(ReplayEngine.class);
+                        if (replayEngine != null){
+                            Goodsrepaly goodsrepaly = new Goodsrepaly(goods.getGoodsid(),
+                                    BaseApplication.INSTANCE().getCurrentUser().getUserid(),text);
+                            goodsrepaly.setGoodsreplaytime(new Date());
+                            goodsrepaly.setUserInfo(BaseApplication.INSTANCE().getCurrentUser());
+                            boolean result = replayEngine.sendReplay(goodsrepaly);
+                            if(result == true){
+                                List<Goodsrepaly> tempList = new ArrayList<Goodsrepaly>();
+                                tempList.addAll(goodsrepalyList);
+                                goodsrepalyList.clear();
+                                goodsrepalyList.add(goodsrepaly);
+                                goodsrepalyList.addAll(tempList);
+                                tempList = null;
+                                discussAdapter.notifyDataSetChanged();
+                                InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
+                                editText.setText("");
+                                editText.setHint("输入文字信息");
+                                ((MainActivity)context).toast("发送评论成功！");
+                            }else{
+                                ((MainActivity)context).toast("发送评论失败！");
+                            }
+                        }
+                    }else{//回复评论人
 
+                    }
+                }else{
+                    ((MainActivity)context).toast("程序配置异常！");
+                }
+
+            }
+        });
     }
 
     @Override

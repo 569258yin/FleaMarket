@@ -15,6 +15,10 @@ public class PageJsonData
     public PageJsonData() {
     }
 
+    public PageJsonData(String id) {
+        this.id = id;
+    }
+
     public PageJsonData(String id, int pageNum, int pageSize) {
         this.id = id;
         this.pageNum = pageNum;

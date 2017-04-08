@@ -196,6 +196,12 @@ public abstract class BaseEngine {
 			case ConstantValue.TYPE_GET_GOODS_BY_PAGE:
 				URL += ConstantValue.URL_GET_GOODS_BY_PAGE;
 				break;
+			case ConstantValue.TYPE_SEND_GOODS_REPLAY:
+				URL += ConstantValue.URL_SEND_GOODS_REPLAY;
+				break;
+			case ConstantValue.TYPR_GET_GOODS_REPLAY:
+				URL += ConstantValue.URL_GET_GOODS_REPLAY;
+				break;
 			default:
 				break;
 		}

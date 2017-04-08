@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="20dp">
+
+    <com.agjsj.fleamarket.view.myview.CircleImageView
+        android:id="@+id/iv_user_icon"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_margin="5dp"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+id/tv_nickname"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/iv_user_icon"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/iv_user_icon"
+        android:text="用户昵称"
+        android:textColor="@android:color/black"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_nickname"
+        android:layout_below="@id/tv_nickname"
+        android:layout_toRightOf="@id/iv_user_icon"
+        android:textColor="@color/base_color_text_gray"
+        android:textSize="11sp" />
+
+
+    <TextView
+        android:id="@+id/tv_replay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:text="回复"
+        android:textColor="@color/basebackgroud"
+        android:textSize="13sp" />
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/tv_time"
+        android:layout_below="@id/tv_time"
+        android:text="评论的内容"
+        android:textColor="@color/base_color_text_black"
+        android:textSize="13sp" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignLeft="@id/tv_content"
+        android:layout_below="@id/tv_content">
+
+    </android.support.v7.widget.RecyclerView>
+
+
+</RelativeLayout>
+

@@ -111,7 +111,7 @@ public class TitleManager implements Observer {
             int id = Integer.parseInt(data.toString());
             switch (id) {
                 case GlobalParams.VIEW_SEARCH:
-                    showCommonTitle();
+                    initTitle();
                     break;
                 case GlobalParams.VIEW_GOODSDETAIL:
                     title.setText("商品详情");

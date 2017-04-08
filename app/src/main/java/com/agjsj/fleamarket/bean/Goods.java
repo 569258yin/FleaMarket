@@ -3,6 +3,8 @@ package com.agjsj.fleamarket.bean;
 
 import android.content.Intent;
 
+import java.util.List;
+
 /**
  * Goods entity. @author MyEclipse Persistence Tools
  */
@@ -42,6 +44,8 @@ public class Goods implements java.io.Serializable {
     private String goodsicon;
 
     private UserInfo userInfo;
+
+    private List<Goodsrepaly> goodsrepalyList;
 
     /**
      * default constructor
@@ -183,5 +187,13 @@ public class Goods implements java.io.Serializable {
 
     public void setUserInfo(UserInfo userInfo) {
         this.userInfo = userInfo;
+    }
+
+    public List<Goodsrepaly> getGoodsrepalyList() {
+        return goodsrepalyList;
+    }
+
+    public void setGoodsrepalyList(List<Goodsrepaly> goodsrepalyList) {
+        this.goodsrepalyList = goodsrepalyList;
     }
 }

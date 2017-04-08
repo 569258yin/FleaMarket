@@ -16,6 +16,7 @@ public class GoodsImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     private List<String> goodImageLists;
     private Context context;
+    private int parentPosition = -1;
     private int width = -1;
     private int height = -1;
 
@@ -24,10 +25,17 @@ public class GoodsImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         this.context = context;
     }
 
-
-    public GoodsImageAdapter(Context context ,List<String> goodImageLists,int width,int height) {
+    public GoodsImageAdapter(Context context,List<String> goodImageLists,int parentPosition) {
         this.goodImageLists = goodImageLists;
         this.context = context;
+        this.parentPosition = parentPosition;
+    }
+
+
+    public GoodsImageAdapter(Context context,List<String> goodImageLists,int parentPosition, int width, int height) {
+        this.goodImageLists = goodImageLists;
+        this.context = context;
+        this.parentPosition = parentPosition;
         this.width = width;
         this.height = height;
     }
@@ -35,9 +43,9 @@ public class GoodsImageAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(width < 0 || height < 0) {
-            return new GoodsImageViewHolder(context, parent, onRecyclerViewListener);
+            return new GoodsImageViewHolder(context, parent, onRecyclerViewListener,parentPosition);
         }else{
-            return new GoodsImageViewHolder(context,parent,onRecyclerViewListener,width,height);
+            return new GoodsImageViewHolder(context,parent,onRecyclerViewListener,parentPosition,width,height);
         }
     }
 

@@ -1,29 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_margin="10dp"
+    <ScrollView
+        android:id="@+id/scrollView_goodsinfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <include layout="@layout/include_userinfo"/>
-        <TextView
-            android:id="@+id/tv_goodsdetail_context"
-            android:layout_marginTop="5dp"
-            android:textSize="14sp"
-            android:textColor="@color/base_color_text_black"
-            android:text=" 范德萨大方不是的办法爱上部分的是吧放大师傅就不打算买那边vjdksbvmxcbvzbsvkbds剧本时VBScriptvbdkjs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-        <android.support.v7.widget.RecyclerView
+        <LinearLayout
             android:orientation="vertical"
-            android:id="@+id/ll_goodsdetail_img"
+            android:layout_margin="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-        </android.support.v7.widget.RecyclerView>
+            <include layout="@layout/include_userinfo"/>
+            <TextView
+                android:id="@+id/tv_goodsdetail_context"
+                android:layout_marginTop="5dp"
+                android:textSize="14sp"
+                android:textColor="@color/base_color_text_black"
+                android:text=" 范德萨大方不是的办法爱上部分的是吧放大师傅就不打算买那边vjdksbvmxcbvzbsvkbds剧本时VBScriptvbdkjs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            <android.support.v7.widget.RecyclerView
+                android:orientation="vertical"
+                android:id="@+id/ll_goodsdetail_img"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
 
-        <include layout="@layout/include_common_bar"/>
+            <include layout="@layout/include_common_bar"/>
+            <android.support.v7.widget.RecyclerView
+                android:layout_marginTop="10dp"
+                android:id="@+id/recyclerview_discuss"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="70dp"
+                >
+            </android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:background="@drawable/base_comment_emo_bar"
+        android:gravity="center_vertical"
+        android:minHeight="50dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/btn_chat_keyboard"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/btn_chat_keyboard_selector"
+            android:gravity="center"
+            android:textColor="@color/base_color_text_black"
+            android:visibility="visible"></Button>
+
+        <EditText
+            android:id="@+id/edit_msg"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="6dp"
+            android:layout_weight="1.0"
+            android:background="@drawable/drawable_edit_normal"
+            android:gravity="left|center"
+            android:hint="输入文字信息"
+            android:imeOptions="flagNoExtractUi"
+            android:lineSpacingExtra="3dp"
+            android:minHeight="40dip"
+            android:padding="5dp"
+            android:textColor="@color/gray"
+            android:textColorHint="@color/color_b4"
+            android:textSize="@dimen/text_size_medium" />
+
+        <Button
+            android:id="@+id/btn_chat_send"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_chat_send_selector"
+            android:gravity="center" />
     </LinearLayout>
-
-</ScrollView>
+</RelativeLayout>

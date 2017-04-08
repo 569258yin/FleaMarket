@@ -1,44 +1,48 @@
 package com.agjsj.fleamarket.engine.impl;
 
+import com.agjsj.fleamarket.bean.Goods;
+import com.agjsj.fleamarket.bean.json.PageJsonData;
 import com.agjsj.fleamarket.params.ConstantValue;
 import com.agjsj.fleamarket.bean.Goodsrepaly;
 import com.agjsj.fleamarket.engine.BaseEngine;
 import com.agjsj.fleamarket.engine.ReplayEngine;
 import com.agjsj.fleamarket.net.procotal.Body;
 import com.agjsj.fleamarket.net.procotal.IMessage;
+import com.agjsj.fleamarket.params.OelementType;
+import com.agjsj.fleamarket.util.GsonUtil;
+import com.google.gson.reflect.TypeToken;
+
+import java.util.List;
 
 public class ReplayEngineImpl extends BaseEngine implements ReplayEngine {
 
+
 	@Override
-	public IMessage sendReplay(Goodsrepaly goodsrepaly) {
-		// 1，分装body，生成json数据
-		Body body = new Body();
-
-//		body.setBodyStr(goodsrepaly);
-		// body.serializableBody();
-		String sendinfo = getMessageToJson(body, "40001");
-		// 2.向服务器发送数据,获取返回数据并封装成IMessage对象
-//		return sendJsonToService(ConstantValue.GOODS_REPLAY_URL, sendinfo);
-		return null;
-
+	public boolean sendReplay(Goodsrepaly goodsrepaly) {
+		if(goodsrepaly == null){
+			return  false;
+		}
+		String json = GsonUtil.objectToString(goodsrepaly);
+		Body body = sendJsonToService(json, ConstantValue.TYPE_SEND_GOODS_REPLAY);
+		if(body != null){
+			if(OelementType.SUCCESS == body.getOelement().getErrorcode()){
+				return true;
+			}
+		}
+		return false;
 	}
 
 	@Override
-	public IMessage getAllReplayOfgoodsid(Integer goodsid, Integer start,
-			Integer count) {
-
-		// 1，分装body，生成json数据
-		Body body = new Body();
-//		JSONObject jsonObject = new JSONObject();
-//		jsonObject.put("goodsid", goodsid);
-//		jsonObject.put("start", start);
-//		jsonObject.put("count", count);
-//		body.setBodyStr(jsonObject.toJSONString());
-		// body.serializableBody();
-		String sendinfo = getMessageToJson(body, "40002");
-		// 2.向服务器发送数据,获取返回数据并封装成IMessage对象
-//		return sendJsonToService(ConstantValue.GOODS_REPLAY_URL, sendinfo);
+	public List<Goodsrepaly> getAllReplayOfgoodsid(String goodsid) {
+		PageJsonData pageJsonData = new PageJsonData(goodsid);
+		String json = GsonUtil.objectToString(pageJsonData);
+		Body body = sendJsonToService(json, ConstantValue.TYPR_GET_GOODS_REPLAY);
+		if(body != null){
+			if(OelementType.SUCCESS == body.getOelement().getErrorcode()){
+				List<Goodsrepaly> list = (List<Goodsrepaly>) GsonUtil.stringToObjectByType(body.getElements(),new TypeToken<List<Goodsrepaly>>(){}.getType());
+				return list;
+			}
+		}
 		return null;
 	}
-
 }

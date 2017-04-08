@@ -13,6 +13,7 @@ import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.adapter.base.BaseViewHolder;
 import com.agjsj.fleamarket.adapter.base.OnRecyclerViewImageListener;
 import com.agjsj.fleamarket.adapter.base.OnRecyclerViewListener;
+import com.agjsj.fleamarket.adapter.discuss.DiscussAdapter;
 import com.agjsj.fleamarket.bean.Goods;
 import com.agjsj.fleamarket.bean.UserInfo;
 import com.agjsj.fleamarket.params.ConstantValue;
@@ -55,10 +56,13 @@ public class GoodsViewHolder extends BaseViewHolder {
     TextView goods_replay_num;
     @Bind(R.id.tv_goods_zan_number)
     TextView goods_zan_num;
+
+
     private GoodsImageAdapter goodsImageAdapter;
     private OnRecyclerViewImageListener onRecyclerViewImageListener;
     private Context context;
     private LinearLayoutManager layoutManager;
+
 
     public GoodsViewHolder(Context context, ViewGroup root,OnRecyclerViewListener listener,OnRecyclerViewImageListener onRecyclerViewImageListener) {
         super(context, root, R.layout.goods_list_item, listener);
@@ -79,6 +83,8 @@ public class GoodsViewHolder extends BaseViewHolder {
                 onRecyclerViewListener.onItemClick(getAdapterPosition());
             }
         });
+
+
 
     }
 
@@ -101,7 +107,7 @@ public class GoodsViewHolder extends BaseViewHolder {
             goods_replay_num.setText(goods.getGoodsrepalynum()+"");
             goods_zan_num.setText(goods.getGoodslikenum()+"");
             goods_money.setText(Utility.getMoney(goods.getGoodsoldmoney())+"");
-
+            //加载图片
             if(goods.getGoodsiconnumber() != null && goods.getGoodsiconnumber() > 0){
                 List<String> urls = new ArrayList<>(6);
                 String[] strs = goods.getGoodsicon().split(GlobalParams.SPLIT_IMAGE_URL);
@@ -109,26 +115,27 @@ public class GoodsViewHolder extends BaseViewHolder {
                     for (int i=0; i< strs.length;i++){
                         urls.add(strs[i]);
                     }
-                    goodsImageAdapter = new GoodsImageAdapter(context,urls);
+                    goodsImageAdapter = new GoodsImageAdapter(context,urls,getAdapterPosition());
                     goodsImageAdapter.setOnRecyclerViewListener(new OnRecyclerViewListener() {
                         @Override
                         public void onItemClick(int position) {
-                            onRecyclerViewListener.onItemClick(position);
+                            onRecyclerViewListener.onItemClick(getAdapterPosition());
                         }
 
                         @Override
                         public void onItemClick(int position, int id) {
-                            onRecyclerViewListener.onItemClick(position,id);
+                            onRecyclerViewListener.onItemClick(getAdapterPosition(),id);
                         }
 
                         @Override
                         public boolean onItemLongClick(int position) {
-                            return onRecyclerViewListener.onItemLongClick(position);
+                            return onRecyclerViewListener.onItemLongClick(getAdapterPosition());
                         }
                     });
                     recyclerView.setAdapter(goodsImageAdapter);
                 }
             }
+
         }
 
     }

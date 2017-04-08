@@ -47,13 +47,11 @@ public class UserInfo implements java.io.Serializable {
 		this.usersex = usersex;
 	}
 
+	public UserInfo(String userid) {
+		this.userid = userid;
+	}
+
 	/** full constructor */
-	
-
-	// Property accessors
-
-
-
 	public UserInfo(String userid, String username, String userpassword,
 			Integer usersex, Integer userage, String useraddress,
 			String nickname, String signature, String qqnumber,
