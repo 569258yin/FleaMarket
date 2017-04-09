@@ -56,7 +56,7 @@ public abstract class BaseEngine {
 				if (digest.equals(header.getDigest())) {
 					IMessage result = new IMessage();
 					body = (Body) GsonUtil.stringToObjectByBean(orgbody,Body.class);
-					EventBus.getDefault().post(new MessageEvent(body.getOelement().getErrorcode()));
+					EventBus.getDefault().post(new MessageEvent(body.getOelement().getCode()));
 					result.setHeader(header);
 					result.setBody(body);
 					return result;
@@ -70,6 +70,18 @@ public abstract class BaseEngine {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * 对要发送给服务器的信息进行加密
+	 * @param requestjson  请求内容
+	 * @return
+	 */
+	public String getMessageToJson(String requestjson){
+		Body body = new Body();
+		body.setOelement(null);
+		body.setElements(requestjson);
+		return getMessageToJson(body,"");
 	}
 
 	/**
@@ -93,7 +105,7 @@ public abstract class BaseEngine {
 				header.setTransactiontype(code);
 				// 4.加密body信息
 				String desbody = des.authcode(bodyInfo, "DECODE",
-                        GlobalParams.DESPASSWORD);
+						GlobalParams.DESPASSWORD);
 				// 5.封装成加密后的Message
 				DesMessage desMessage = new DesMessage();
 				desMessage.setHeader(header);
@@ -142,6 +154,9 @@ public abstract class BaseEngine {
 
 
 	}
+
+
+
 
 	/**
 	 *	不使用回调函数，不使用okhttp

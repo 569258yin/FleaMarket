@@ -1,41 +1,35 @@
 package com.agjsj.fleamarket.bean;
 
-/**
- * Torepaly entity. @author MyEclipse Persistence Tools
- */
+import java.util.Date;
 
-public class Torepaly implements java.io.Serializable {
 
-	// Fields
-
+public class Torepaly {
 	private String torepalyid;
+
 	private String goodsreplayid;
-	private String userid;
-	private String username;
-	private String touserid;
-	private String tousername;
+
+	private String userId;
+
+	private String touserId;
+
+	private UserInfo userinfo;
+
+	private UserInfo toUserinfo;
+
 	private String torepalycontext;
-	private String torepalytime;
 
-	// Constructors
+	private Date torepalytime;
 
-	/** default constructor */
 	public Torepaly() {
 	}
 
-	public Torepaly(String torepalyid, String goodsreplayid, String userid, String username, String touserid, String tousername, String torepalycontext, String torepalytime) {
-		this.torepalyid = torepalyid;
+	public Torepaly(String goodsreplayid, String userId, String touserId, String torepalycontext, Date torepalytime) {
 		this.goodsreplayid = goodsreplayid;
-		this.userid = userid;
-		this.username = username;
-		this.touserid = touserid;
-		this.tousername = tousername;
+		this.userId = userId;
+		this.touserId = touserId;
 		this.torepalycontext = torepalycontext;
 		this.torepalytime = torepalytime;
 	}
-
-	// Property accessors
-
 
 	public String getTorepalyid() {
 		return torepalyid;
@@ -53,36 +47,36 @@ public class Torepaly implements java.io.Serializable {
 		this.goodsreplayid = goodsreplayid;
 	}
 
-	public String getUserid() {
-		return userid;
+	public String getUserId() {
+		return userId;
 	}
 
-	public void setUserid(String userid) {
-		this.userid = userid;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getTouserId() {
+		return touserId;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setTouserId(String touserId) {
+		this.touserId = touserId;
 	}
 
-	public String getTouserid() {
-		return touserid;
+	public UserInfo getUserinfo() {
+		return userinfo;
 	}
 
-	public void setTouserid(String touserid) {
-		this.touserid = touserid;
+	public void setUserinfo(UserInfo userinfo) {
+		this.userinfo = userinfo;
 	}
 
-	public String getTousername() {
-		return tousername;
+	public UserInfo getToUserinfo() {
+		return toUserinfo;
 	}
 
-	public void setTousername(String tousername) {
-		this.tousername = tousername;
+	public void setToUserinfo(UserInfo toUserinfo) {
+		this.toUserinfo = toUserinfo;
 	}
 
 	public String getTorepalycontext() {
@@ -93,11 +87,11 @@ public class Torepaly implements java.io.Serializable {
 		this.torepalycontext = torepalycontext;
 	}
 
-	public String getTorepalytime() {
+	public Date getTorepalytime() {
 		return torepalytime;
 	}
 
-	public void setTorepalytime(String torepalytime) {
+	public void setTorepalytime(Date torepalytime) {
 		this.torepalytime = torepalytime;
 	}
 }

@@ -73,6 +73,7 @@ public class SendGoodActivity extends BaseActivity {
     public static final int IMAGE_PICKER = 1001;
     private GridImageAdapter gridImageAdapter;
     private CompressHelper compressHelper;
+    private List<GoodsType> GoodsTypeList;
 
     //spinner
     private ArrayAdapter<String> adapter;
@@ -93,11 +94,22 @@ public class SendGoodActivity extends BaseActivity {
     private void initData() {
         tv_title.setText("发布商品");
 
-        List<GoodsType> GoodsTypeList = BaseApplication.INSTANCE().getGoodstypes();
+       GoodsTypeList = BaseApplication.INSTANCE().getGoodstypes();
         if(GoodsTypeList == null){
+            GoodsTypeList = new ArrayList<>();
             GoodsEngine goodsEngine = BeanFactory.getImpl(GoodsEngine.class);
-            GoodsTypeList = goodsEngine.getAllGoodsType();
-            BaseApplication.INSTANCE().setGoodstypes(GoodsTypeList);
+            goodsEngine.getAllGoodsType(new GoodsEngine.GetAllGoodsTypeCallBack() {
+                @Override
+                public void getAllGoodsTypeCallback(List<GoodsType> goodsTypeList) {
+                    if (goodsTypeList != null){
+                        BaseApplication.INSTANCE().setGoodstypes(goodsTypeList);
+                        GoodsTypeList.addAll(goodsTypeList);
+                    }else {
+                        toast("商品类别为null");
+                        finish();
+                    }
+                }
+            });
         }
         if(GoodsTypeList == null){
             toast("商品类别为null");
@@ -219,12 +231,17 @@ public class SendGoodActivity extends BaseActivity {
                     goods.setGoodsicon(sb.toString().substring(0,sb.toString().length()-1));
                 }
                 goods.setUserid(BaseApplication.INSTANCE().getCurrentUser().getUserid());
-                boolean result = goodsEngine.sendGoods(goods);
-                if(result){
-                    toast("发布成功");
-                    finish();
-                }
-
+                goodsEngine.sendGoods(goods, new GoodsEngine.SendGoodsCallBack() {
+                    @Override
+                    public void sendGoodsCallback(int responseCode) {
+                        if(responseCode == GoodsEngine.SEND_OK){
+                            toast("发布成功");
+                            finish();
+                        }else {
+                            toast("发布失败");
+                        }
+                    }
+                });
             }
         });
     }

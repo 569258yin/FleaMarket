@@ -3,26 +3,24 @@ package com.agjsj.fleamarket.net.procotal;
 import java.io.Serializable;
 
 public class Oelement implements Serializable{
-	private int errorcode;
-	private String errormsg;
+	private int code;
+	private String message;
 	public Oelement() {
 	}
-	public int getErrorcode() {
-		return errorcode;
+
+	public int getCode() {
+		return code;
 	}
-	public void setErrorcode(int errorcode) {
-		this.errorcode = errorcode;
+
+	public void setCode(int code) {
+		this.code = code;
 	}
-	public String getErrormsg() {
-		return errormsg;
+
+	public String getMessage() {
+		return message;
 	}
-	public void setErrormsg(String errormsg) {
-		this.errormsg = errormsg;
+
+	public void setMessage(String message) {
+		this.message = message;
 	}
-	@Override
-	public String toString() {
-		return "Oelement [errorcode=" + errorcode + ", errormsg=" + errormsg + "]";
-	}
-	
-	
 }

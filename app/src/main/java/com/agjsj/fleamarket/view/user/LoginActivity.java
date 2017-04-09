@@ -60,13 +60,16 @@ public class LoginActivity extends BaseActivity{
     private void login() {
         UserAccount userAccount = new UserAccount(etUsername.getText().toString(),etPassword.getText().toString());
         UserEngine userEngine = BeanFactory.getImpl(UserEngine.class);
-        boolean bool = userEngine.login(userAccount);
-        if(bool){
-            startActivity(MainActivity.class,null,true);
-        }else {
-            toast("抱歉，登录失败");
-        }
-
+        userEngine.login(userAccount, new UserEngine.LoginCallBack() {
+            @Override
+            public void loginResponse(int responseCode) {
+                if(responseCode == UserEngine.LOGIN_YES){
+                    startActivity(MainActivity.class,null,true);
+                }else {
+                    toast("抱歉，登录失败");
+                }
+            }
+        });
 //        UserNetwork.getInstance().login(etUsername.getText().toString().trim(),
 //                etPassword.getText().toString().trim(), new UserNetwork.LoginCallBack() {
 //                    @Override

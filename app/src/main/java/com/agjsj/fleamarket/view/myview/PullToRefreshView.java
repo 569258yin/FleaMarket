@@ -146,8 +146,6 @@ public class PullToRefreshView extends LinearLayout {
 
 	/**
 	 * init
-	 * 
-	 * @param context
 	 */
 	private void init() {
 		// 需要设置成vertical

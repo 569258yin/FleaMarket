@@ -1,6 +1,10 @@
 package com.agjsj.fleamarket.net;
 
+import com.agjsj.fleamarket.bean.MessageEvent;
+import com.agjsj.fleamarket.params.OelementType;
 import com.agjsj.fleamarket.util.HttpConnectionUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.concurrent.Callable;
 
@@ -25,6 +29,9 @@ public class HttpRequest implements Callable<String>{
 
     @Override
     public String call() throws Exception {
-        return HttpConnectionUtils.sendJsonString(requestContext,url);
+//        EventBus.getDefault().post(new MessageEvent());
+        String result = HttpConnectionUtils.sendJsonString(requestContext,url);
+        EventBus.getDefault().post(new MessageEvent(OelementType.NET_COMPLETE));
+        return result;
     }
 }

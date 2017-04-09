@@ -148,7 +148,7 @@ public class MainActivity extends BaseActivity {
 				startActivity(intent);
 				break;
 			case OelementType.FAILD:
-				toast("数据安全检查失败，数据存在不安全连接，请联系技术支持!");
+				toast("请求失败!");
 				break;
 			case OelementType.NET_ERROR:
 				toast("网络错误，请检查你的网络!");

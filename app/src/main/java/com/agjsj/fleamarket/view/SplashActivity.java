@@ -38,10 +38,18 @@ public class SplashActivity extends AppCompatActivity {
 //            判断是否登陆了
             if (BaseApplication.INSTANCE().getToken() == null || "".equals(BaseApplication.INSTANCE().getToken())) {
                 mActivity.get().toLoginActivity();
-            } else if(userEngine.checkToken(BaseApplication.INSTANCE().getToken())){
-                mActivity.get().toMainActivity();
-            }else{
-                mActivity.get().toLoginActivity();
+            } else {
+                userEngine.checkToken(BaseApplication.INSTANCE().getToken(), new UserEngine.LoginCallBack() {
+                    @Override
+                    public void loginResponse(int responseCode) {
+                        if (responseCode == UserEngine.LOGIN_YES){
+                            mActivity.get().toMainActivity();
+                        }else {
+                            mActivity.get().toLoginActivity();
+                        }
+                    }
+                });
+
             }
 //            mActivity.get().toMainActivity();
 

@@ -83,9 +83,12 @@ public class GoodsDetailUI extends BaseUI {
     private LinearLayoutManager linearLayoutManager_dis;
     //当前回复哪个人评论，默认为本宝贝发布在id
     private String currentToUserID = null;
+    //当前回复的哪个评论
+    private int currentPosition = -1;
     private Goods goods;
     private List<Goodsrepaly> goodsrepalyList = new ArrayList<Goodsrepaly>();
     private DiscussAdapter discussAdapter;
+
 
     public GoodsDetailUI(Context context) {
         super(context);
@@ -100,6 +103,8 @@ public class GoodsDetailUI extends BaseUI {
     @Override
     public void refreshView() {
         scrollView.scrollTo(0,0);
+        editText.setText("");
+        currentToUserID = null;
         goods = (Goods) ((MainActivity)context).getMiddleObj();
         if(goods != null) {
             goodsrepalyList.clear();
@@ -133,8 +138,9 @@ public class GoodsDetailUI extends BaseUI {
                 discussAdapter.setOnRecyclerViewListener(new OnRecyclerViewListener() {
                     @Override
                     public void onItemClick(int position) {
-                        String toUserName = goods.getGoodsrepalyList().get(position).getUserInfo().getUsername();
+                        String toUserName = goods.getGoodsrepalyList().get(position).getUserInfo().getNickname();
                         currentToUserID = goods.getGoodsrepalyList().get(position).getUserInfo().getUserid();
+                        currentPosition = position;
                         editText.setHint("@"+toUserName);
                         InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.toggleSoftInput(0,InputMethodManager.HIDE_NOT_ALWAYS);
@@ -178,11 +184,20 @@ public class GoodsDetailUI extends BaseUI {
         recyclerView_discuss.setLayoutManager(linearLayoutManager_dis);
     }
 
-    private void getGoodsReplay(Goods goods){
+    private void getGoodsReplay(final Goods goods){
         ReplayEngine replayEngine = BeanFactory.getImpl(ReplayEngine.class);
         if (replayEngine != null){
-            goodsrepalyList.addAll(replayEngine.getAllReplayOfgoodsid(goods.getGoodsid()));
-            goods.setGoodsrepalyList(goodsrepalyList);
+            replayEngine.getAllReplayOfgoodsid(goods.getGoodsid(), new ReplayEngine.GetAllReplayCallBack() {
+                @Override
+                public void getAllReplayCallback(List<Goodsrepaly> lists) {
+                    if(lists != null){
+                        goodsrepalyList.addAll(lists);
+                        goods.setGoodsrepalyList(goodsrepalyList);
+                        discussAdapter.notifyDataSetChanged();
+                    }
+                }
+            });
+
         }
     }
 
@@ -206,33 +221,72 @@ public class GoodsDetailUI extends BaseUI {
                     if(currentToUserID == null){
                         ReplayEngine replayEngine = BeanFactory.getImpl(ReplayEngine.class);
                         if (replayEngine != null){
-                            Goodsrepaly goodsrepaly = new Goodsrepaly(goods.getGoodsid(),
+                            final Goodsrepaly goodsrepaly; goodsrepaly = new Goodsrepaly(goods.getGoodsid(),
                                     BaseApplication.INSTANCE().getCurrentUser().getUserid(),text);
                             goodsrepaly.setGoodsreplaytime(new Date());
                             goodsrepaly.setUserInfo(BaseApplication.INSTANCE().getCurrentUser());
-                            boolean result = replayEngine.sendReplay(goodsrepaly);
-                            if(result == true){
-                                List<Goodsrepaly> tempList = new ArrayList<Goodsrepaly>();
-                                tempList.addAll(goodsrepalyList);
-                                goodsrepalyList.clear();
-                                goodsrepalyList.add(goodsrepaly);
-                                goodsrepalyList.addAll(tempList);
-                                tempList = null;
-                                discussAdapter.notifyDataSetChanged();
-                                InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
-                                imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
-                                editText.setText("");
-                                editText.setHint("输入文字信息");
-                                ((MainActivity)context).toast("发送评论成功！");
-                            }else{
-                                ((MainActivity)context).toast("发送评论失败！");
-                            }
+                            replayEngine.sendReplay(goodsrepaly, new ReplayEngine.SendReplayCallBack(){
+                                @Override
+                                public void sendReplayCallback(int responseCode) {
+                                    if(responseCode == ReplayEngine.SEND_OK) {
+                                        List<Goodsrepaly> tempList = new ArrayList<Goodsrepaly>();
+                                        tempList.addAll(goodsrepalyList);
+                                        goodsrepalyList.clear();
+                                        goodsrepalyList.add(goodsrepaly);
+                                        goodsrepalyList.addAll(tempList);
+                                        tempList = null;
+                                        discussAdapter.notifyDataSetChanged();
+                                        InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                        imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
+                                        editText.setText("");
+                                        editText.setHint("输入文字信息");
+                                        ((MainActivity)context).toast("发送评论成功！");
+                                    } else {
+                                        ((MainActivity)context).toast("发送评论失败！");
+                                    }
+                                }
+                            });
                         }
                     }else{//回复评论人
+                        ReplayEngine replayEngine = BeanFactory.getImpl(ReplayEngine.class);
+                        if (replayEngine != null){
+                            final Torepaly torepaly = new Torepaly(goods.getGoodsid(),BaseApplication.INSTANCE().getCurrentUser().getUserid(),currentToUserID
+                            ,text,new Date());
+                            replayEngine.sendToReplay(torepaly, new ReplayEngine.SendReplayCallBack() {
+                                @Override
+                                public void sendReplayCallback(int responseCode) {
+                                    if(responseCode == ReplayEngine.SEND_OK) {
+                                        if(currentPosition != -1){
+                                            Goodsrepaly goodsrepaly = goodsrepalyList.get(currentPosition);
+                                            if(goodsrepaly.getTorepalyList() != null) {
+                                                List<Torepaly> tempToLists = new ArrayList<Torepaly>();
+                                                tempToLists.addAll(goodsrepaly.getTorepalyList());
+                                                goodsrepaly.getTorepalyList().clear();
+                                                goodsrepaly.getTorepalyList().add(torepaly);
+                                                goodsrepaly.getTorepalyList().addAll(tempToLists);
+                                                tempToLists = null;
+                                            }else {
+                                                List<Torepaly> tempToLists = new ArrayList<Torepaly>();
+                                                tempToLists.add(torepaly);
+                                                goodsrepaly.setTorepalyList(tempToLists);
+                                            }
+                                            discussAdapter.notifyItemChanged(currentPosition);
 
+                                        }
+                                        InputMethodManager imm = (InputMethodManager)context.getSystemService(Context.INPUT_METHOD_SERVICE);
+                                        imm.hideSoftInputFromWindow(editText.getWindowToken(),0);
+                                        editText.setText("");
+                                        editText.setHint("输入文字信息");
+                                        ((MainActivity)context).toast("发送评论成功！");
+                                    }else {
+                                        ((MainActivity)context).toast("发送评论失败！");
+                                    }
+                                }
+                            });
+                        }
                     }
                 }else{
-                    ((MainActivity)context).toast("程序配置异常！");
+                    ((MainActivity)context).toast("请输入内容！");
                 }
 
             }

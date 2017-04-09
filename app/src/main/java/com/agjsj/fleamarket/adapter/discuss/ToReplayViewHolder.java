@@ -30,9 +30,14 @@ public class ToReplayViewHolder extends BaseViewHolder {
     @Override
     public void bindData(Object o) {
         Torepaly replay = (Torepaly) o;
-        tvReplayUserNickName.setText(replay.getUsername());
-        tvPassiveUserNickName.setText(replay.getTousername());
-        tvContent.setText(":" + replay.getTorepalycontext());
-
+        if(replay != null) {
+            if(replay.getToUserinfo() != null) {
+                tvReplayUserNickName.setText(replay.getToUserinfo().getNickname());
+            }
+            if(replay.getUserinfo() != null) {
+                tvPassiveUserNickName.setText(replay.getUserinfo().getNickname());
+            }
+            tvContent.setText(":" + replay.getTorepalycontext());
+        }
     }
 }

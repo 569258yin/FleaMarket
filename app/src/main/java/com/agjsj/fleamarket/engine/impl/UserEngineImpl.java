@@ -1,5 +1,10 @@
 package com.agjsj.fleamarket.engine.impl;
 
+import com.agjsj.fleamarket.net.procotal.DesMessage;
+import com.agjsj.fleamarket.net.procotal.IMessage;
+import com.agjsj.fleamarket.net.service.UserService;
+import com.agjsj.fleamarket.net.HttpUtils;
+import com.agjsj.fleamarket.util.LogUtil;
 import com.agjsj.fleamarket.view.base.BaseApplication;
 import com.agjsj.fleamarket.bean.GoodsType;
 import com.agjsj.fleamarket.bean.UserAccount;
@@ -16,57 +21,136 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 
 public class UserEngineImpl extends BaseEngine implements UserEngine {
 
+	private UserService userService;
+
+	public UserEngineImpl() {
+		userService = HttpUtils.createService(UserService.class);
+	}
 
 	@Override
-	public boolean login(final UserAccount user) {
+	public void login(final UserAccount user, final LoginCallBack loginCallBack) {
 		if(user == null){
-			return false;
+			loginCallBack.loginResponse(LOGIN_NO);
+			return;
 		}
 		String json = GsonUtil.objectToString(user);
-		Body body = sendJsonToService(json, ConstantValue.TYPE_LOGIN);
-		if(body != null){
-			if(OelementType.SUCCESS == body.getOelement().getErrorcode()){
-				BaseApplication.INSTANCE().setToken(body.getToken());
-				String userId = body.getOelement().getErrormsg();
-				UserInfo userInfo = getCurrentUser(userId);
-				if(userInfo != null){
-					BaseApplication.INSTANCE().updateLocalUser(userInfo);
-				}
-				return true;
-			}
-		}
-		return false;
-	}
+		String content = getMessageToJson(json);
+		userService.login(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
 
-	@Override
-	public boolean checkToken(String token) {
-		Body body = sendJsonToService("", ConstantValue.TYPE_CHECK_TOKEN);
-		if(body != null){
-			if(OelementType.SUCCESS == body.getOelement().getErrorcode()){
-				String jsonStr = body.getElements();
-				if(StringUtils.isNotEmpty(jsonStr)){
-					List<GoodsType> goodstypeList = (List<GoodsType>) GsonUtil.stringToObjectByType(jsonStr,new TypeToken<List<GoodsType>>(){}.getType());
-					if(goodstypeList != null){
-						BaseApplication.INSTANCE().setGoodstypes(goodstypeList);
+					@Override
+					public void onCompleted() {
 					}
-				}
-				return true;
-			}
-		}
-		return false;
+
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						loginCallBack.loginResponse(LOGIN_NO);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									BaseApplication.INSTANCE().setToken(message.getBody().getToken());
+									String userId = message.getBody().getOelement().getMessage();
+									getCurrentUser(userId,new GetUserCallBack(){
+										@Override
+										public void getUserResponse(UserInfo userInfo) {
+											if (userInfo != null) {
+												BaseApplication.INSTANCE().updateLocalUser(userInfo);
+											}
+										}
+									});
+									loginCallBack.loginResponse(LOGIN_YES);
+								}
+							}
+						}
+					}
+				});
 	}
 
 	@Override
-	public UserInfo getCurrentUser(String userId) {
-		Body body = sendJsonToService(userId, ConstantValue.TYPE_GET_USER);
-		if(body.getOelement().getErrorcode() == OelementType.SUCCESS) {
-			UserInfo userInfo = (UserInfo) GsonUtil.stringToObjectByBean(body.getElements(),UserInfo.class);
-			return userInfo;
-		}
-		return null;
+	public void checkToken(String token, final LoginCallBack loginCallBack) {
+		String content = getMessageToJson("");
+		userService.checkToken(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+
+					@Override
+					public void onCompleted() {
+					}
+
+					@Override
+					public void onError(Throwable e) {
+						e.printStackTrace();
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						loginCallBack.loginResponse(LOGIN_NO);
+					}
+
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									String jsonStr = message.getBody().getElements();
+									if(StringUtils.isNotEmpty(jsonStr)){
+										List<GoodsType> goodstypeList = (List<GoodsType>) GsonUtil.stringToObjectByType(jsonStr,new TypeToken<List<GoodsType>>(){}.getType());
+										if(goodstypeList != null){
+											BaseApplication.INSTANCE().setGoodstypes(goodstypeList);
+										}
+									}
+									loginCallBack.loginResponse(LOGIN_YES);
+								}
+							}
+						}
+					}
+				});
+	}
+
+	@Override
+	public void getCurrentUser(String userId, final GetUserCallBack getUserCallBack) {
+		String content = getMessageToJson(userId);
+		userService.getCurrentUser(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+
+					@Override
+					public void onCompleted() {
+					}
+
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						getUserCallBack.getUserResponse(null);
+					}
+
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									UserInfo userInfo = (UserInfo) GsonUtil.stringToObjectByBean(message.getBody().getElements(),UserInfo.class);
+									getUserCallBack.getUserResponse(userInfo);
+								}
+							}
+						}
+					}
+				});
 	}
 
 	@Override

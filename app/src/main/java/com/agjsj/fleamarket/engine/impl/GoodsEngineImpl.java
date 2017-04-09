@@ -1,41 +1,71 @@
 package com.agjsj.fleamarket.engine.impl;
 
-import com.agjsj.fleamarket.bean.json.PageJsonData;
-import com.agjsj.fleamarket.view.base.BaseApplication;
-import com.agjsj.fleamarket.bean.GoodsType;
-import com.agjsj.fleamarket.net.HttpClient;
-import com.agjsj.fleamarket.net.HttpFileReuqest;
-import com.agjsj.fleamarket.params.ConstantValue;
 import com.agjsj.fleamarket.bean.Goods;
+import com.agjsj.fleamarket.bean.GoodsType;
+import com.agjsj.fleamarket.bean.json.PageJsonData;
 import com.agjsj.fleamarket.engine.BaseEngine;
 import com.agjsj.fleamarket.engine.GoodsEngine;
-import com.agjsj.fleamarket.net.procotal.Body;
+import com.agjsj.fleamarket.net.HttpClient;
+import com.agjsj.fleamarket.net.HttpFileReuqest;
+import com.agjsj.fleamarket.net.HttpUtils;
 import com.agjsj.fleamarket.net.procotal.IMessage;
+import com.agjsj.fleamarket.net.service.GoodsService;
 import com.agjsj.fleamarket.params.OelementType;
 import com.agjsj.fleamarket.util.GsonUtil;
+import com.agjsj.fleamarket.util.LogUtil;
 import com.google.gson.reflect.TypeToken;
-
-import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.List;
 
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+
 public class GoodsEngineImpl extends BaseEngine implements GoodsEngine {
 
+	private GoodsService goodsService;
+
+	public GoodsEngineImpl() {
+		goodsService = HttpUtils.createService(GoodsService.class);
+	}
 
 	@Override
-	public boolean sendGoods(Goods good) {
+	public void sendGoods(Goods good, final SendGoodsCallBack callBack) {
 		if(good == null){
-			return false;
+			callBack.sendGoodsCallback(SEND_ERROR);
+			return;
 		}
 		String json = GsonUtil.objectToString(good);
-		Body body = sendJsonToService(json, ConstantValue.TYPE_SEND_GOODS);
-		if(body != null){
-			if(OelementType.SUCCESS == body.getOelement().getErrorcode()){
-				return true;
-			}
-		}
-		return false;
+		String content = getMessageToJson(json);
+		goodsService.sendGoods(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+
+					@Override
+					public void onCompleted() {
+					}
+
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						callBack.sendGoodsCallback(SEND_ERROR);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									callBack.sendGoodsCallback(SEND_OK);
+
+								}
+							}
+						}
+					}
+				});
+
 	}
 
 	@Override
@@ -52,17 +82,35 @@ public class GoodsEngineImpl extends BaseEngine implements GoodsEngine {
 	}
 
 	@Override
-	public List<Goods> getAllGoodsByPage(int start, int count, int type) {
+	public void getAllGoodsByPage(int start, int count, int type, final GetAllGoodsCallBack callBack) {
 		PageJsonData pageJsonData = new PageJsonData("",start,count,type);
 		String json = GsonUtil.objectToString(pageJsonData);
-		Body body = sendJsonToService(json, ConstantValue.TYPE_GET_GOODS_BY_PAGE);
-		if(body != null){
-			if(OelementType.SUCCESS == body.getOelement().getErrorcode()){
-				List<Goods> list = (List<Goods>) GsonUtil.stringToObjectByType(body.getElements(),new TypeToken<List<Goods>>(){}.getType());
-				return list;
-			}
-		}
-		return null;
+		String content = getMessageToJson(json);
+		goodsService.getAllGoodsByPage(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+					@Override
+					public void onCompleted() {
+					}
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						callBack.getAllGoodsCallback(null);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									List<Goods> list = (List<Goods>) GsonUtil.stringToObjectByType(message.getBody().getElements(),new TypeToken<List<Goods>>(){}.getType());
+									callBack.getAllGoodsCallback(list);
+								}
+							}
+						}
+					}
+				});
 	}
 
 	@Override
@@ -81,17 +129,33 @@ public class GoodsEngineImpl extends BaseEngine implements GoodsEngine {
 	}
 
 	@Override
-	public List<GoodsType> getAllGoodsType() {
-		Body body = sendJsonToService("", ConstantValue.TYPE_GET_GOODSTYPE);
-		if(body != null){
-			if(OelementType.SUCCESS == body.getOelement().getErrorcode()){
-				String resultJson = body.getElements();
-				if(StringUtils.isNotEmpty(resultJson)){
-					List<GoodsType> goodstypeList = GsonUtil.getGson().fromJson(resultJson,new TypeToken<List<GoodsType>>(){}.getType());
-					return goodstypeList;
-				}
-			}
-		}
-		return null;
+	public void getAllGoodsType(final GetAllGoodsTypeCallBack callBack) {
+		String content = getMessageToJson("");
+		goodsService.getAllGoodsType(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+					@Override
+					public void onCompleted() {
+					}
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						callBack.getAllGoodsTypeCallback(null);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									List<GoodsType> goodstypeList = GsonUtil.getGson().fromJson(message.getBody().getElements(),new TypeToken<List<GoodsType>>(){}.getType());
+									callBack.getAllGoodsTypeCallback(goodstypeList);
+								}
+							}
+						}
+					}
+				});
 	}
+
 }

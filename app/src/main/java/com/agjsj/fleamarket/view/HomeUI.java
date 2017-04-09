@@ -59,7 +59,10 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
     private int currentPageNum = 1;
     private static final int PAGE_SIZE = 5;
     private boolean isLoading = false;
+    private int eventMethod = 0 ;
     private int currentType = ConstantValue.SELECT_GOODS_BY_TIME;
+    public static final int ON_REFRESH = 1;
+    public static final int ON_LOADING = 2;
 
     public HomeUI(Context context) {
         super(context);
@@ -118,16 +121,27 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
             GoodsEngine goodsEngine = BeanFactory.getImpl(GoodsEngine.class);
             if (goodsEngine != null) {
                 isLoading = true;
-                List<Goods> lists = goodsEngine.getAllGoodsByPage(currentPageNum, PAGE_SIZE, currentType);
-                LogUtil.info(HomeUI.class, "从服务器上获取数据");
-                if (lists != null) {
-                    goodsList.addAll(lists);
-                    adapter.notifyDataSetChanged();
-                    currentPageNum++;
-                }else{
-                    //没有更多数据了
-                }
-                isLoading = false;
+                goodsEngine.getAllGoodsByPage(currentPageNum, PAGE_SIZE, currentType, new GoodsEngine.GetAllGoodsCallBack() {
+                    @Override
+                    public void getAllGoodsCallback(List<Goods> list) {
+                        if (goodsList != null) {
+                            goodsList.addAll(list);
+                            adapter.notifyDataSetChanged();
+                            currentPageNum++;
+                        }else{
+                            //没有更多数据了
+                        }
+                        LogUtil.info(HomeUI.class, "从服务器上获取数据");
+                        if(eventMethod == ON_REFRESH){
+                            pullToRefresh.onHeaderRefreshComplete("更新于："
+                                    + getCurrentDataTime());
+                        }else if(eventMethod == ON_LOADING){
+                            pullToRefresh.onFooterRefreshComplete();
+                        }
+                        isLoading = false;
+                    }
+                });
+
             }
         }
     }
@@ -141,15 +155,14 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
 
     private void onRefresh() {
         currentPageNum = 1;
+        eventMethod = ON_REFRESH;
         goodsList.clear();
-        adapter.notifyDataSetChanged();
         getGoodsFromServer();
-        pullToRefresh.onHeaderRefreshComplete("更新于："
-                + getCurrentDataTime());
     }
     private void onLoad() {
+        eventMethod = ON_LOADING;
         getGoodsFromServer();
-        pullToRefresh.onFooterRefreshComplete();
+
     }
     @Override
     public void onItemClick(int position) {

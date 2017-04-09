@@ -9,12 +9,28 @@ import java.util.List;
 
 public interface GoodsEngine {
 
+	public static final int SEND_OK = 1;
+	public static final int SEND_ERROR = 0;
+
+	public interface SendGoodsCallBack {
+		public void sendGoodsCallback(int responseCode);
+	}
+
+	public interface GetAllGoodsCallBack {
+		public void getAllGoodsCallback(List<Goods> goodsList);
+	}
+
+	public interface GetAllGoodsTypeCallBack {
+		public void getAllGoodsTypeCallback(List<GoodsType> goodsTypeList);
+	}
+
+
 	/**
 	 * 发布商品
 	 * @param good （包含发布者对象和goodsType对象）
 	 * @return
 	 */
-	public boolean sendGoods(Goods good);
+	public void sendGoods(Goods good, final SendGoodsCallBack callBack);
 
 	/**
 	 * 上传图片
@@ -41,7 +57,7 @@ public interface GoodsEngine {
 	 * @param count
 	 * @return
 	 */
-	public List<Goods> getAllGoodsByPage(int start, int count, int type);
+	public void getAllGoodsByPage(int start, int count, int type ,final GetAllGoodsCallBack callBack);
 
 	/**
 	 * 更新某件商品
@@ -71,6 +87,6 @@ public interface GoodsEngine {
 	 * 获取所有产品分类
 	 * @return
 	 */
-	public List<GoodsType> getAllGoodsType();
+	public void getAllGoodsType(final GetAllGoodsTypeCallBack callBack);
 
 }

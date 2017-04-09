@@ -1,6 +1,5 @@
 package com.agjsj.fleamarket;
 
-import com.agjsj.fleamarket.bean.User;
 import com.agjsj.fleamarket.bean.UserInfo;
 import com.agjsj.fleamarket.engine.TestEngin;
 import com.agjsj.fleamarket.engine.UserEngine;
