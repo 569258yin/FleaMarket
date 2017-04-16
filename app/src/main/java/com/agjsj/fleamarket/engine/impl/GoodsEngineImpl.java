@@ -114,6 +114,38 @@ public class GoodsEngineImpl extends BaseEngine implements GoodsEngine {
 	}
 
 	@Override
+	public void getAllGoodsByGoodsTypeId(int start, int count, int goodsTypeId, final GetAllGoodsCallBack callBack) {
+		PageJsonData pageJsonData = new PageJsonData("",start,count,goodsTypeId);
+		String json = GsonUtil.objectToString(pageJsonData);
+		String content = getMessageToJson(json);
+		goodsService.getAllGoodsByGoodsTypeId(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+					@Override
+					public void onCompleted() {
+					}
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						callBack.getAllGoodsCallback(null);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									List<Goods> list = (List<Goods>) GsonUtil.stringToObjectByType(message.getBody().getElements(),new TypeToken<List<Goods>>(){}.getType());
+									callBack.getAllGoodsCallback(list);
+								}
+							}
+						}
+					}
+				});
+	}
+
+	@Override
 	public boolean updateGoods(Goods goods) {
 		return false;
 	}

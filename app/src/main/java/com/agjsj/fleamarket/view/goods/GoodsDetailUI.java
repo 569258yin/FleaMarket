@@ -76,6 +76,8 @@ public class GoodsDetailUI extends BaseUI {
     EditText editText;
     @Bind(R.id.btn_chat_send)
     Button sendBtn;
+    @Bind(R.id.commom_title)
+    RelativeLayout common_title;
     
     private LinearLayoutManager layoutManager;
     private List<String> imagePathList;
@@ -98,6 +100,7 @@ public class GoodsDetailUI extends BaseUI {
     public void init() {
         this.showInMiddle = (RelativeLayout) View.inflate(context, R.layout.activity_goods, null);
         ButterKnife.bind(this, showInMiddle);
+        common_title.setVisibility(View.GONE);
         initRecycleView();
     }
     @Override
@@ -250,7 +253,7 @@ public class GoodsDetailUI extends BaseUI {
                     }else{//回复评论人
                         ReplayEngine replayEngine = BeanFactory.getImpl(ReplayEngine.class);
                         if (replayEngine != null){
-                            final Torepaly torepaly = new Torepaly(goods.getGoodsid(),BaseApplication.INSTANCE().getCurrentUser().getUserid(),currentToUserID
+                            final Torepaly torepaly = new Torepaly(goodsrepalyList.get(currentPosition).getGoodsreplayid(),BaseApplication.INSTANCE().getCurrentUser().getUserid(),currentToUserID
                             ,text,new Date());
                             replayEngine.sendToReplay(torepaly, new ReplayEngine.SendReplayCallBack() {
                                 @Override

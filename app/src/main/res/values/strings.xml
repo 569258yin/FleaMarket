@@ -7,8 +7,8 @@
     <string name="is_positive">确定</string>
     <string name="is_negative">取消</string>
     <string name="is_loading">加载中……</string>
-    
-    
+
+
     <string name="is_ssq_default_notice">广告公告</string>
     <string name="pull_to_refresh_pull_label">下拉刷新</string>
     <string name="pull_to_refresh_release_label">松开后刷新</string>
@@ -17,7 +17,7 @@
     <string name="pull_to_refresh_footer_pull_label">上拉加载更多</string>
     <string name="pull_to_refresh_footer_refreshing_label">加载中\u2026</string>
     <string name="pull_to_refresh_header_time">更新于：07-28 15:32</string>
-    
+
     <string name="main_dian_tuijian">推荐商品</string>
     <string name="main_dian_zuixin">最新发布</string>
     <string name="main_bottom_home">首 页</string>
@@ -26,5 +26,8 @@
     <string name="main_bottom_me">我 的</string>
     <string name="main_search_hnit">请输入宝贝关键字</string>
     <string name="RMB">¥</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

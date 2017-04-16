@@ -104,6 +104,19 @@ public class SendGoodActivity extends BaseActivity {
                     if (goodsTypeList != null){
                         BaseApplication.INSTANCE().setGoodstypes(goodsTypeList);
                         GoodsTypeList.addAll(goodsTypeList);
+                        texts = new String[GoodsTypeList.size()];
+                        values = new int[GoodsTypeList.size()];
+                        for (int i = 0; i < GoodsTypeList.size(); i++) {
+                            GoodsType GoodsType = GoodsTypeList.get(i);
+                            texts[i] = GoodsType.getGoodstypename();
+                            values[i] = GoodsType.getGoodstypeid();
+                        }
+                        //绑定要显示的texts
+                        adapter = new ArrayAdapter<String>(SendGoodActivity.this, android.R.layout.simple_spinner_item, texts);
+                        //设置下拉列表的风格
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner.setAdapter(adapter);
+                        spinner.setOnItemSelectedListener(new SpinnerSelectedListener());
                     }else {
                         toast("商品类别为null");
                         finish();

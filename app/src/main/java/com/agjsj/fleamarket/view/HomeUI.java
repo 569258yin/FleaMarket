@@ -63,6 +63,7 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
     private int currentType = ConstantValue.SELECT_GOODS_BY_TIME;
     public static final int ON_REFRESH = 1;
     public static final int ON_LOADING = 2;
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public HomeUI(Context context) {
         super(context);
@@ -124,7 +125,7 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
                 goodsEngine.getAllGoodsByPage(currentPageNum, PAGE_SIZE, currentType, new GoodsEngine.GetAllGoodsCallBack() {
                     @Override
                     public void getAllGoodsCallback(List<Goods> list) {
-                        if (goodsList != null) {
+                        if (goodsList != null && list != null) {
                             goodsList.addAll(list);
                             adapter.notifyDataSetChanged();
                             currentPageNum++;
@@ -148,7 +149,6 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
 
     //		tvLastUpdateTime.setText("最后刷新时间："+getLastUpdateTime());
     private String getCurrentDataTime() {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(new Date());
     }
 

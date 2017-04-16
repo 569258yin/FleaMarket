@@ -60,6 +60,15 @@ public interface GoodsEngine {
 	public void getAllGoodsByPage(int start, int count, int type ,final GetAllGoodsCallBack callBack);
 
 	/**
+	 * 分页加载指定类型所有的商品
+	 *
+	 * @param start
+	 * @param count
+	 * @return
+	 */
+	public void getAllGoodsByGoodsTypeId(int start, int count, int goodsTypeId ,final GetAllGoodsCallBack callBack);
+
+	/**
 	 * 更新某件商品
 	 * 
 	 * @param goods

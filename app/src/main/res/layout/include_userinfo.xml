@@ -65,7 +65,7 @@
                 android:maxLines="1"
                 android:text="@string/RMB"
                 android:textColor="@color/red"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
             <TextView
                 android:id="@+id/tv_goodsitem_money"
                 android:layout_width="wrap_content"
@@ -75,7 +75,7 @@
                 android:maxLines="1"
                 android:text="6.0"
                 android:textColor="@color/red"
-                android:textSize="20sp" />
+                android:textSize="18sp" />
         </LinearLayout>
     </RelativeLayout>
 

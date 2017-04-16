@@ -1,6 +1,7 @@
 package com.agjsj.fleamarket.view.manager;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.view.HomeUI;
+import com.agjsj.fleamarket.view.goods.GoodsCategoryActivity;
 import com.agjsj.fleamarket.view.search.SearchUI;
 
 import org.apache.commons.lang3.StringUtils;
@@ -28,6 +30,7 @@ public class TitleManager implements Observer {
     private EditText searchEdit;
     private TextView back;
     private TextView title;
+    private TextView category;
 
     private static TitleManager titleManager = new TitleManager();
     private static final String TAG = "TilteManager";
@@ -52,16 +55,24 @@ public class TitleManager implements Observer {
     //		init(activity);
     //	}
 
-    public void init(Activity activity) {
+    public void init(final Activity activity) {
         commomContainer = (RelativeLayout) activity
                 .findViewById(R.id.ii_common_container);
         searchContainer = (RelativeLayout) activity
                 .findViewById(R.id.ii_search_title);
 
         searchEdit = (EditText) searchContainer.findViewById(R.id.et_title_search_content);
+        category = (TextView) searchContainer.findViewById(R.id.tv_title_category);
         back = (TextView) commomContainer.findViewById(R.id.tv_title_back);
         title = (TextView) commomContainer.findViewById(R.id.tv_title_text);
         setListener();
+        category.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(activity, GoodsCategoryActivity.class);
+                activity.startActivity(intent);
+            }
+        });
 
     }
 
@@ -78,6 +89,7 @@ public class TitleManager implements Observer {
                 MiddleManager.getInstance().changeUI(HomeUI.class);
             }
         });
+
     }
 
     //初始化

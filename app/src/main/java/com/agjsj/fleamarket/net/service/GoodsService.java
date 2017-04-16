@@ -17,6 +17,8 @@ public interface GoodsService {
 
     @POST(ConstantValue.URL_GET_GOODS_BY_PAGE)
     Observable<String> getAllGoodsByPage(@Body String content);
+    @POST(ConstantValue.URL_GET_GOODS_BY_GOODSTYPEID)
+    Observable<String> getAllGoodsByGoodsTypeId(@Body String content);
 
     @POST()
     Observable<String> uploadImage(@Body String content);
