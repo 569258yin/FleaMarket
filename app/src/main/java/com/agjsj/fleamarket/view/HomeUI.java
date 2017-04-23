@@ -132,7 +132,6 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
                         }else{
                             //没有更多数据了
                         }
-                        LogUtil.info(HomeUI.class, "从服务器上获取数据");
                         if(eventMethod == ON_REFRESH){
                             pullToRefresh.onHeaderRefreshComplete("更新于："
                                     + getCurrentDataTime());

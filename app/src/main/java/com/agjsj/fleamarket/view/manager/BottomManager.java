@@ -4,16 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RadioGroup;
 import android.widget.RadioGroup.OnCheckedChangeListener;
 import android.widget.RelativeLayout;
 
 import com.agjsj.fleamarket.R;
-import com.agjsj.fleamarket.params.ConstantValue;
 import com.agjsj.fleamarket.params.GlobalParams;
-import com.agjsj.fleamarket.view.Hall;
+import com.agjsj.fleamarket.view.SchoolUI;
 import com.agjsj.fleamarket.view.HomeUI;
 import com.agjsj.fleamarket.view.SecondUI;
 import com.agjsj.fleamarket.view.send.SendGoodActivity;
@@ -163,7 +161,7 @@ public class BottomManager implements Observer,OnClickListener,OnCheckedChangeLi
 			MiddleManager.getInstance().changeUI(HomeUI.class);
 			break;
 		case R.id.rb_main_type:
-			MiddleManager.getInstance().changeUI(Hall.class);
+			MiddleManager.getInstance().changeUI(SchoolUI.class);
 			break;
 		case R.id.rb_main_message:
 			MiddleManager.getInstance().changeUI(SecondUI.class);

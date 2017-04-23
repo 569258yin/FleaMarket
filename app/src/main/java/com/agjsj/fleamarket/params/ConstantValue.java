@@ -39,7 +39,7 @@ public interface ConstantValue {
 	/**
 	 * 请求地址FileMaketServer
 	 */
-	String URL_ROOT = "http://192.168.5.8:8080/FileMaketServer/";
+	String URL_ROOT = "http://192.168.5.9:8080/FileMaketServer/";
 	/** 用户登录 */
 	String URL_USER_LOGIN ="account/loginAccount.action";
 	/** 检测token是否存在或过期 */
@@ -58,12 +58,7 @@ public interface ConstantValue {
 	String URL_GET_GOODS_REPLAY = "goodsReplay/getAllGoodsReplay.action";
 	String URL_SEND_GOODS_TO_REPLAY = "goodsReplay/sendToReplay.action";
 
-	String GOODS_URL = "http://192.168.67.107:8080/SHService";
-	String GOODS_LIKE_URL = "http://192.168.67.107:8080/SHService";
-	String GOODS_REPLAY_URL = "http://192.168.67.107:8080/SHService";
-	String GOODS_COLLECT_URL = "http://192.168.67.107:8080/SHService";
-	String GOODS_TOREPLAY_URL = "http://192.168.67.107:8080/SHService";
-	String FOUND_URL = "http://192.168.67.107:8080/SHService";
+
 	/** 上传文件图片 */
 	String IMAGE_UPLOAD = "file/imgUpload.action";
 	/**

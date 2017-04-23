@@ -31,6 +31,7 @@ public class TitleManager implements Observer {
     private TextView back;
     private TextView title;
     private TextView category;
+    private TextView tvRight;
 
     private static TitleManager titleManager = new TitleManager();
     private static final String TAG = "TilteManager";
@@ -65,6 +66,7 @@ public class TitleManager implements Observer {
         category = (TextView) searchContainer.findViewById(R.id.tv_title_category);
         back = (TextView) commomContainer.findViewById(R.id.tv_title_back);
         title = (TextView) commomContainer.findViewById(R.id.tv_title_text);
+        tvRight = (TextView) commomContainer.findViewById(R.id.tv_title_right);
         setListener();
         category.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -74,6 +76,16 @@ public class TitleManager implements Observer {
             }
         });
 
+    }
+
+    interface RightTvOnClickListen{
+        void OnClick();
+    }
+
+    private RightTvOnClickListen rightTvOnClickListen;
+
+    public void setRightTvOnClickListen(RightTvOnClickListen rightTvOnClickListen) {
+        this.rightTvOnClickListen = rightTvOnClickListen;
     }
 
     private void setListener() {
@@ -89,7 +101,6 @@ public class TitleManager implements Observer {
                 MiddleManager.getInstance().changeUI(HomeUI.class);
             }
         });
-
     }
 
     //初始化
@@ -101,6 +112,14 @@ public class TitleManager implements Observer {
     //显示和隐藏
     public void showCommonTitle() {
         initTitle();
+        if(rightTvOnClickListen != null) {
+            tvRight.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    rightTvOnClickListen.OnClick();
+                }
+            });
+        }
         commomContainer.setVisibility(View.VISIBLE);
     }
 
@@ -132,6 +151,12 @@ public class TitleManager implements Observer {
                 case GlobalParams.VIEW_HOME:
                     showSearchTitle();
                     break;
+                case GlobalParams.VIEW_SCHOOL:
+                    back.setVisibility(View.GONE);
+                    title.setText("失物招领");
+                    tvRight.setText("发布");
+                    showCommonTitle();
+                    break;
                 default:
                     initTitle();
                     break;
@@ -146,7 +171,7 @@ public class TitleManager implements Observer {
 //				showCommonTitle();
 //				break;
 //
-//			case ConstantValue.VIEW_HALL:
+//			case ConstantValue.VIEW_SCHOOL:
 //				if (GlobalParams.isLogin) {
 //					showLoginTitle();
 //					String info = "用户名：" + GlobalParams.USERNAME + "\r\n" + "余额:" + GlobalParams.MONEY;

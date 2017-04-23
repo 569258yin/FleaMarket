@@ -20,7 +20,7 @@
             android:src="@drawable/id_bell" />
 
         <TextView
-            android:id="@+id/ii_purchase_activity_title"
+            android:id="@+id/ii_purchase_school_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dip"
@@ -42,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:gravity="center_horizontal"
-            android:text="福彩"
+            android:text="丢失物品"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
 
@@ -52,17 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1.0"
             android:gravity="center_horizontal"
-            android:text="体彩"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/ii_category_gpc"
-            android:layout_width="0dip"
-            android:layout_height="wrap_content"
-            android:layout_weight="1.0"
-            android:gravity="center_horizontal"
-            android:text="双色球"
+            android:text="拾金不昧"
             android:textColor="@android:color/black"
             android:textSize="18sp" />
     </LinearLayout>
@@ -75,7 +65,7 @@
         android:src="@drawable/id_category_selector" />
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager_test"
+        android:id="@+id/viewpager_school"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

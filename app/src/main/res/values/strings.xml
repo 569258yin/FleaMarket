@@ -20,9 +20,9 @@
 
     <string name="main_dian_tuijian">推荐商品</string>
     <string name="main_dian_zuixin">最新发布</string>
-    <string name="main_bottom_home">首 页</string>
+    <string name="main_bottom_home">主 页</string>
+    <string name="main_bottom_school">校 园</string>
     <string name="main_bottom_message">消 息</string>
-    <string name="main_bottom_find">发 现</string>
     <string name="main_bottom_me">我 的</string>
     <string name="main_search_hnit">请输入宝贝关键字</string>
     <string name="RMB">¥</string>

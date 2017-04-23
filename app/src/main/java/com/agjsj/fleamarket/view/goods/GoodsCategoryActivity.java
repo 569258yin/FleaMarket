@@ -18,6 +18,7 @@ import com.agjsj.fleamarket.engine.GoodsEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.view.base.BaseActivity;
 import com.agjsj.fleamarket.view.base.BaseApplication;
+import com.agjsj.fleamarket.view.base.BaseFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class GoodsCategoryActivity extends BaseActivity {
     private List<GoodsType> goodsTypeList;
     private GoodsCategoryAdapter adapter;
     private GoodsViewPagerAdapter viewPagerAdapter;
-    private List<GoodsFragment> viewList = new ArrayList<>();
+    private List<BaseFragment> viewList = new ArrayList<>();
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,7 +88,7 @@ public class GoodsCategoryActivity extends BaseActivity {
         adapter.setTextViewCallBack(new GoodsCategoryAdapter.TextViewCallBack() {
             @Override
             public void OnTextViewClick(GoodsType goodsType, int position) {
-                viewList.get(position).onRefresh();
+                viewList.get(position).setUserVisibleHint(true);
                 viewPager.setCurrentItem(position);
             }
         });
@@ -102,18 +103,20 @@ public class GoodsCategoryActivity extends BaseActivity {
         }
         viewPagerAdapter = new GoodsViewPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(viewPagerAdapter);
+        viewPager.setOffscreenPageLimit(goodsTypeList.size() - 1);
         viewPager.addOnPageChangeListener(new MyOnPageChangeListener());
         viewPager.setCurrentItem(0);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(200);
-                } catch (InterruptedException e) {
-                }
-                viewList.get(0).onRefresh();
-            }
-        }).start();
+        viewList.get(0).setUserVisibleHint(true);
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                try {
+//                    Thread.sleep(200);
+//                } catch (InterruptedException e) {
+//                }
+//                viewList.get(0).onRefresh();
+//            }
+//        }).start();
     }
 
 
@@ -152,7 +155,7 @@ public class GoodsCategoryActivity extends BaseActivity {
 
         @Override
         public void onPageSelected(int arg0) {
-            viewList.get(arg0).onRefresh();
+            viewList.get(arg0).setUserVisibleHint(true);
         }
     }
 

@@ -94,11 +94,13 @@ public class GoodsDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_goods);
         common_title.setVisibility(View.VISIBLE);
-        goods = (Goods) getIntent().getSerializableExtra("goods");
+        goods = (Goods) getBundle().getSerializable("goods");
         tvTitleBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
+                //设置跳转动画
+                overridePendingTransition(R.anim.fade_out,R.anim.fade_in);
             }
         });
         tvTitleText.setText("商品详情");

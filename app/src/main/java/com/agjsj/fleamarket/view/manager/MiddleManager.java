@@ -1,11 +1,13 @@
 package com.agjsj.fleamarket.view.manager;
 
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.RelativeLayout;
 
+import com.agjsj.fleamarket.util.LogUtil;
 import com.agjsj.fleamarket.util.MemoryManager;
 import com.agjsj.fleamarket.util.PromptManager;
 import com.agjsj.fleamarket.util.SoftMap;
@@ -26,6 +28,9 @@ public class MiddleManager extends Observable {
 	private static final String TAG = "MiddleManager";
 	private static MiddleManager instance = new MiddleManager();
 
+	private Context context;
+	private FragmentManager fragmentManager;
+
 	private MiddleManager() {
 	}
 
@@ -37,6 +42,11 @@ public class MiddleManager extends Observable {
 
 	public void setMiddle(RelativeLayout middle) {
 		this.middle = middle;
+	}
+
+	public void init(Context context, FragmentManager fragmentManager){
+		this.context = context;
+		this.fragmentManager = fragmentManager;
 	}
 
 	// 利用手机内存空间，换应用应用的运行速度
@@ -102,6 +112,7 @@ public class MiddleManager extends Observable {
 			try {
 				Constructor<? extends BaseUI> constructor = targetClazz.getConstructor(Context.class);
 				targetUI = constructor.newInstance(getContext());
+				targetUI.setmFragmentManager(fragmentManager);
 				VIEWCACHE.put(key, targetUI);
 			} catch (Exception e) {
 				throw new RuntimeException("constructor new instance error");
@@ -165,10 +176,12 @@ public class MiddleManager extends Observable {
 			try {
 				Constructor<? extends BaseUI> constructor = targetClazz.getConstructor(Context.class);
 				targetUI = constructor.newInstance(getContext());
+				targetUI.setmFragmentManager(fragmentManager);
 				VIEWCACHE.put(key, targetUI);
 			} catch (Exception e) {
 				e.printStackTrace();
-				throw new RuntimeException("创建"+key+"UI对象时出错，请log或debug此UI中的代码");
+				LogUtil.error("创建"+key+"UI对象时出错",e);
+				throw new RuntimeException("创建"+key+"UI对象时出错，请log或debug此UI中的代码",e);
 			}
 		}
 
@@ -284,7 +297,7 @@ public class MiddleManager extends Observable {
 				}else{
 					// 处理方式一：创建一个新的目标界面：存在问题——如果有其他的界面传递给被删除的界面
 					// 处理方式二：寻找一个不需要其他界面传递数据——跳转到首页
-//					changeUI(Hall.class);
+//					changeUI(SchoolUI.class);
 					PromptManager.showToast(getContext(), "应用在低内存下运行");
 				}
 

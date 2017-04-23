@@ -7,13 +7,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.v4.app.FragmentManager;
 import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
-
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.bean.MessageEvent;
 import com.agjsj.fleamarket.dialog.ProgressDialog;
@@ -25,12 +25,10 @@ import com.agjsj.fleamarket.view.manager.BottomManager;
 import com.agjsj.fleamarket.view.manager.MiddleManager;
 import com.agjsj.fleamarket.view.manager.TitleManager;
 import com.agjsj.fleamarket.view.user.LoginActivity;
-
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.Date;
-import java.util.HashMap;
 
 public class MainActivity extends BaseActivity {
 
@@ -38,11 +36,14 @@ public class MainActivity extends BaseActivity {
 	private long lastTime;
 	private ProgressDialog progressDialog;
 	private Object middleObj;
+	private FragmentManager mFragmentManager;
+
 	@RequiresApi(api = Build.VERSION_CODES.M)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.il_main);
+		mFragmentManager = getSupportFragmentManager();
 		// 获取屏幕的宽度
 		// 用于viewPage的计算
 		DisplayMetrics metrics = new DisplayMetrics();
@@ -102,6 +103,7 @@ public class MainActivity extends BaseActivity {
 //		 BottomManager.getInstrance().showCommonBottom();
 
 		middle = (RelativeLayout) findViewById(R.id.il_middle);
+		MiddleManager.getInstance().init(this,mFragmentManager);
 		MiddleManager.getInstance().setMiddle(middle);
 
 		// 建立观察者和被观察者之间的关系（标题和底部导航添加到观察者的容器里面）
@@ -171,7 +173,7 @@ public class MainActivity extends BaseActivity {
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if(MiddleManager.getInstance().getCurrentUI().getClass() == HomeUI.class
-					|| MiddleManager.getInstance().getCurrentUI().getClass() == Hall.class
+					|| MiddleManager.getInstance().getCurrentUI().getClass() == SchoolUI.class
 					|| MiddleManager.getInstance().getCurrentUI().getClass() == SecondUI.class
 					){
 				// boolean result = MiddleManager.getInstance().goBack();
@@ -204,5 +206,9 @@ public class MainActivity extends BaseActivity {
 
 	public void setMiddleObj(Object middleObj) {
 		this.middleObj = middleObj;
+	}
+
+	public FragmentManager getmFragmentManager() {
+		return mFragmentManager;
 	}
 }

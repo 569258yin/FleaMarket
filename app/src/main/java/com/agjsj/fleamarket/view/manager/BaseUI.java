@@ -1,5 +1,6 @@
 package com.agjsj.fleamarket.view.manager;
 
+import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ import com.agjsj.fleamarket.util.PromptManager;
  */
 public abstract class BaseUI implements View.OnClickListener {
 	protected Context context;
+	protected FragmentManager mFragmentManager;
 	protected Bundle bundle;
 	// 显示到中间容器
 	protected ViewGroup showInMiddle;
@@ -28,8 +30,10 @@ public abstract class BaseUI implements View.OnClickListener {
 		init();
 		setListener();
 	}
-	
-	
+
+	public void setmFragmentManager(FragmentManager mFragmentManager) {
+		this.mFragmentManager = mFragmentManager;
+	}
 
 	public void setBundle(Bundle bundle) {
 		this.bundle = bundle;

@@ -45,7 +45,6 @@
             <RadioButton
                 android:id="@+id/rb_main_home"
                 style="@style/RadioButtonBottomTab"
-                android:text="宝贝"
                 android:checked="true"
                 android:drawableTop="@drawable/icon_home"
                 />

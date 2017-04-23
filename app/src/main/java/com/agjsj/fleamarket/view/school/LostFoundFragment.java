@@ -1,15 +1,10 @@
-package com.agjsj.fleamarket.view.goods;
+package com.agjsj.fleamarket.view.school;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.adapter.base.OnRecyclerViewImageListener;
 import com.agjsj.fleamarket.adapter.base.OnRecyclerViewListener;
@@ -28,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 
-public class GoodsFragment extends BaseFragment implements PullToRefreshView.OnFooterRefreshListener,
+public class LostFoundFragment extends BaseFragment implements PullToRefreshView.OnFooterRefreshListener,
         PullToRefreshView.OnHeaderRefreshListener,OnRecyclerViewListener, OnRecyclerViewImageListener {
 
     @Bind(R.id.recyclerview_home)
@@ -37,7 +32,7 @@ public class GoodsFragment extends BaseFragment implements PullToRefreshView.OnF
     PullToRefreshView pullToRefresh;
 
     private List<Goods> goodsList;
-    private int goodsTypeId;
+    private int type;
     private LinearLayoutManager layoutManager;
     private GoodsAdapter adapter;
     private int currentPageNum = 1;
@@ -55,12 +50,6 @@ public class GoodsFragment extends BaseFragment implements PullToRefreshView.OnF
     }
 
     @Override
-    protected void initData(Bundle arguments) {
-        goodsTypeId = arguments.getInt("goodsTypeId");
-    }
-
-
-    @Override
     protected void initView() {
         goodsList = new ArrayList<>();
         layoutManager = new LinearLayoutManager(getContext());
@@ -75,26 +64,25 @@ public class GoodsFragment extends BaseFragment implements PullToRefreshView.OnF
     }
 
     @Override
-    protected void onFragmentVisibleChange(boolean isVisible) {
-        if(isVisible) {
-
-        }else {
-
-        }
+    protected void initData(Bundle arguments) {
+        type = arguments.getInt("Type");
     }
 
     @Override
-    public void onFragmentFirstVisible() {
+    protected void onFragmentVisibleChange(boolean isVisible) {
+    }
+
+    @Override
+    protected void onFragmentFirstVisible() {
         getGoodsFromServer();
     }
 
     private void getGoodsFromServer() {
-        LogUtil.info("goodsTypeId="+goodsTypeId);
         if (!isLoading) {
             GoodsEngine goodsEngine = BeanFactory.getImpl(GoodsEngine.class);
             if (goodsEngine != null) {
                 isLoading = true;
-                goodsEngine.getAllGoodsByGoodsTypeId(currentPageNum, PAGE_SIZE, goodsTypeId, new GoodsEngine.GetAllGoodsCallBack() {
+                goodsEngine.getAllGoodsByGoodsTypeId(currentPageNum, PAGE_SIZE, type, new GoodsEngine.GetAllGoodsCallBack() {
                     @Override
                     public void getAllGoodsCallback(List<Goods> list) {
 
@@ -152,11 +140,11 @@ public class GoodsFragment extends BaseFragment implements PullToRefreshView.OnF
 
     @Override
     public void onItemClick(int position) {
-        Bundle bundle = new Bundle();
-        bundle.putSerializable("goods",goodsList.get(position));
-        startActivity(GoodsDetailActivity.class,bundle);
+        Intent intent = new Intent(getContext(),LostFoundFragment.class);
+        intent.putExtra("goods",goodsList.get(position));
+        startActivity(intent);
         //设置跳转动画
-        mActivity.overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
+        getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
     }
 
     @Override
@@ -173,4 +161,6 @@ public class GoodsFragment extends BaseFragment implements PullToRefreshView.OnF
     public void onImageItemClick(int itemPosition, int imagePosition) {
 
     }
+
+
 }

@@ -32,8 +32,8 @@ public class GlobalParams {
 	/**
 	 * View Type
 	 */
-	public static final int VIEW_HALL = 0000;
-	public static final int VIEW_SECOND = 0002;
+	public static final int VIEW_SCHOOL = 0002;
+	public static final int VIEW_SECOND = 0003;
 	public static final int VIEW_HOME = 0001;
 	public static final int VIEW_SEARCH = 1000;
 	public static final int VIEW_GOODSDETAIL = 1001;
