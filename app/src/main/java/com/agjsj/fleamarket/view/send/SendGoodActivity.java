@@ -5,44 +5,33 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.GridView;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import android.widget.*;
+import butterknife.Bind;
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.adapter.goods.GridImageAdapter;
 import com.agjsj.fleamarket.bean.Goods;
 import com.agjsj.fleamarket.bean.GoodsType;
 import com.agjsj.fleamarket.bean.ImagePath;
+import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.GoodsEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.util.GsonUtil;
 import com.agjsj.fleamarket.view.base.BaseActivity;
 import com.agjsj.fleamarket.view.base.BaseApplication;
 import com.agjsj.fleamarket.view.myview.CircleImageView;
-import com.baidu.location.BDLocationListener;
-import com.baidu.location.LocationClient;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.bean.ImageItem;
 import com.lzy.imagepicker.ui.ImageGridActivity;
 import com.nanchen.compresshelper.CompressHelper;
-
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import butterknife.Bind;
 
 /**
  * Created by YH on 2017/3/17.
@@ -98,9 +87,9 @@ public class SendGoodActivity extends BaseActivity {
         if(GoodsTypeList == null){
             GoodsTypeList = new ArrayList<>();
             GoodsEngine goodsEngine = BeanFactory.getImpl(GoodsEngine.class);
-            goodsEngine.getAllGoodsType(new GoodsEngine.GetAllGoodsTypeCallBack() {
+            goodsEngine.getAllGoodsType(new BaseCallBack.GetAllListCallBack<GoodsType>() {
                 @Override
-                public void getAllGoodsTypeCallback(List<GoodsType> goodsTypeList) {
+                public void getAllResultCallBack(List<GoodsType> goodsTypeList) {
                     if (goodsTypeList != null){
                         BaseApplication.INSTANCE().setGoodstypes(goodsTypeList);
                         GoodsTypeList.addAll(goodsTypeList);
@@ -244,10 +233,10 @@ public class SendGoodActivity extends BaseActivity {
                     goods.setGoodsicon(sb.toString().substring(0,sb.toString().length()-1));
                 }
                 goods.setUserid(BaseApplication.INSTANCE().getCurrentUser().getUserid());
-                goodsEngine.sendGoods(goods, new GoodsEngine.SendGoodsCallBack() {
+                goodsEngine.sendGoods(goods, new BaseCallBack.SendCallBack() {
                     @Override
-                    public void sendGoodsCallback(int responseCode) {
-                        if(responseCode == GoodsEngine.SEND_OK){
+                    public void sendResultCallBack(int responseCode) {
+                        if(responseCode == BaseCallBack.SEND_OK){
                             toast("发布成功");
                             finish();
                         }else {

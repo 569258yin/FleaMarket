@@ -9,28 +9,13 @@ import java.util.List;
 
 public interface GoodsEngine {
 
-	public static final int SEND_OK = 1;
-	public static final int SEND_ERROR = 0;
-
-	public interface SendGoodsCallBack {
-		public void sendGoodsCallback(int responseCode);
-	}
-
-	public interface GetAllGoodsCallBack {
-		public void getAllGoodsCallback(List<Goods> goodsList);
-	}
-
-	public interface GetAllGoodsTypeCallBack {
-		public void getAllGoodsTypeCallback(List<GoodsType> goodsTypeList);
-	}
-
 
 	/**
 	 * 发布商品
 	 * @param good （包含发布者对象和goodsType对象）
 	 * @return
 	 */
-	public void sendGoods(Goods good, final SendGoodsCallBack callBack);
+	public void sendGoods(Goods good, final BaseCallBack.SendCallBack callBack);
 
 	/**
 	 * 上传图片
@@ -57,7 +42,7 @@ public interface GoodsEngine {
 	 * @param count
 	 * @return
 	 */
-	public void getAllGoodsByPage(int start, int count, int type ,final GetAllGoodsCallBack callBack);
+	public void getAllGoodsByPage(int start, int count, int type ,final BaseCallBack.GetAllListCallBack<Goods> callBack);
 
 	/**
 	 * 分页加载指定类型所有的商品
@@ -66,7 +51,7 @@ public interface GoodsEngine {
 	 * @param count
 	 * @return
 	 */
-	public void getAllGoodsByGoodsTypeId(int start, int count, int goodsTypeId ,final GetAllGoodsCallBack callBack);
+	public void getAllGoodsByGoodsTypeId(int start, int count, int goodsTypeId ,final BaseCallBack.GetAllListCallBack<Goods> callBack);
 
 	/**
 	 * 更新某件商品
@@ -96,6 +81,6 @@ public interface GoodsEngine {
 	 * 获取所有产品分类
 	 * @return
 	 */
-	public void getAllGoodsType(final GetAllGoodsTypeCallBack callBack);
+	public void getAllGoodsType(final BaseCallBack.GetAllListCallBack<GoodsType> callBack);
 
 }

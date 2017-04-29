@@ -1,18 +1,14 @@
 package com.agjsj.fleamarket.view.goods;
 
 import android.content.Context;
-import android.content.Intent;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-
+import android.widget.*;
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.adapter.base.OnRecyclerViewListener;
 import com.agjsj.fleamarket.adapter.discuss.DiscussAdapter;
@@ -21,6 +17,7 @@ import com.agjsj.fleamarket.bean.Goods;
 import com.agjsj.fleamarket.bean.Goodsrepaly;
 import com.agjsj.fleamarket.bean.Torepaly;
 import com.agjsj.fleamarket.bean.UserInfo;
+import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.ReplayEngine;
 import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.util.BeanFactory;
@@ -31,7 +28,6 @@ import com.agjsj.fleamarket.view.MainActivity;
 import com.agjsj.fleamarket.view.base.BaseApplication;
 import com.agjsj.fleamarket.view.manager.BaseUI;
 import com.agjsj.fleamarket.view.myview.CircleImageView;
-
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.ParseException;
@@ -40,9 +36,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
-
-import butterknife.Bind;
-import butterknife.ButterKnife;
 
 /**
  * Created by YH on 2017/3/30.
@@ -92,8 +85,8 @@ public class GoodsDetailUI extends BaseUI {
     private DiscussAdapter discussAdapter;
 
 
-    public GoodsDetailUI(Context context) {
-        super(context);
+    public GoodsDetailUI(Context context, FragmentManager fragmentManager) {
+        super(context,fragmentManager);
     }
 
     @Override
@@ -190,9 +183,9 @@ public class GoodsDetailUI extends BaseUI {
     private void getGoodsReplay(final Goods goods){
         ReplayEngine replayEngine = BeanFactory.getImpl(ReplayEngine.class);
         if (replayEngine != null){
-            replayEngine.getAllReplayOfgoodsid(goods.getGoodsid(), new ReplayEngine.GetAllReplayCallBack() {
+            replayEngine.getAllReplayOfgoodsid(goods.getGoodsid(), new BaseCallBack.GetAllListCallBack<Goodsrepaly>() {
                 @Override
-                public void getAllReplayCallback(List<Goodsrepaly> lists) {
+                public void getAllResultCallBack(List<Goodsrepaly> lists) {
                     if(lists != null){
                         goodsrepalyList.addAll(lists);
                         goods.setGoodsrepalyList(goodsrepalyList);
@@ -228,10 +221,10 @@ public class GoodsDetailUI extends BaseUI {
                                     BaseApplication.INSTANCE().getCurrentUser().getUserid(),text);
                             goodsrepaly.setGoodsreplaytime(new Date());
                             goodsrepaly.setUserInfo(BaseApplication.INSTANCE().getCurrentUser());
-                            replayEngine.sendReplay(goodsrepaly, new ReplayEngine.SendReplayCallBack(){
+                            replayEngine.sendReplay(goodsrepaly, new BaseCallBack.SendCallBack() {
                                 @Override
-                                public void sendReplayCallback(int responseCode) {
-                                    if(responseCode == ReplayEngine.SEND_OK) {
+                                public void sendResultCallBack(int responseCode) {
+                                    if(responseCode == BaseCallBack.SEND_OK) {
                                         List<Goodsrepaly> tempList = new ArrayList<Goodsrepaly>();
                                         tempList.addAll(goodsrepalyList);
                                         goodsrepalyList.clear();
@@ -255,10 +248,10 @@ public class GoodsDetailUI extends BaseUI {
                         if (replayEngine != null){
                             final Torepaly torepaly = new Torepaly(goodsrepalyList.get(currentPosition).getGoodsreplayid(),BaseApplication.INSTANCE().getCurrentUser().getUserid(),currentToUserID
                             ,text,new Date());
-                            replayEngine.sendToReplay(torepaly, new ReplayEngine.SendReplayCallBack() {
+                            replayEngine.sendToReplay(torepaly, new BaseCallBack.SendCallBack() {
                                 @Override
-                                public void sendReplayCallback(int responseCode) {
-                                    if(responseCode == ReplayEngine.SEND_OK) {
+                                public void sendResultCallBack(int responseCode) {
+                                    if(responseCode == BaseCallBack.SEND_OK) {
                                         if(currentPosition != -1){
                                             Goodsrepaly goodsrepaly = goodsrepalyList.get(currentPosition);
                                             if(goodsrepaly.getTorepalyList() != null) {

@@ -1,5 +1,7 @@
 package com.agjsj.fleamarket.engine.impl;
 
+import android.accounts.Account;
+import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.net.procotal.DesMessage;
 import com.agjsj.fleamarket.net.procotal.IMessage;
 import com.agjsj.fleamarket.net.service.UserService;
@@ -35,9 +37,9 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 	}
 
 	@Override
-	public void login(final UserAccount user, final LoginCallBack loginCallBack) {
+	public void login(final UserAccount user, final BaseCallBack.SendCallBack loginCallBack) {
 		if(user == null){
-			loginCallBack.loginResponse(LOGIN_NO);
+			loginCallBack.sendResultCallBack(BaseCallBack.SEND_ERROR);
 			return;
 		}
 		String json = GsonUtil.objectToString(user);
@@ -54,7 +56,7 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 					@Override
 					public void onError(Throwable e) {
 						LogUtil.error("Retrofit2:\n"+ e.getMessage());
-						loginCallBack.loginResponse(LOGIN_NO);
+						loginCallBack.sendResultCallBack(BaseCallBack.SEND_ERROR);
 					}
 					@Override
 					public void onNext(String result) {
@@ -64,15 +66,15 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
 									BaseApplication.INSTANCE().setToken(message.getBody().getToken());
 									String userId = message.getBody().getOelement().getMessage();
-									getCurrentUser(userId,new GetUserCallBack(){
+									getCurrentUser(userId, new BaseCallBack.GetObjCallBack<UserInfo>() {
 										@Override
-										public void getUserResponse(UserInfo userInfo) {
+										public void getResultCallBack(UserInfo userInfo) {
 											if (userInfo != null) {
 												BaseApplication.INSTANCE().updateLocalUser(userInfo);
 											}
 										}
 									});
-									loginCallBack.loginResponse(LOGIN_YES);
+									loginCallBack.sendResultCallBack(BaseCallBack.SEND_OK);
 								}
 							}
 						}
@@ -81,7 +83,7 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 	}
 
 	@Override
-	public void checkToken(String token, final LoginCallBack loginCallBack) {
+	public void checkToken(String token, final BaseCallBack.SendCallBack loginCallBack) {
 		String content = getMessageToJson("");
 		userService.checkToken(content)
 				.subscribeOn(Schedulers.io())  //IO线程加载数据
@@ -96,7 +98,7 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 					public void onError(Throwable e) {
 						e.printStackTrace();
 						LogUtil.error("Retrofit2:\n"+ e.getMessage());
-						loginCallBack.loginResponse(LOGIN_NO);
+						loginCallBack.sendResultCallBack(BaseCallBack.SEND_ERROR);
 					}
 
 					@Override
@@ -112,7 +114,7 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 											BaseApplication.INSTANCE().setGoodstypes(goodstypeList);
 										}
 									}
-									loginCallBack.loginResponse(LOGIN_YES);
+									loginCallBack.sendResultCallBack(BaseCallBack.SEND_OK);
 								}
 							}
 						}
@@ -121,7 +123,7 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 	}
 
 	@Override
-	public void getCurrentUser(String userId, final GetUserCallBack getUserCallBack) {
+	public void getCurrentUser(String userId, final BaseCallBack.GetObjCallBack<UserInfo> getUserCallBack) {
 		String content = getMessageToJson(userId);
 		userService.getCurrentUser(content)
 				.subscribeOn(Schedulers.io())  //IO线程加载数据
@@ -135,7 +137,7 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 					@Override
 					public void onError(Throwable e) {
 						LogUtil.error("Retrofit2:\n"+ e.getMessage());
-						getUserCallBack.getUserResponse(null);
+						getUserCallBack.getResultCallBack(null);
 					}
 
 					@Override
@@ -145,7 +147,7 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 							if(message != null && message.getBody() != null) {
 								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
 									UserInfo userInfo = (UserInfo) GsonUtil.stringToObjectByBean(message.getBody().getElements(),UserInfo.class);
-									getUserCallBack.getUserResponse(userInfo);
+									getUserCallBack.getResultCallBack(userInfo);
 								}
 							}
 						}
@@ -154,15 +156,14 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 	}
 
 	@Override
-	public boolean register(UserInfo user) {
-		Body body = new Body();
-		body.setOelement(null);
-		body.setElements(GsonUtil.objectToString(user));
-		// body.serializableBody();
-		// 获取发送的数据
-		String sendinfo = getMessageToJson(body, ConstantValue.TYPE_REGISTER);
-		// 发送数据并获取服务器返回的数据
-		return false;
+	public void register(Account account, BaseCallBack.SendCallBack callBack) {
+
 	}
+
+	@Override
+	public void updateUserInfo(UserInfo userInfo, BaseCallBack.SendCallBack callBack) {
+
+	}
+
 
 }

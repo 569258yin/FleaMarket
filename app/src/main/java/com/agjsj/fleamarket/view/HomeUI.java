@@ -1,6 +1,7 @@
 package com.agjsj.fleamarket.view;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.agjsj.fleamarket.adapter.base.OnRecyclerViewImageListener;
 import com.agjsj.fleamarket.adapter.base.OnRecyclerViewListener;
 import com.agjsj.fleamarket.adapter.goods.GoodsAdapter;
 import com.agjsj.fleamarket.bean.Goods;
+import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.GoodsEngine;
 import com.agjsj.fleamarket.params.ConstantValue;
 import com.agjsj.fleamarket.params.GlobalParams;
@@ -65,9 +67,8 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
     public static final int ON_LOADING = 2;
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-    public HomeUI(Context context) {
-        super(context);
-        LogUtil.info(HomeUI.class, "HomeUI onCreate");
+    public HomeUI(Context context, FragmentManager fragmentManager) {
+        super(context,fragmentManager);
     }
 
 
@@ -122,9 +123,9 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
             GoodsEngine goodsEngine = BeanFactory.getImpl(GoodsEngine.class);
             if (goodsEngine != null) {
                 isLoading = true;
-                goodsEngine.getAllGoodsByPage(currentPageNum, PAGE_SIZE, currentType, new GoodsEngine.GetAllGoodsCallBack() {
+                goodsEngine.getAllGoodsByPage(currentPageNum, PAGE_SIZE, currentType, new BaseCallBack.GetAllListCallBack<Goods>() {
                     @Override
-                    public void getAllGoodsCallback(List<Goods> list) {
+                    public void getAllResultCallBack(List<Goods> list) {
                         if (goodsList != null && list != null) {
                             goodsList.addAll(list);
                             adapter.notifyDataSetChanged();
@@ -141,7 +142,6 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
                         isLoading = false;
                     }
                 });
-
             }
         }
     }

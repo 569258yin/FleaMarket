@@ -1,6 +1,6 @@
 package com.agjsj.fleamarket.engine;
 
-import com.agjsj.fleamarket.bean.Foundcase;
+import com.agjsj.fleamarket.bean.FoundCase;
 import com.agjsj.fleamarket.net.procotal.IMessage;
 
 public interface FoundEngine {
@@ -11,27 +11,24 @@ public interface FoundEngine {
 	 * @param foundcase
 	 * @return
 	 */
-	public IMessage sendFoundcase(Foundcase foundcase);
+	public void sendFoundcase(FoundCase foundcase, final BaseCallBack.SendCallBack callBack);
 
 	/**
 	 * 查询我发布的所有失物招领或者寻物启事
 	 * 
 	 * @param userid
-	 * @param start
-	 * @param count
 	 * @return
 	 */
-	public IMessage getFoundcaseOfuser(Integer userid, int start, int count);
+	public void getFoundcaseOfuser(String userid,final BaseCallBack.GetAllListCallBack<FoundCase> callBack);
 
 	/**
-	 * 分页加载失误招领信息和寻物启事信息
-	 * 
+	 * 分页加载指定类别失物招领信息
 	 * @param start
 	 * @param count
-	 * @param type
-	 * @return
+	 * @param type  0 丢失  1 捡到
+	 * @param callBack
 	 */
-	public IMessage getFoundcase(int start, int count, int type);
+	public void getAllFoundCaseByType(int start,int count,int type,final BaseCallBack.GetAllListCallBack<FoundCase> callBack);
 
 	/**
 	 * 删除失误招领或者寻物启事
@@ -39,5 +36,5 @@ public interface FoundEngine {
 	 * @param fdcid
 	 * @return
 	 */
-	public IMessage deleteFoundcase(Integer fdcid);
+	public void deleteFoundcase(String fdcid);
 }

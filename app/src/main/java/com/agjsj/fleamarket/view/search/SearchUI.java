@@ -1,6 +1,7 @@
 package com.agjsj.fleamarket.view.search;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -33,9 +34,8 @@ public class SearchUI extends BaseUI {
     //提示列表数据
     private List<String> hint_datas;
 
-    public SearchUI(Context context) {
-        super(context);
-        LogUtil.info(HomeUI.class, "SearchUI onCreate");
+    public SearchUI(Context context, FragmentManager fragmentManager) {
+        super(context,fragmentManager);
     }
     @Override
     public void init() {

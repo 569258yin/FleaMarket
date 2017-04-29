@@ -4,17 +4,16 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Button;
 import android.widget.EditText;
-
-import com.agjsj.fleamarket.view.MainActivity;
-import com.agjsj.fleamarket.R;
-import com.agjsj.fleamarket.bean.UserAccount;
-import com.agjsj.fleamarket.engine.UserEngine;
-import com.agjsj.fleamarket.util.BeanFactory;
-import com.agjsj.fleamarket.view.base.BaseActivity;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import com.agjsj.fleamarket.R;
+import com.agjsj.fleamarket.bean.UserAccount;
+import com.agjsj.fleamarket.engine.BaseCallBack;
+import com.agjsj.fleamarket.engine.UserEngine;
+import com.agjsj.fleamarket.util.BeanFactory;
+import com.agjsj.fleamarket.view.MainActivity;
+import com.agjsj.fleamarket.view.base.BaseActivity;
 
 /**
  * Created by MyPC on 2017/2/26.
@@ -60,10 +59,10 @@ public class LoginActivity extends BaseActivity{
     private void login() {
         UserAccount userAccount = new UserAccount(etUsername.getText().toString(),etPassword.getText().toString());
         UserEngine userEngine = BeanFactory.getImpl(UserEngine.class);
-        userEngine.login(userAccount, new UserEngine.LoginCallBack() {
+        userEngine.login(userAccount, new BaseCallBack.SendCallBack() {
             @Override
-            public void loginResponse(int responseCode) {
-                if(responseCode == UserEngine.LOGIN_YES){
+            public void sendResultCallBack(int responseCode) {
+                if(responseCode == BaseCallBack.SEND_OK){
                     startActivity(MainActivity.class,null,true);
                 }else {
                     toast("抱歉，登录失败");

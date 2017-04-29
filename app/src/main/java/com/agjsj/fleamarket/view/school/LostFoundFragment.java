@@ -9,7 +9,11 @@ import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.adapter.base.OnRecyclerViewImageListener;
 import com.agjsj.fleamarket.adapter.base.OnRecyclerViewListener;
 import com.agjsj.fleamarket.adapter.goods.GoodsAdapter;
+import com.agjsj.fleamarket.adapter.lostfound.LostFoundAdapter;
+import com.agjsj.fleamarket.bean.FoundCase;
 import com.agjsj.fleamarket.bean.Goods;
+import com.agjsj.fleamarket.engine.BaseCallBack;
+import com.agjsj.fleamarket.engine.FoundEngine;
 import com.agjsj.fleamarket.engine.GoodsEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.util.LogUtil;
@@ -24,17 +28,17 @@ import java.util.List;
 
 
 public class LostFoundFragment extends BaseFragment implements PullToRefreshView.OnFooterRefreshListener,
-        PullToRefreshView.OnHeaderRefreshListener,OnRecyclerViewListener, OnRecyclerViewImageListener {
+        PullToRefreshView.OnHeaderRefreshListener,OnRecyclerViewListener{
 
     @Bind(R.id.recyclerview_home)
     RecyclerView recyclerView;
     @Bind(R.id.ll_pullToRefresh_home)
     PullToRefreshView pullToRefresh;
 
-    private List<Goods> goodsList;
+    private List<FoundCase> foundCaseList;
     private int type;
     private LinearLayoutManager layoutManager;
-    private GoodsAdapter adapter;
+    private LostFoundAdapter adapter;
     private int currentPageNum = 1;
     private static final int PAGE_SIZE = 5;
     private boolean isLoading = false;
@@ -51,12 +55,11 @@ public class LostFoundFragment extends BaseFragment implements PullToRefreshView
 
     @Override
     protected void initView() {
-        goodsList = new ArrayList<>();
+        foundCaseList = new ArrayList<>();
         layoutManager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(layoutManager);
-        adapter = new GoodsAdapter(getContext(), goodsList);
+        adapter = new LostFoundAdapter(getContext(), foundCaseList);
         adapter.setOnRecyclerViewListener(this);
-        adapter.setOnRecyclerViewImageListener(this);
         recyclerView.setAdapter(adapter);
 
         pullToRefresh.setOnFooterRefreshListener(this);
@@ -65,6 +68,9 @@ public class LostFoundFragment extends BaseFragment implements PullToRefreshView
 
     @Override
     protected void initData(Bundle arguments) {
+        if (arguments == null){
+            return;
+        }
         type = arguments.getInt("Type");
     }
 
@@ -79,15 +85,14 @@ public class LostFoundFragment extends BaseFragment implements PullToRefreshView
 
     private void getGoodsFromServer() {
         if (!isLoading) {
-            GoodsEngine goodsEngine = BeanFactory.getImpl(GoodsEngine.class);
-            if (goodsEngine != null) {
+            FoundEngine foundEngine = BeanFactory.getImpl(FoundEngine.class);
+            if (foundEngine != null) {
                 isLoading = true;
-                goodsEngine.getAllGoodsByGoodsTypeId(currentPageNum, PAGE_SIZE, type, new GoodsEngine.GetAllGoodsCallBack() {
+                foundEngine.getAllFoundCaseByType(currentPageNum, PAGE_SIZE, type, new BaseCallBack.GetAllListCallBack<FoundCase>() {
                     @Override
-                    public void getAllGoodsCallback(List<Goods> list) {
-
-                        if (goodsList != null && list != null) {
-                            goodsList.addAll(list);
+                    public void getAllResultCallBack(List<FoundCase> list) {
+                        if(list != null) {
+                            foundCaseList.addAll(list);
                             adapter.notifyDataSetChanged();
                             currentPageNum++;
                         }else{
@@ -102,7 +107,6 @@ public class LostFoundFragment extends BaseFragment implements PullToRefreshView
                         isLoading = false;
                     }
                 });
-
             }
         }
     }
@@ -115,10 +119,10 @@ public class LostFoundFragment extends BaseFragment implements PullToRefreshView
     public void onRefresh() {
         currentPageNum = 1;
         eventMethod = ON_REFRESH;
-        if(goodsList == null) {
-            goodsList = new ArrayList<>();
+        if(foundCaseList == null) {
+            foundCaseList = new ArrayList<>();
         }else {
-            goodsList.clear();
+            foundCaseList.clear();
         }
         getGoodsFromServer();
     }
@@ -140,11 +144,6 @@ public class LostFoundFragment extends BaseFragment implements PullToRefreshView
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(getContext(),LostFoundFragment.class);
-        intent.putExtra("goods",goodsList.get(position));
-        startActivity(intent);
-        //设置跳转动画
-        getActivity().overridePendingTransition(R.anim.fade_in,R.anim.fade_out);
     }
 
     @Override
@@ -157,10 +156,6 @@ public class LostFoundFragment extends BaseFragment implements PullToRefreshView
         return false;
     }
 
-    @Override
-    public void onImageItemClick(int itemPosition, int imagePosition) {
-
-    }
 
 
 }

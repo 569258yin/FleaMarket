@@ -18,6 +18,8 @@ import com.agjsj.fleamarket.util.OkHttpUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
 /**
  * 1.创建并格式化body
  * 2.调用getMessageToJson（）将要发送的数据格式化成json字符串 此时传递body和请求码
@@ -226,5 +228,6 @@ public abstract class BaseEngine {
 	public interface serviceCallBack{
 		public void serviceResponse(Body body);
 	}
+
 
 }

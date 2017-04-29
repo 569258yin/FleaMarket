@@ -15,6 +15,7 @@ import com.agjsj.fleamarket.adapter.base.OnRecyclerViewImageListener;
 import com.agjsj.fleamarket.adapter.base.OnRecyclerViewListener;
 import com.agjsj.fleamarket.adapter.goods.GoodsAdapter;
 import com.agjsj.fleamarket.bean.Goods;
+import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.GoodsEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.util.LogUtil;
@@ -94,10 +95,9 @@ public class GoodsFragment extends BaseFragment implements PullToRefreshView.OnF
             GoodsEngine goodsEngine = BeanFactory.getImpl(GoodsEngine.class);
             if (goodsEngine != null) {
                 isLoading = true;
-                goodsEngine.getAllGoodsByGoodsTypeId(currentPageNum, PAGE_SIZE, goodsTypeId, new GoodsEngine.GetAllGoodsCallBack() {
+                goodsEngine.getAllGoodsByGoodsTypeId(currentPageNum, PAGE_SIZE, goodsTypeId, new BaseCallBack.GetAllListCallBack<Goods>() {
                     @Override
-                    public void getAllGoodsCallback(List<Goods> list) {
-
+                    public void getAllResultCallBack(List<Goods> list) {
                         if (goodsList != null && list != null) {
                             goodsList.addAll(list);
                             adapter.notifyDataSetChanged();

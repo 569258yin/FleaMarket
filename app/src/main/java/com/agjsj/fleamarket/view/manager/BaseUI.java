@@ -25,14 +25,11 @@ public abstract class BaseUI implements View.OnClickListener {
 	// 显示到中间容器
 	protected ViewGroup showInMiddle;
 
-	public BaseUI(Context context) {
+	public BaseUI(Context context,FragmentManager mFragmentManager) {
 		this.context = context;
+		this.mFragmentManager = mFragmentManager;
 		init();
 		setListener();
-	}
-
-	public void setmFragmentManager(FragmentManager mFragmentManager) {
-		this.mFragmentManager = mFragmentManager;
 	}
 
 	public void setBundle(Bundle bundle) {

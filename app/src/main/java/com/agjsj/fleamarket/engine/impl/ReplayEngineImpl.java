@@ -4,6 +4,7 @@ import com.agjsj.fleamarket.bean.GoodsType;
 import com.agjsj.fleamarket.bean.Goodsrepaly;
 import com.agjsj.fleamarket.bean.Torepaly;
 import com.agjsj.fleamarket.bean.json.PageJsonData;
+import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.BaseEngine;
 import com.agjsj.fleamarket.engine.ReplayEngine;
 import com.agjsj.fleamarket.net.HttpUtils;
@@ -29,7 +30,7 @@ public class ReplayEngineImpl extends BaseEngine implements ReplayEngine {
 	}
 
 	@Override
-	public void sendReplay(Goodsrepaly goodsrepaly, final SendReplayCallBack callBack) {
+	public void sendReplay(Goodsrepaly goodsrepaly, final BaseCallBack.SendCallBack callBack) {
 		String json = GsonUtil.objectToString(goodsrepaly);
 		String content = getMessageToJson(json);
 		replayService.sendReplay(content)
@@ -42,7 +43,7 @@ public class ReplayEngineImpl extends BaseEngine implements ReplayEngine {
 					@Override
 					public void onError(Throwable e) {
 						LogUtil.error("Retrofit2:\n"+ e.getMessage());
-						callBack.sendReplayCallback(SEND_ERROR);
+						callBack.sendResultCallBack(BaseCallBack.SEND_ERROR);
 					}
 					@Override
 					public void onNext(String result) {
@@ -51,7 +52,7 @@ public class ReplayEngineImpl extends BaseEngine implements ReplayEngine {
 							if(message != null && message.getBody() != null) {
 								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
 									List<GoodsType> goodstypeList = GsonUtil.getGson().fromJson(message.getBody().getElements(),new TypeToken<List<GoodsType>>(){}.getType());
-									callBack.sendReplayCallback(SEND_OK);
+									callBack.sendResultCallBack(BaseCallBack.SEND_OK);
 								}
 							}
 						}
@@ -60,7 +61,7 @@ public class ReplayEngineImpl extends BaseEngine implements ReplayEngine {
 	}
 
 	@Override
-	public void getAllReplayOfgoodsid(String goodsid, final GetAllReplayCallBack callBack) {
+	public void getAllReplayOfgoodsid(String goodsid, final BaseCallBack.GetAllListCallBack<Goodsrepaly> callBack) {
 		PageJsonData pageJsonData = new PageJsonData(goodsid);
 		String json = GsonUtil.objectToString(pageJsonData);
 		String content = getMessageToJson(json);
@@ -74,7 +75,7 @@ public class ReplayEngineImpl extends BaseEngine implements ReplayEngine {
 					@Override
 					public void onError(Throwable e) {
 						LogUtil.error("Retrofit2:\n"+ e.getMessage());
-						callBack.getAllReplayCallback(null);
+						callBack.getAllResultCallBack(null);
 					}
 					@Override
 					public void onNext(String result) {
@@ -83,7 +84,7 @@ public class ReplayEngineImpl extends BaseEngine implements ReplayEngine {
 							if(message != null && message.getBody() != null) {
 								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
 									List<Goodsrepaly> list = (List<Goodsrepaly>) GsonUtil.stringToObjectByType(message.getBody().getElements(),new TypeToken<List<Goodsrepaly>>(){}.getType());
-									callBack.getAllReplayCallback(list);
+									callBack.getAllResultCallBack(list);
 								}
 							}
 						}
@@ -92,7 +93,7 @@ public class ReplayEngineImpl extends BaseEngine implements ReplayEngine {
 	}
 
 	@Override
-	public void sendToReplay(Torepaly torepaly, final SendReplayCallBack callBack) {
+	public void sendToReplay(Torepaly torepaly, final BaseCallBack.SendCallBack callBack) {
 		String json = GsonUtil.objectToString(torepaly);
 		String content = getMessageToJson(json);
 		replayService.sendToReplay(content)
@@ -105,7 +106,7 @@ public class ReplayEngineImpl extends BaseEngine implements ReplayEngine {
 					@Override
 					public void onError(Throwable e) {
 						LogUtil.error("Retrofit2:\n"+ e.getMessage());
-						callBack.sendReplayCallback(SEND_ERROR);
+						callBack.sendResultCallBack(BaseCallBack.SEND_ERROR);
 					}
 					@Override
 					public void onNext(String result) {
@@ -114,7 +115,7 @@ public class ReplayEngineImpl extends BaseEngine implements ReplayEngine {
 							if(message != null && message.getBody() != null) {
 								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
 									List<GoodsType> goodstypeList = GsonUtil.getGson().fromJson(message.getBody().getElements(),new TypeToken<List<GoodsType>>(){}.getType());
-									callBack.sendReplayCallback(SEND_OK);
+									callBack.sendResultCallBack(BaseCallBack.SEND_OK);
 								}
 							}
 						}

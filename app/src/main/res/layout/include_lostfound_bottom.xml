@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content">
+
+    <TextView
+            android:id="@+id/tv_bottom_connection"
+            android:layout_marginRight="10dp"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="与我联系"
+            android:background="@color/basebackgroud"
+            android:layout_width="100dp"
+            android:layout_height="30dp"
+
+    />
+
+
+</RelativeLayout>

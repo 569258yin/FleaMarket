@@ -110,9 +110,8 @@ public class MiddleManager extends Observable {
 		} else {
 			// 否则，创建
 			try {
-				Constructor<? extends BaseUI> constructor = targetClazz.getConstructor(Context.class);
-				targetUI = constructor.newInstance(getContext());
-				targetUI.setmFragmentManager(fragmentManager);
+				Constructor<? extends BaseUI> constructor = targetClazz.getConstructor(Context.class,FragmentManager.class);
+				targetUI = constructor.newInstance(getContext(),fragmentManager);
 				VIEWCACHE.put(key, targetUI);
 			} catch (Exception e) {
 				throw new RuntimeException("constructor new instance error");
@@ -174,9 +173,8 @@ public class MiddleManager extends Observable {
 		} else {
 			// 否则，创建
 			try {
-				Constructor<? extends BaseUI> constructor = targetClazz.getConstructor(Context.class);
-				targetUI = constructor.newInstance(getContext());
-				targetUI.setmFragmentManager(fragmentManager);
+				Constructor<? extends BaseUI> constructor = targetClazz.getConstructor(Context.class,FragmentManager.class);
+				targetUI = constructor.newInstance(getContext(),fragmentManager);
 				VIEWCACHE.put(key, targetUI);
 			} catch (Exception e) {
 				e.printStackTrace();

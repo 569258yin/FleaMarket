@@ -10,10 +10,10 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.adapter.goods.GoodsCategoryAdapter;
 import com.agjsj.fleamarket.bean.GoodsType;
+import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.GoodsEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.view.base.BaseActivity;
@@ -56,9 +56,9 @@ public class GoodsCategoryActivity extends BaseActivity {
         if (goodsTypeList == null) {
             goodsTypeList = new ArrayList<>();
             GoodsEngine goodsEngine = BeanFactory.getImpl(GoodsEngine.class);
-            goodsEngine.getAllGoodsType(new GoodsEngine.GetAllGoodsTypeCallBack() {
+            goodsEngine.getAllGoodsType(new BaseCallBack.GetAllListCallBack<GoodsType>() {
                 @Override
-                public void getAllGoodsTypeCallback(List<GoodsType> _goodsTypeList) {
+                public void getAllResultCallBack(List<GoodsType> _goodsTypeList) {
                     if (_goodsTypeList != null) {
                         BaseApplication.INSTANCE().setGoodstypes(_goodsTypeList);
                         goodsTypeList.addAll(_goodsTypeList);

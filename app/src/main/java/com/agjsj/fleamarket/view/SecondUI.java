@@ -1,6 +1,7 @@
 package com.agjsj.fleamarket.view;
 
 import android.content.Context;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -28,9 +29,8 @@ import java.util.List;
  * 
  */
 public class SecondUI extends BaseUI {
-	public SecondUI(Context context) {
-		super(context);
-		LogUtil.info(SecondUI.class, "onCreate");
+	public SecondUI(Context context, FragmentManager fragmentManager) {
+		super(context,fragmentManager);
 	}
 
 	private ListView listView;

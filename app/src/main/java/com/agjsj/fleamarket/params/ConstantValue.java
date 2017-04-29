@@ -39,7 +39,7 @@ public interface ConstantValue {
 	/**
 	 * 请求地址FileMaketServer
 	 */
-	String URL_ROOT = "http://192.168.5.9:8080/FileMaketServer/";
+	String URL_ROOT = "http://192.168.5.15:8080/FileMaketServer/";
 	/** 用户登录 */
 	String URL_USER_LOGIN ="account/loginAccount.action";
 	/** 检测token是否存在或过期 */
@@ -58,6 +58,9 @@ public interface ConstantValue {
 	String URL_GET_GOODS_REPLAY = "goodsReplay/getAllGoodsReplay.action";
 	String URL_SEND_GOODS_TO_REPLAY = "goodsReplay/sendToReplay.action";
 
+	//=========================================失物招领=======================================================
+	String URL_SEND_FOUNDCASE = "foundCase/sendFoundCase.action";
+	String URL_GET_FOUNDCASE = "foundCase/getFoundCaseByType.action";
 
 	/** 上传文件图片 */
 	String IMAGE_UPLOAD = "file/imgUpload.action";
@@ -85,4 +88,7 @@ public interface ConstantValue {
 
 	String TYPR_GET_GOODS_REPLAY = "20006";
 
+	String TYPE_SEND_FOUNDCASE = "30001";
+
+	String TYPE_GET_FOUNDCASE_BY_TYPE = "30002";
 }

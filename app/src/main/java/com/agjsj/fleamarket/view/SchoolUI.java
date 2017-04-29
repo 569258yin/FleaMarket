@@ -53,9 +53,8 @@ public class SchoolUI extends BaseUI {
 	private PagerAdapter adpater;
 
 
-	public SchoolUI(Context context) {
-		super(context);
-		LogUtil.info(SchoolUI.class, "onCreate");
+	public SchoolUI(Context context, FragmentManager fragmentManager) {
+		super(context,fragmentManager);
 	}
 	// 第一步：加载layout（布局参数设置）
 	// 第二步：初始化layout中控件

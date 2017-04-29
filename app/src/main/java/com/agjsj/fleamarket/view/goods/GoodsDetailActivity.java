@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.*;
 import butterknife.Bind;
-import butterknife.ButterKnife;
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.adapter.base.OnRecyclerViewListener;
 import com.agjsj.fleamarket.adapter.discuss.DiscussAdapter;
@@ -18,6 +17,7 @@ import com.agjsj.fleamarket.bean.Goods;
 import com.agjsj.fleamarket.bean.Goodsrepaly;
 import com.agjsj.fleamarket.bean.Torepaly;
 import com.agjsj.fleamarket.bean.UserInfo;
+import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.ReplayEngine;
 import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.util.BeanFactory;
@@ -26,7 +26,6 @@ import com.agjsj.fleamarket.util.TimeUtil;
 import com.agjsj.fleamarket.util.Utility;
 import com.agjsj.fleamarket.view.base.BaseActivity;
 import com.agjsj.fleamarket.view.base.BaseApplication;
-import com.agjsj.fleamarket.view.manager.BaseUI;
 import com.agjsj.fleamarket.view.myview.CircleImageView;
 import org.apache.commons.lang3.StringUtils;
 
@@ -193,9 +192,9 @@ public class GoodsDetailActivity extends BaseActivity {
     private void getGoodsReplay(final Goods goods){
         ReplayEngine replayEngine = BeanFactory.getImpl(ReplayEngine.class);
         if (replayEngine != null){
-            replayEngine.getAllReplayOfgoodsid(goods.getGoodsid(), new ReplayEngine.GetAllReplayCallBack() {
+            replayEngine.getAllReplayOfgoodsid(goods.getGoodsid(), new BaseCallBack.GetAllListCallBack<Goodsrepaly>() {
                 @Override
-                public void getAllReplayCallback(List<Goodsrepaly> lists) {
+                public void getAllResultCallBack(List<Goodsrepaly> lists) {
                     if(lists != null){
                         goodsrepalyList.addAll(lists);
                         goods.setGoodsrepalyList(goodsrepalyList);
@@ -230,10 +229,10 @@ public class GoodsDetailActivity extends BaseActivity {
                                     BaseApplication.INSTANCE().getCurrentUser().getUserid(),text);
                             goodsrepaly.setGoodsreplaytime(new Date());
                             goodsrepaly.setUserInfo(BaseApplication.INSTANCE().getCurrentUser());
-                            replayEngine.sendReplay(goodsrepaly, new ReplayEngine.SendReplayCallBack(){
+                            replayEngine.sendReplay(goodsrepaly, new BaseCallBack.SendCallBack() {
                                 @Override
-                                public void sendReplayCallback(int responseCode) {
-                                    if(responseCode == ReplayEngine.SEND_OK) {
+                                public void sendResultCallBack(int responseCode) {
+                                    if(responseCode == BaseCallBack.SEND_OK) {
                                         List<Goodsrepaly> tempList = new ArrayList<Goodsrepaly>();
                                         tempList.addAll(goodsrepalyList);
                                         goodsrepalyList.clear();
@@ -257,10 +256,10 @@ public class GoodsDetailActivity extends BaseActivity {
                         if (replayEngine != null){
                             final Torepaly torepaly = new Torepaly(goodsrepalyList.get(currentPosition).getGoodsreplayid(),BaseApplication.INSTANCE().getCurrentUser().getUserid(),currentToUserID
                             ,text,new Date());
-                            replayEngine.sendToReplay(torepaly, new ReplayEngine.SendReplayCallBack() {
+                            replayEngine.sendToReplay(torepaly, new BaseCallBack.SendCallBack() {
                                 @Override
-                                public void sendReplayCallback(int responseCode) {
-                                    if(responseCode == ReplayEngine.SEND_OK) {
+                                public void sendResultCallBack(int responseCode) {
+                                    if(responseCode == BaseCallBack.SEND_OK) {
                                         if(currentPosition != -1){
                                             Goodsrepaly goodsrepaly = goodsrepalyList.get(currentPosition);
                                             if(goodsrepaly.getTorepalyList() != null) {

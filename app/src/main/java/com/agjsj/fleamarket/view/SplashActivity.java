@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 
+import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.UserEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.view.base.BaseApplication;
@@ -39,10 +40,10 @@ public class SplashActivity extends AppCompatActivity {
             if (BaseApplication.INSTANCE().getToken() == null || "".equals(BaseApplication.INSTANCE().getToken())) {
                 mActivity.get().toLoginActivity();
             } else {
-                userEngine.checkToken(BaseApplication.INSTANCE().getToken(), new UserEngine.LoginCallBack() {
+                userEngine.checkToken(BaseApplication.INSTANCE().getToken(), new BaseCallBack.SendCallBack() {
                     @Override
-                    public void loginResponse(int responseCode) {
-                        if (responseCode == UserEngine.LOGIN_YES){
+                    public void sendResultCallBack(int responseCode) {
+                        if (responseCode == BaseCallBack.SEND_OK){
                             mActivity.get().toMainActivity();
                         }else {
                             mActivity.get().toLoginActivity();
