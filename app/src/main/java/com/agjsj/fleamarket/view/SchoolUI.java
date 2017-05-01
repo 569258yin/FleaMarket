@@ -1,6 +1,7 @@
 package com.agjsj.fleamarket.view;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
@@ -25,7 +26,9 @@ import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.util.LogUtil;
 import com.agjsj.fleamarket.view.base.BaseFragment;
 import com.agjsj.fleamarket.view.manager.BaseUI;
+import com.agjsj.fleamarket.view.manager.TitleManager;
 import com.agjsj.fleamarket.view.school.LostFoundFragment;
+import com.agjsj.fleamarket.view.school.SendLostFoundActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -133,6 +136,7 @@ public class SchoolUI extends BaseUI {
 	private int lastPosition;
 	@Override
 	public void setListener() {
+
 		viewpager.addOnPageChangeListener(new OnPageChangeListener() {
 			@Override
 			public void onPageSelected(int position) {

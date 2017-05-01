@@ -1,23 +1,16 @@
 package com.agjsj.fleamarket.view.school;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import butterknife.Bind;
 import com.agjsj.fleamarket.R;
-import com.agjsj.fleamarket.adapter.base.OnRecyclerViewImageListener;
 import com.agjsj.fleamarket.adapter.base.OnRecyclerViewListener;
-import com.agjsj.fleamarket.adapter.goods.GoodsAdapter;
 import com.agjsj.fleamarket.adapter.lostfound.LostFoundAdapter;
 import com.agjsj.fleamarket.bean.FoundCase;
-import com.agjsj.fleamarket.bean.Goods;
 import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.FoundEngine;
-import com.agjsj.fleamarket.engine.GoodsEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
-import com.agjsj.fleamarket.util.LogUtil;
-import com.agjsj.fleamarket.view.HomeUI;
 import com.agjsj.fleamarket.view.base.BaseFragment;
 import com.agjsj.fleamarket.view.myview.PullToRefreshView;
 
@@ -80,10 +73,10 @@ public class LostFoundFragment extends BaseFragment implements PullToRefreshView
 
     @Override
     protected void onFragmentFirstVisible() {
-        getGoodsFromServer();
+        getFoundCaseFromServer();
     }
 
-    private void getGoodsFromServer() {
+    private void getFoundCaseFromServer() {
         if (!isLoading) {
             FoundEngine foundEngine = BeanFactory.getImpl(FoundEngine.class);
             if (foundEngine != null) {
@@ -124,11 +117,11 @@ public class LostFoundFragment extends BaseFragment implements PullToRefreshView
         }else {
             foundCaseList.clear();
         }
-        getGoodsFromServer();
+        getFoundCaseFromServer();
     }
     private void onLoad() {
         eventMethod = ON_LOADING;
-        getGoodsFromServer();
+        getFoundCaseFromServer();
 
     }
 

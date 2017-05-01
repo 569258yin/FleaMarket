@@ -50,7 +50,7 @@
         <activity android:name=".view.send.SendGoodActivity"/>
         <activity android:name=".view.goods.GoodsCategoryActivity"/>
         <activity android:name=".view.goods.GoodsDetailActivity" android:launchMode="singleInstance"/>
-
+        <activity android:name=".view.school.SendLostFoundActivity"/>
         <!-- 百度定位SDK -->
         <service
                 android:name="com.baidu.location.f"

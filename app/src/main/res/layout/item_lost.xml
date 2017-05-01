@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:orientation="vertical"
+              android:layout_marginTop="10dp"
+              android:layout_marginLeft="10dp"
+              android:layout_marginRight="10dp"
+              android:background="@color/white"
               android:layout_width="match_parent"
-              android:layout_height="match_parent">
+              android:layout_height="wrap_content">
 
     <include layout="@layout/include_user"/>
 
+    <ImageView
+            android:id="@+id/iv_lost_img"
+            android:scaleType="fitXY"
+            android:layout_margin="10dp"
+            android:layout_width="match_parent" android:layout_height="200dp"/>
+
     <TextView
+            android:textColor="@color/base_color_text_black"
             android:id="@+id/tv_lost_title"
             android:textSize="16sp"
             android:layout_margin="10dp"
@@ -16,11 +27,20 @@
 
     />
 
-    <ImageView
-            android:id="@+id/iv_lost_img"
-            android:scaleType="fitCenter"
-            android:layout_margin="10dp"
-            android:layout_width="match_parent" android:layout_height="200dp"/>
-    <include layout="@layout/include_lostfound_bottom" />
+
+    <View
+
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
+    <LinearLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <include
+                layout="@layout/include_lostfound_bottom" />
+    </LinearLayout>
+
 
 </LinearLayout>

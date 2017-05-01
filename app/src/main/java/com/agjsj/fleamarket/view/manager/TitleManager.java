@@ -11,8 +11,10 @@ import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.view.HomeUI;
 import com.agjsj.fleamarket.view.goods.GoodsCategoryActivity;
+import com.agjsj.fleamarket.view.school.SendLostFoundActivity;
 import com.agjsj.fleamarket.view.search.SearchUI;
 
+import com.agjsj.fleamarket.view.send.SendGoodActivity;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Observable;
@@ -38,7 +40,7 @@ public class TitleManager implements Observer {
 
     private RelativeLayout commomContainer;
     private RelativeLayout searchContainer;
-
+    private Activity activity;
 
     private TitleManager() {
     }
@@ -57,6 +59,7 @@ public class TitleManager implements Observer {
     //	}
 
     public void init(final Activity activity) {
+        this.activity = activity;
         commomContainer = (RelativeLayout) activity
                 .findViewById(R.id.ii_common_container);
         searchContainer = (RelativeLayout) activity
@@ -78,8 +81,8 @@ public class TitleManager implements Observer {
 
     }
 
-    interface RightTvOnClickListen{
-        void OnClick();
+    public interface RightTvOnClickListen{
+        public void OnClick();
     }
 
     private RightTvOnClickListen rightTvOnClickListen;
@@ -156,6 +159,13 @@ public class TitleManager implements Observer {
                     title.setText("失物招领");
                     tvRight.setText("发布");
                     showCommonTitle();
+                    tvRight.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(activity, SendLostFoundActivity.class);
+                            activity.startActivity(intent);
+                        }
+                    });
                     break;
                 default:
                     initTitle();

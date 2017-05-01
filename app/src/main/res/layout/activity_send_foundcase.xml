@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    >
+
+    <include layout="@layout/include_navi"/>
+
+    <EditText
+            android:gravity="top"
+        android:layout_marginTop="10dp"
+        android:id="@+id/et_content_send_foundcase"
+        android:layout_height="100dp"
+        style="@style/editText"
+        android:hint="物品描述....."
+        android:textSize="20sp" />
+
+    <GridView
+        android:id="@+id/grid_send_foundcase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:numColumns="4"></GridView>
+
+    <LinearLayout
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="10dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="40dp">
+        <TextView
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="类别"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Spinner
+            android:id="@+id/spinner_category_send_foundcase"
+            android:layout_marginLeft="30dp"
+            android:gravity="center_vertical"
+            android:background="@null"
+            android:layout_width="match_parent"
+            android:layout_height="40dp">
+        </Spinner>
+    </LinearLayout>
+
+
+</LinearLayout>

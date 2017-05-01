@@ -6,6 +6,7 @@ import com.agjsj.fleamarket.bean.json.PageJsonData;
 import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.BaseEngine;
 import com.agjsj.fleamarket.engine.FoundEngine;
+import com.agjsj.fleamarket.net.HttpUtils;
 import com.agjsj.fleamarket.net.procotal.IMessage;
 import com.agjsj.fleamarket.net.service.FoundCaseService;
 import com.agjsj.fleamarket.params.OelementType;
@@ -22,8 +23,8 @@ public class FoundEngineImpl extends BaseEngine implements FoundEngine {
 
 	private FoundCaseService foundCaseService;
 
-	public FoundEngineImpl(FoundCaseService foundCaseService) {
-		this.foundCaseService = foundCaseService;
+	public FoundEngineImpl() {
+		this.foundCaseService = HttpUtils.createService(FoundCaseService.class);
 	}
 
 	@Override

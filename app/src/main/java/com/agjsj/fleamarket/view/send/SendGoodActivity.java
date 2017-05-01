@@ -69,7 +69,7 @@ public class SendGoodActivity extends BaseActivity {
     private String[] texts;
     private int[] values;
     private String[] qutityValue = new String[]{"九九新","九成新","八成新","五成新","两成新"};
-
+    private boolean isSend = false;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -148,6 +148,9 @@ public class SendGoodActivity extends BaseActivity {
                 .build();
 
 
+        //初始化图片选择器参数
+        ImagePicker imagePicker = ImagePicker.getInstance();
+        imagePicker.setSelectLimit(7);
     }
 
 
@@ -177,6 +180,10 @@ public class SendGoodActivity extends BaseActivity {
         tv_right.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (isSend){
+                    return;
+                }
+                isSend = true;
                 String title = et_title.getText().toString();
                 if (StringUtils.isEmpty(title)) {
                     toast("标题不能为空!");
@@ -240,6 +247,7 @@ public class SendGoodActivity extends BaseActivity {
                             toast("发布成功");
                             finish();
                         }else {
+                            isSend = false;
                             toast("发布失败");
                         }
                     }

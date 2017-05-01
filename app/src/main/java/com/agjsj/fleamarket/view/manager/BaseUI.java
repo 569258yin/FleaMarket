@@ -1,5 +1,6 @@
 package com.agjsj.fleamarket.view.manager;
 
+import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.content.Context;
 import android.os.AsyncTask;
@@ -35,6 +36,13 @@ public abstract class BaseUI implements View.OnClickListener {
 	public void setBundle(Bundle bundle) {
 		this.bundle = bundle;
 	}
+
+	protected void startActivity(Class clazz) {
+		Intent intent = new Intent();
+		intent.setClass(context, clazz);
+		context.startActivity(intent);
+	}
+
 
 	/**
 	 * 界面的初始化，只在创建view的时候加载一次
