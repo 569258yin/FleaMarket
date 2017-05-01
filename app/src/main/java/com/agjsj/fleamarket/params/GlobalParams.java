@@ -46,4 +46,13 @@ public class GlobalParams {
 			"http://dimg08.c-ctrip.com/images/fd/tg/g1/M0B/EB/A4/CghzflWnH66AEJM2ACw0M6t1KWw818_R_1600_10000_Mtg_7.jpg",
 			"http://pic15.nipic.com/20110722/2912365_092519919000_2.jpg",
 			"http://pic.58pic.com/58pic/12/64/27/55U58PICrdX.jpg" };
+
+
+	/**
+	 * 环信相关
+	 * YXA6FfUmwC49Eee7TLPtw00eug
+	 * YXA64pHPehWy0Lg3fvsEz5ZS_iIbdsg
+	 */
+	public static final String HX_CLIENT_ID="yxa6ffumwC49eee7tlptw00eug";
+	public static final String HX_CLIENT_SECRET="yxa64phpehwy0lg3fvsez5zs_itbdsg";
 }

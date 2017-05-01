@@ -4,17 +4,23 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.graphics.Point;
+import android.support.multidex.MultiDex;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
 import com.agjsj.fleamarket.bean.Goodstype;
 import com.agjsj.fleamarket.bean.UserInfo;
+import com.agjsj.fleamarket.hxchat.DemoHelper;
+import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.util.PicassoImageLoader;
 import com.agjsj.fleamarket.util.PicassoUtils;
 import com.agjsj.fleamarket.view.send.MyLocationListener;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMOptions;
+import com.hyphenate.exceptions.HyphenateException;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 import com.orhanobut.logger.Logger;
@@ -57,6 +63,7 @@ public class BaseApplication extends Application {
 
     @Override
     public void onCreate() {
+        MultiDex.install(this);
         super.onCreate();
         setInstance(this);
         //初始化
@@ -87,9 +94,51 @@ public class BaseApplication extends Application {
             phoneWidth = point.x;
             phoneHeight = point.y;
 
+
+            initHx();
         }
     }
 
+    private void initHx() {
+
+
+
+        //init demo helper
+        DemoHelper.getInstance().init(INSTANCE);
+        //red packet code : 初始化红包SDK，开启日志输出开关
+//        RedPacket.getInstance().initRedPacket(applicationContext, RPConstant.AUTH_METHOD_EASEMOB, new RPInitRedPacketCallback() {
+//
+//            @Override
+//            public void initTokenData(RPValueCallback<TokenData> callback) {
+//                TokenData tokenData = new TokenData();
+//                tokenData.imUserId = EMClient.getInstance().getCurrentUser();
+//                //此处使用环信id代替了appUserId 开发者可传入App的appUserId
+//                tokenData.appUserId = EMClient.getInstance().getCurrentUser();
+//                tokenData.imToken = EMClient.getInstance().getAccessToken();
+//                //同步或异步获取TokenData 获取成功后回调onSuccess()方法
+//                callback.onSuccess(tokenData);
+//            }
+//
+//            @Override
+//            public RedPacketInfo initCurrentUserSync() {
+//                //这里需要同步设置当前用户id、昵称和头像url
+//                String fromAvatarUrl = "";
+//                String fromNickname = EMClient.getInstance().getCurrentUser();
+//                EaseUser easeUser = EaseUserUtils.getUserInfo(fromNickname);
+//                if (easeUser != null) {
+//                    fromAvatarUrl = TextUtils.isEmpty(easeUser.getAvatar()) ? "none" : easeUser.getAvatar();
+//                    fromNickname = TextUtils.isEmpty(easeUser.getNick()) ? easeUser.getUsername() : easeUser.getNick();
+//                }
+//                RedPacketInfo redPacketInfo = new RedPacketInfo();
+//                redPacketInfo.fromUserId = EMClient.getInstance().getCurrentUser();
+//                redPacketInfo.fromAvatarUrl = fromAvatarUrl;
+//                redPacketInfo.fromNickName = fromNickname;
+//                return redPacketInfo;
+//            }
+//        });
+//        RedPacket.getInstance().setDebugMode(true);
+        //end of red packet code
+    }
 
 
     /**
@@ -272,5 +321,11 @@ public class BaseApplication extends Application {
 
     public LocationClient getmLocationClient() {
         return mLocationClient;
+
+    }
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }

@@ -30,4 +30,10 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
+
+    <!--环信相关-->
+    <string name="emojicon_test_name">Test</string>
+    <string name="at_your_in_group">%s @ you in group chat</string>
+
+
 </resources>

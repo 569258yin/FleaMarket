@@ -105,8 +105,5 @@ public class MyLocationListener implements BDLocationListener {
         Log.i("BaiduLocationApiDem", sb.toString());
     }
 
-    @Override
-    public void onConnectHotSpotMessage(String s, int i) {
 
-    }
 }
