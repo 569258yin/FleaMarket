@@ -1,7 +1,6 @@
 package com.agjsj.fleamarket.engine.impl;
 
 import com.agjsj.fleamarket.bean.FoundCase;
-import com.agjsj.fleamarket.bean.GoodsType;
 import com.agjsj.fleamarket.bean.json.PageJsonData;
 import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.BaseEngine;

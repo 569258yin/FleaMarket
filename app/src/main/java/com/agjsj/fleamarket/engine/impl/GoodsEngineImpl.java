@@ -1,7 +1,7 @@
 package com.agjsj.fleamarket.engine.impl;
 
 import com.agjsj.fleamarket.bean.Goods;
-import com.agjsj.fleamarket.bean.GoodsType;
+import com.agjsj.fleamarket.bean.Goodstype;
 import com.agjsj.fleamarket.bean.json.PageJsonData;
 import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.BaseEngine;
@@ -161,7 +161,7 @@ public class GoodsEngineImpl extends BaseEngine implements GoodsEngine {
 	}
 
 	@Override
-	public void getAllGoodsType(final BaseCallBack.GetAllListCallBack<GoodsType> callBack) {
+	public void getAllGoodsType(final BaseCallBack.GetAllListCallBack<Goodstype> callBack) {
 		String content = getMessageToJson("");
 		goodsService.getAllGoodsType(content)
 				.subscribeOn(Schedulers.io())  //IO线程加载数据
@@ -181,7 +181,7 @@ public class GoodsEngineImpl extends BaseEngine implements GoodsEngine {
 							IMessage message = getResult(result);
 							if(message != null && message.getBody() != null) {
 								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
-									List<GoodsType> goodstypeList = GsonUtil.getGson().fromJson(message.getBody().getElements(),new TypeToken<List<GoodsType>>(){}.getType());
+									List<Goodstype> goodstypeList = GsonUtil.getGson().fromJson(message.getBody().getElements(),new TypeToken<List<Goodstype>>(){}.getType());
 									callBack.getAllResultCallBack(goodstypeList);
 								}
 							}

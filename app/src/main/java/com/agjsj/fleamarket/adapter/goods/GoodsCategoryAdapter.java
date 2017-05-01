@@ -1,7 +1,6 @@
 package com.agjsj.fleamarket.adapter.goods;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.agjsj.fleamarket.R;
-import com.agjsj.fleamarket.bean.GoodsType;
+import com.agjsj.fleamarket.bean.Goodstype;
 
 import java.util.List;
 
@@ -19,11 +18,11 @@ import java.util.List;
 
 public class GoodsCategoryAdapter extends BaseAdapter {
 
-    private List<GoodsType> goodsTypeList;
+    private List<Goodstype> goodsTypeList;
     private Context context;
     private LayoutInflater mInfalater;
 
-    public GoodsCategoryAdapter(List<GoodsType> goodsTypeList, Context context) {
+    public GoodsCategoryAdapter(List<Goodstype> goodsTypeList, Context context) {
         this.goodsTypeList = goodsTypeList;
         this.context = context;
         mInfalater = LayoutInflater.from(context);
@@ -70,7 +69,7 @@ public class GoodsCategoryAdapter extends BaseAdapter {
     }
 
     public interface TextViewCallBack{
-        public void OnTextViewClick(GoodsType goodsType, int position);
+        public void OnTextViewClick(Goodstype goodsType, int position);
     }
 
     private TextViewCallBack textViewCallBack;

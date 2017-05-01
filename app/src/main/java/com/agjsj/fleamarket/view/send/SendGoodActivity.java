@@ -14,7 +14,7 @@ import butterknife.Bind;
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.adapter.goods.GridImageAdapter;
 import com.agjsj.fleamarket.bean.Goods;
-import com.agjsj.fleamarket.bean.GoodsType;
+import com.agjsj.fleamarket.bean.Goodstype;
 import com.agjsj.fleamarket.bean.ImagePath;
 import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.GoodsEngine;
@@ -62,7 +62,7 @@ public class SendGoodActivity extends BaseActivity {
     public static final int IMAGE_PICKER = 1001;
     private GridImageAdapter gridImageAdapter;
     private CompressHelper compressHelper;
-    private List<GoodsType> GoodsTypeList;
+    private List<Goodstype> GoodsTypeList;
 
     //spinner
     private ArrayAdapter<String> adapter;
@@ -87,16 +87,16 @@ public class SendGoodActivity extends BaseActivity {
         if(GoodsTypeList == null){
             GoodsTypeList = new ArrayList<>();
             GoodsEngine goodsEngine = BeanFactory.getImpl(GoodsEngine.class);
-            goodsEngine.getAllGoodsType(new BaseCallBack.GetAllListCallBack<GoodsType>() {
+            goodsEngine.getAllGoodsType(new BaseCallBack.GetAllListCallBack<Goodstype>() {
                 @Override
-                public void getAllResultCallBack(List<GoodsType> goodsTypeList) {
+                public void getAllResultCallBack(List<Goodstype> goodsTypeList) {
                     if (goodsTypeList != null){
                         BaseApplication.INSTANCE().setGoodstypes(goodsTypeList);
                         GoodsTypeList.addAll(goodsTypeList);
                         texts = new String[GoodsTypeList.size()];
                         values = new int[GoodsTypeList.size()];
                         for (int i = 0; i < GoodsTypeList.size(); i++) {
-                            GoodsType GoodsType = GoodsTypeList.get(i);
+                            Goodstype GoodsType = GoodsTypeList.get(i);
                             texts[i] = GoodsType.getGoodstypename();
                             values[i] = GoodsType.getGoodstypeid();
                         }
@@ -120,7 +120,7 @@ public class SendGoodActivity extends BaseActivity {
             texts = new String[GoodsTypeList.size()];
             values = new int[GoodsTypeList.size()];
             for (int i = 0; i < GoodsTypeList.size(); i++) {
-                GoodsType GoodsType = GoodsTypeList.get(i);
+                Goodstype GoodsType = GoodsTypeList.get(i);
                 texts[i] = GoodsType.getGoodstypename();
                 values[i] = GoodsType.getGoodstypeid();
             }

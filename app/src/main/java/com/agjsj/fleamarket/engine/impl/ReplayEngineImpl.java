@@ -1,6 +1,6 @@
 package com.agjsj.fleamarket.engine.impl;
 
-import com.agjsj.fleamarket.bean.GoodsType;
+import com.agjsj.fleamarket.bean.Goodstype;
 import com.agjsj.fleamarket.bean.Goodsrepaly;
 import com.agjsj.fleamarket.bean.Torepaly;
 import com.agjsj.fleamarket.bean.json.PageJsonData;
@@ -51,7 +51,7 @@ public class ReplayEngineImpl extends BaseEngine implements ReplayEngine {
 							IMessage message = getResult(result);
 							if(message != null && message.getBody() != null) {
 								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
-									List<GoodsType> goodstypeList = GsonUtil.getGson().fromJson(message.getBody().getElements(),new TypeToken<List<GoodsType>>(){}.getType());
+									List<Goodstype> goodstypeList = GsonUtil.getGson().fromJson(message.getBody().getElements(),new TypeToken<List<Goodstype>>(){}.getType());
 									callBack.sendResultCallBack(BaseCallBack.SEND_OK);
 								}
 							}
@@ -114,7 +114,7 @@ public class ReplayEngineImpl extends BaseEngine implements ReplayEngine {
 							IMessage message = getResult(result);
 							if(message != null && message.getBody() != null) {
 								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
-									List<GoodsType> goodstypeList = GsonUtil.getGson().fromJson(message.getBody().getElements(),new TypeToken<List<GoodsType>>(){}.getType());
+									List<Goodstype> goodstypeList = GsonUtil.getGson().fromJson(message.getBody().getElements(),new TypeToken<List<Goodstype>>(){}.getType());
 									callBack.sendResultCallBack(BaseCallBack.SEND_OK);
 								}
 							}

@@ -7,7 +7,7 @@ import android.graphics.Point;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
-import com.agjsj.fleamarket.bean.GoodsType;
+import com.agjsj.fleamarket.bean.Goodstype;
 import com.agjsj.fleamarket.bean.UserInfo;
 import com.agjsj.fleamarket.util.PicassoImageLoader;
 import com.agjsj.fleamarket.util.PicassoUtils;
@@ -26,8 +26,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 import java.util.Properties;
-
-import static java.security.AccessController.getContext;
 
 public class BaseApplication extends Application {
 
@@ -49,7 +47,7 @@ public class BaseApplication extends Application {
 
     private String token = "";
     private UserInfo currentUser;
-    private List<GoodsType> goodstypes;
+    private List<Goodstype> goodstypes;
 
     public LocationClient mLocationClient = null;
     public BDLocationListener myListener = new MyLocationListener();
@@ -264,11 +262,11 @@ public class BaseApplication extends Application {
     }
 
 
-    public List<GoodsType> getGoodstypes() {
+    public List<Goodstype> getGoodstypes() {
         return goodstypes;
     }
 
-    public void setGoodstypes(List<GoodsType> goodstypes) {
+    public void setGoodstypes(List<Goodstype> goodstypes) {
         this.goodstypes = goodstypes;
     }
 

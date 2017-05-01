@@ -81,7 +81,7 @@ public class TitleManager implements Observer {
 
     }
 
-    public interface RightTvOnClickListen{
+    public interface RightTvOnClickListen {
         public void OnClick();
     }
 
@@ -115,7 +115,7 @@ public class TitleManager implements Observer {
     //显示和隐藏
     public void showCommonTitle() {
         initTitle();
-        if(rightTvOnClickListen != null) {
+        if (rightTvOnClickListen != null) {
             tvRight.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -157,6 +157,7 @@ public class TitleManager implements Observer {
                 case GlobalParams.VIEW_SCHOOL:
                     back.setVisibility(View.GONE);
                     title.setText("失物招领");
+                    tvRight.setVisibility(View.VISIBLE);
                     tvRight.setText("发布");
                     showCommonTitle();
                     tvRight.setOnClickListener(new View.OnClickListener() {
@@ -167,13 +168,22 @@ public class TitleManager implements Observer {
                         }
                     });
                     break;
+                case GlobalParams.VIEW_MESSSAGE:
+                    initTitle();
+                    showCommonTitle();
+                    title.setText("消息");
+                    tvRight.setVisibility(View.INVISIBLE);
+                    break;
+                case GlobalParams.VIEW_ME:
+                    initTitle();
+                    break;
                 default:
                     initTitle();
                     break;
 //			case ConstantValue.VIEW_HOME:
 //				showUnLoginTitle();
 //				break;
-//			case ConstantValue.VIEW_SECOND:
+//			case ConstantValue.VIEW_MESSSAGE:
 //			case ConstantValue.VIEW_SSQ:
 //			case ConstantValue.VIEW_SHOPPING:
 //			case ConstantValue.VIEW_LOGIN:

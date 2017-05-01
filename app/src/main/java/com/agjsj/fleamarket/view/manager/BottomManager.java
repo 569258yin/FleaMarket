@@ -11,9 +11,10 @@ import android.widget.RelativeLayout;
 
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.params.GlobalParams;
+import com.agjsj.fleamarket.view.MeUI;
 import com.agjsj.fleamarket.view.SchoolUI;
 import com.agjsj.fleamarket.view.HomeUI;
-import com.agjsj.fleamarket.view.SecondUI;
+import com.agjsj.fleamarket.view.MessageUI;
 import com.agjsj.fleamarket.view.send.SendGoodActivity;
 
 import org.apache.commons.lang3.StringUtils;
@@ -164,10 +165,10 @@ public class BottomManager implements Observer,OnClickListener,OnCheckedChangeLi
 			MiddleManager.getInstance().changeUI(SchoolUI.class);
 			break;
 		case R.id.rb_main_message:
-			MiddleManager.getInstance().changeUI(SecondUI.class);
+			MiddleManager.getInstance().changeUI(MessageUI.class);
 			break;
 		case R.id.rb_main_me:
-
+			MiddleManager.getInstance().changeUI(MeUI.class);
 			break;
 		default:
 			break;

@@ -227,7 +227,7 @@ public class MiddleManager extends Observable {
 		// TitleManager.getInstance().showUnLoginTitle();
 		// BottomManager.getInstrance().showCommonBottom();
 		// }
-		// if(currentUI.getClass().getSimpleName().equals("SecondUI")){
+		// if(currentUI.getClass().getSimpleName().equals("MessageUI")){
 		// TitleManager.getInstance().showCommonTitle();
 		// BottomManager.getInstrance().showGameBottom();
 		// }
@@ -236,7 +236,7 @@ public class MiddleManager extends Observable {
 
 		/*
 		 * switch (currentUI.getID()) { case ConstantValue.VIEW_HOME: TitleManager.getInstance().showUnLoginTitle(); BottomManager.getInstrance().showCommonBottom(); //
-		 * LeftManager\RightManager break; case ConstantValue.VIEW_SECOND: TitleManager.getInstance().showCommonTitle(); BottomManager.getInstrance().showGameBottom(); break; case
+		 * LeftManager\RightManager break; case ConstantValue.VIEW_MESSSAGE: TitleManager.getInstance().showCommonTitle(); BottomManager.getInstrance().showGameBottom(); break; case
 		 * 3: TitleManager.getInstance().showCommonTitle(); BottomManager.getInstrance().showGameBottom(); break; }
 		 */
 

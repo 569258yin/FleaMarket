@@ -174,7 +174,7 @@ public class MainActivity extends BaseActivity {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			if(MiddleManager.getInstance().getCurrentUI().getClass() == HomeUI.class
 					|| MiddleManager.getInstance().getCurrentUI().getClass() == SchoolUI.class
-					|| MiddleManager.getInstance().getCurrentUI().getClass() == SecondUI.class
+					|| MiddleManager.getInstance().getCurrentUI().getClass() == MessageUI.class
 					){
 				// boolean result = MiddleManager.getInstance().goBack();
 				boolean result = false;

@@ -12,7 +12,7 @@ import android.widget.TextView;
 import butterknife.Bind;
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.adapter.goods.GoodsCategoryAdapter;
-import com.agjsj.fleamarket.bean.GoodsType;
+import com.agjsj.fleamarket.bean.Goodstype;
 import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.GoodsEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
@@ -38,7 +38,7 @@ public class GoodsCategoryActivity extends BaseActivity {
     @Bind(R.id.tv_title_text)
     TextView tvTitleText;
 
-    private List<GoodsType> goodsTypeList;
+    private List<Goodstype> goodsTypeList;
     private GoodsCategoryAdapter adapter;
     private GoodsViewPagerAdapter viewPagerAdapter;
     private List<BaseFragment> viewList = new ArrayList<>();
@@ -56,9 +56,9 @@ public class GoodsCategoryActivity extends BaseActivity {
         if (goodsTypeList == null) {
             goodsTypeList = new ArrayList<>();
             GoodsEngine goodsEngine = BeanFactory.getImpl(GoodsEngine.class);
-            goodsEngine.getAllGoodsType(new BaseCallBack.GetAllListCallBack<GoodsType>() {
+            goodsEngine.getAllGoodsType(new BaseCallBack.GetAllListCallBack<Goodstype>() {
                 @Override
-                public void getAllResultCallBack(List<GoodsType> _goodsTypeList) {
+                public void getAllResultCallBack(List<Goodstype> _goodsTypeList) {
                     if (_goodsTypeList != null) {
                         BaseApplication.INSTANCE().setGoodstypes(_goodsTypeList);
                         goodsTypeList.addAll(_goodsTypeList);
@@ -87,14 +87,14 @@ public class GoodsCategoryActivity extends BaseActivity {
         adapter = new GoodsCategoryAdapter(goodsTypeList, getApplicationContext());
         adapter.setTextViewCallBack(new GoodsCategoryAdapter.TextViewCallBack() {
             @Override
-            public void OnTextViewClick(GoodsType goodsType, int position) {
+            public void OnTextViewClick(Goodstype goodsType, int position) {
                 viewList.get(position).setUserVisibleHint(true);
                 viewPager.setCurrentItem(position);
             }
         });
         listView.setAdapter(adapter);
         for (int i = 0; i < goodsTypeList.size(); i++) {
-            GoodsType goodsType = goodsTypeList.get(i);
+            Goodstype goodsType = goodsTypeList.get(i);
             GoodsFragment fragment = new GoodsFragment();
             Bundle args = new Bundle();
             args.putInt("goodsTypeId", goodsType.getGoodstypeid());

@@ -35,24 +35,24 @@ public class SplashActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
 
-            UserEngine userEngine = BeanFactory.getImpl(UserEngine.class);
-//            判断是否登陆了
-            if (BaseApplication.INSTANCE().getToken() == null || "".equals(BaseApplication.INSTANCE().getToken())) {
-                mActivity.get().toLoginActivity();
-            } else {
-                userEngine.checkToken(BaseApplication.INSTANCE().getToken(), new BaseCallBack.SendCallBack() {
-                    @Override
-                    public void sendResultCallBack(int responseCode) {
-                        if (responseCode == BaseCallBack.SEND_OK){
-                            mActivity.get().toMainActivity();
-                        }else {
-                            mActivity.get().toLoginActivity();
-                        }
-                    }
-                });
-
-            }
-//            mActivity.get().toMainActivity();
+//            UserEngine userEngine = BeanFactory.getImpl(UserEngine.class);
+////            判断是否登陆了
+//            if (BaseApplication.INSTANCE().getToken() == null || "".equals(BaseApplication.INSTANCE().getToken())) {
+//                mActivity.get().toLoginActivity();
+//            } else {
+//                userEngine.checkToken(BaseApplication.INSTANCE().getToken(), new BaseCallBack.SendCallBack() {
+//                    @Override
+//                    public void sendResultCallBack(int responseCode) {
+//                        if (responseCode == BaseCallBack.SEND_OK){
+//                            mActivity.get().toMainActivity();
+//                        }else {
+//                            mActivity.get().toLoginActivity();
+//                        }
+//                    }
+//                });
+//
+//            }
+            mActivity.get().toMainActivity();
 
 //            mActivity.get().toLoginActivity();
         }

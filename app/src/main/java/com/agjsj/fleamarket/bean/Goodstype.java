@@ -1,6 +1,6 @@
 package com.agjsj.fleamarket.bean;
 
-public class GoodsType {
+public class Goodstype {
     private Integer goodstypeid;
 
     private String goodstypename;

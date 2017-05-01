@@ -2,19 +2,16 @@ package com.agjsj.fleamarket.engine.impl;
 
 import android.accounts.Account;
 import com.agjsj.fleamarket.engine.BaseCallBack;
-import com.agjsj.fleamarket.net.procotal.DesMessage;
 import com.agjsj.fleamarket.net.procotal.IMessage;
 import com.agjsj.fleamarket.net.service.UserService;
 import com.agjsj.fleamarket.net.HttpUtils;
 import com.agjsj.fleamarket.util.LogUtil;
 import com.agjsj.fleamarket.view.base.BaseApplication;
-import com.agjsj.fleamarket.bean.GoodsType;
+import com.agjsj.fleamarket.bean.Goodstype;
 import com.agjsj.fleamarket.bean.UserAccount;
 import com.agjsj.fleamarket.bean.UserInfo;
 import com.agjsj.fleamarket.engine.BaseEngine;
 import com.agjsj.fleamarket.engine.UserEngine;
-import com.agjsj.fleamarket.net.procotal.Body;
-import com.agjsj.fleamarket.params.ConstantValue;
 import com.agjsj.fleamarket.params.OelementType;
 import com.agjsj.fleamarket.util.GsonUtil;
 import com.google.gson.reflect.TypeToken;
@@ -109,7 +106,7 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
 								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
 									String jsonStr = message.getBody().getElements();
 									if(StringUtils.isNotEmpty(jsonStr)){
-										List<GoodsType> goodstypeList = (List<GoodsType>) GsonUtil.stringToObjectByType(jsonStr,new TypeToken<List<GoodsType>>(){}.getType());
+										List<Goodstype> goodstypeList = (List<Goodstype>) GsonUtil.stringToObjectByType(jsonStr,new TypeToken<List<Goodstype>>(){}.getType());
 										if(goodstypeList != null){
 											BaseApplication.INSTANCE().setGoodstypes(goodstypeList);
 										}
