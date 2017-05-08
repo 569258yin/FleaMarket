@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.view.HomeUI;
+import com.agjsj.fleamarket.view.MeUI;
 import com.agjsj.fleamarket.view.goods.GoodsCategoryActivity;
 import com.agjsj.fleamarket.view.school.SendLostFoundActivity;
 import com.agjsj.fleamarket.view.search.SearchUI;
@@ -98,16 +99,12 @@ public class TitleManager implements Observer {
                 MiddleManager.getInstance().changeUI(SearchUI.class);
             }
         });
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MiddleManager.getInstance().changeUI(HomeUI.class);
-            }
-        });
+
     }
 
     //初始化
     private void initTitle() {
+        tvRight.setVisibility(View.INVISIBLE);
         commomContainer.setVisibility(View.GONE);
         searchContainer.setVisibility(View.GONE);
     }
@@ -150,16 +147,29 @@ public class TitleManager implements Observer {
                 case GlobalParams.VIEW_GOODSDETAIL:
                     title.setText("商品详情");
                     showCommonTitle();
+                    back.setVisibility(View.VISIBLE);
+                    back.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            MiddleManager.getInstance().goBack();
+                        }
+                    });
                     break;
                 case GlobalParams.VIEW_HOME:
                     showSearchTitle();
+                    back.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            MiddleManager.getInstance().changeUI(HomeUI.class);
+                        }
+                    });
                     break;
                 case GlobalParams.VIEW_SCHOOL:
+                    showCommonTitle();
                     back.setVisibility(View.GONE);
                     title.setText("失物招领");
                     tvRight.setVisibility(View.VISIBLE);
                     tvRight.setText("发布");
-                    showCommonTitle();
                     tvRight.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -169,13 +179,37 @@ public class TitleManager implements Observer {
                     });
                     break;
                 case GlobalParams.VIEW_MESSSAGE:
-                    initTitle();
                     showCommonTitle();
                     title.setText("消息");
                     tvRight.setVisibility(View.INVISIBLE);
+                    back.setVisibility(View.INVISIBLE);
                     break;
                 case GlobalParams.VIEW_ME:
                     initTitle();
+                    back.setVisibility(View.INVISIBLE);
+                    break;
+                case GlobalParams.VIEW_MY_SEND_GOODS:
+                    showCommonTitle();
+                    title.setText("我发布的宝贝");
+                    tvRight.setVisibility(View.INVISIBLE);
+                    back.setVisibility(View.VISIBLE);
+                    back.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            MiddleManager.getInstance().changeUI(MeUI.class);
+                        }
+                    });
+                    break;
+                case GlobalParams.VIEW_MY_SEND_FOUNDCASE:
+                    showCommonTitle();
+                    title.setText("我发布的失物招领");
+                    back.setVisibility(View.VISIBLE);
+                    back.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            MiddleManager.getInstance().changeUI(MeUI.class);
+                        }
+                    });
                     break;
                 default:
                     initTitle();

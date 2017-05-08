@@ -8,6 +8,7 @@ import com.agjsj.fleamarket.R;
 import com.squareup.picasso.LruCache;
 import com.squareup.picasso.Picasso;
 import com.squareup.picasso.Transformation;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 
@@ -41,6 +42,9 @@ public class PicassoUtils {
      * 简单的加载图片
      */
     public static void loadImage(String path, ImageView imageView) {
+        if (StringUtils.isEmpty(path)){
+            return;
+        }
         picasso.load(path).into(imageView);
     }
 
@@ -48,6 +52,9 @@ public class PicassoUtils {
      * 指定加载失败显示的图片
      */
     public static void loadImage(String path, int errorPicId, ImageView imageView) {
+        if (StringUtils.isEmpty(path)){
+            return;
+        }
         picasso.load(path).error(errorPicId).into(imageView);
     }
 
@@ -55,6 +62,9 @@ public class PicassoUtils {
      * 指定加载失败显示的图片
      */
     public static void loadImage(String path, int errorPicId, int placeholderPicId, ImageView imageView) {
+        if (StringUtils.isEmpty(path)){
+            return;
+        }
         picasso.load(path).error(errorPicId).placeholder(placeholderPicId).into(imageView);
     }
 
@@ -66,6 +76,9 @@ public class PicassoUtils {
      * @param imageView
      */
     public static void loadResizeImage(String path, int resizeWidth, int resizeHeight, ImageView imageView) {
+        if (StringUtils.isEmpty(path)){
+            return;
+        }
         picasso.load(path).error(R.drawable.icon_error).placeholder(R.drawable.icon_empty).resize(resizeWidth, resizeHeight).into(imageView);
     }
 
@@ -79,6 +92,9 @@ public class PicassoUtils {
      * @param imageView
      */
     public static void loadResizeImage(String path, int errorPicId, int placeholderPicId, int resizeWidth, int resizeHeight, ImageView imageView) {
+        if (StringUtils.isEmpty(path)){
+            return;
+        }
         picasso.load(path).error(errorPicId).placeholder(placeholderPicId).resize(resizeWidth, resizeHeight).into(imageView);
     }
     /**
@@ -89,6 +105,9 @@ public class PicassoUtils {
      * @param imageView
      */
     public static void loadResourceImage(String path, int resizeWidth, int resizeHeight, ImageView imageView) {
+        if (StringUtils.isEmpty(path)){
+            return;
+        }
         picasso.load(new File(path)).error(R.drawable.icon_error).placeholder(R.drawable.icon_empty).resize(resizeWidth, resizeHeight).into(imageView);
     }
 
@@ -101,6 +120,9 @@ public class PicassoUtils {
      * @param mImageView 控件
      */
     public static void loadImageViewCrop(Context mContext, String path, ImageView mImageView) {
+        if (StringUtils.isEmpty(path)){
+            return;
+        }
         Picasso.with(mContext).load(path).transform(new CropImageView()).into(mImageView);
     }
 

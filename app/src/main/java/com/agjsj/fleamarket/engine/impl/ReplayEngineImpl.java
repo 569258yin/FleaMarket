@@ -31,6 +31,7 @@ public class ReplayEngineImpl extends BaseEngine implements ReplayEngine {
 
 	@Override
 	public void sendReplay(Goodsrepaly goodsrepaly, final BaseCallBack.SendCallBack callBack) {
+		goodsrepaly.setGoodsreplaytime(null);
 		String json = GsonUtil.objectToString(goodsrepaly);
 		String content = getMessageToJson(json);
 		replayService.sendReplay(content)
@@ -94,6 +95,7 @@ public class ReplayEngineImpl extends BaseEngine implements ReplayEngine {
 
 	@Override
 	public void sendToReplay(Torepaly torepaly, final BaseCallBack.SendCallBack callBack) {
+		torepaly.setTorepalytime(null);
 		String json = GsonUtil.objectToString(torepaly);
 		String content = getMessageToJson(json);
 		replayService.sendToReplay(content)

@@ -26,12 +26,18 @@ public interface UserEngine {
 	public void getCurrentUser(String userId, final BaseCallBack.GetObjCallBack<UserInfo> getUserCallBack);
 
 	/**
-	 *
 	 * 注册账号
 	 * @param account
 	 * @param callBack
 	 */
-	public void register(Account account, final BaseCallBack.SendCallBack callBack);
+	public void register(UserAccount account, final BaseCallBack.ResultCallBack callBack);
+
+	/**
+	 * 发送手机号获取验证码
+	 * @param phoneNum
+	 * @param callBack
+	 */
+	public void verifyPhone(String phoneNum, final BaseCallBack.ResultCallBack callBack);
 
 	/**
 	 * 更新个人账号信息

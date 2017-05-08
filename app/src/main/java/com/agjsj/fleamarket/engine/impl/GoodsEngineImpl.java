@@ -77,8 +77,35 @@ public class GoodsEngineImpl extends BaseEngine implements GoodsEngine {
 	}
 
 	@Override
-	public List<Goods> getGoodsOfUser(String userid, int start, int count) {
-		return null;
+	public void getGoodsOfUser(String  userid, final BaseCallBack.GetAllListCallBack<Goods> callBack) {
+		PageJsonData pageJsonData = new PageJsonData(userid);
+		String json = GsonUtil.objectToString(pageJsonData);
+		String content = getMessageToJson(json);
+		goodsService.getGoodsOfUser(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+					@Override
+					public void onCompleted() {
+					}
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						callBack.getAllResultCallBack(null);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									List<Goods> list = (List<Goods>) GsonUtil.stringToObjectByType(message.getBody().getElements(),new TypeToken<List<Goods>>(){}.getType());
+									callBack.getAllResultCallBack(list);
+								}
+							}
+						}
+					}
+				});
 	}
 
 	@Override
@@ -146,18 +173,109 @@ public class GoodsEngineImpl extends BaseEngine implements GoodsEngine {
 	}
 
 	@Override
-	public boolean updateGoods(Goods goods) {
-		return false;
+	public void updateGoods(Goods goods, final BaseCallBack.SendCallBack callBack) {
+		if(goods == null){
+			callBack.sendResultCallBack(BaseCallBack.SEND_ERROR);
+			return;
+		}
+		String json = GsonUtil.objectToString(goods);
+		String content = getMessageToJson(json);
+		goodsService.updateGoods(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+
+					@Override
+					public void onCompleted() {
+					}
+
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						callBack.sendResultCallBack(BaseCallBack.SEND_ERROR);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									callBack.sendResultCallBack(BaseCallBack.SEND_OK);
+
+								}
+							}
+						}
+					}
+				});
 	}
 
 	@Override
-	public boolean deleteGoods(Integer goodsid) {
-		return false;
+	public void deleteGoods(String goodsid,final BaseCallBack.SendCallBack callBack) {
+		PageJsonData pageJsonData = new PageJsonData();
+		pageJsonData.setId(goodsid);
+		String json = GsonUtil.objectToString(pageJsonData);
+		String content = getMessageToJson(json);
+		goodsService.deleteGoods(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+
+					@Override
+					public void onCompleted() {
+					}
+
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						callBack.sendResultCallBack(BaseCallBack.SEND_ERROR);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									callBack.sendResultCallBack(BaseCallBack.SEND_OK);
+
+								}
+							}
+						}
+					}
+				});
 	}
 
 	@Override
-	public Goods getGoodsInfo(String goodsid) {
-		return null;
+	public void getGoodsInfo(String goodsid,final BaseCallBack.GetObjCallBack<Goods> callBack) {
+		PageJsonData pageJsonData = new PageJsonData(goodsid);
+		String json = GsonUtil.objectToString(pageJsonData);
+		String content = getMessageToJson(json);
+		goodsService.getGoodsInfo(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+
+					@Override
+					public void onCompleted() {
+					}
+
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						callBack.getResultCallBack(null);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									Goods goods = (Goods) GsonUtil.stringToObjectByBean(message.getBody().getElements(),Goods.class);
+									callBack.getResultCallBack(goods);
+								}
+							}
+						}
+					}
+				});
 	}
 
 	@Override
@@ -183,6 +301,104 @@ public class GoodsEngineImpl extends BaseEngine implements GoodsEngine {
 								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
 									List<Goodstype> goodstypeList = GsonUtil.getGson().fromJson(message.getBody().getElements(),new TypeToken<List<Goodstype>>(){}.getType());
 									callBack.getAllResultCallBack(goodstypeList);
+								}
+							}
+						}
+					}
+				});
+	}
+
+	@Override
+	public void refreshGoods(String goodsId, final BaseCallBack.SendCallBack callBack) {
+		PageJsonData pageJsonData = new PageJsonData(goodsId);
+		String json = GsonUtil.objectToString(pageJsonData);
+		String content = getMessageToJson(json);
+		goodsService.refreshGoods(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+
+					@Override
+					public void onCompleted() {
+					}
+
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						callBack.sendResultCallBack(BaseCallBack.SEND_ERROR);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									callBack.sendResultCallBack(BaseCallBack.SEND_OK);
+								}
+							}
+						}
+					}
+				});
+	}
+
+	@Override
+	public void searchGoods(String text, final BaseCallBack.GetAllListCallBack<Goods> callBack) {
+		PageJsonData pageJsonData = new PageJsonData(text);
+		String json = GsonUtil.objectToString(pageJsonData);
+		String content = getMessageToJson(json);
+		goodsService.searchGoods(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+					@Override
+					public void onCompleted() {
+					}
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						callBack.getAllResultCallBack(null);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									List<Goods> goodsList = GsonUtil.getGson().fromJson(message.getBody().getElements(),new TypeToken<List<Goods>>(){}.getType());
+									callBack.getAllResultCallBack(goodsList);
+								}
+							}
+						}
+					}
+				});
+	}
+
+	@Override
+	public void getSearchHot(int num,final BaseCallBack.GetAllListCallBack<String> callBack) {
+		PageJsonData pageJsonData = new PageJsonData();
+		pageJsonData.setPageSize(num);
+		String json = GsonUtil.objectToString(pageJsonData);
+		String content = getMessageToJson(json);
+		goodsService.getSearchHot(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+					@Override
+					public void onCompleted() {
+					}
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						callBack.getAllResultCallBack(null);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									List<String> goodsList = GsonUtil.getGson().fromJson(message.getBody().getElements(),new TypeToken<List<String>>(){}.getType());
+									callBack.getAllResultCallBack(goodsList);
 								}
 							}
 						}

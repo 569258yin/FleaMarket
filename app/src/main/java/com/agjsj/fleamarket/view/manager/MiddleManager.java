@@ -30,6 +30,7 @@ public class MiddleManager extends Observable {
 
 	private Context context;
 	private FragmentManager fragmentManager;
+	private BaseUI oldUI;
 
 	private MiddleManager() {
 	}
@@ -107,6 +108,9 @@ public class MiddleManager extends Observable {
 		if (VIEWCACHE.containsKey(key)) {
 			// 创建了，重用
 			targetUI = VIEWCACHE.get(key);
+			targetUI.setBundle(bundle);
+			//刷新整个view
+			targetUI.refreshView();
 		} else {
 			// 否则，创建
 			try {
@@ -114,14 +118,15 @@ public class MiddleManager extends Observable {
 				targetUI = constructor.newInstance(getContext(),fragmentManager);
 				VIEWCACHE.put(key, targetUI);
 			} catch (Exception e) {
-				throw new RuntimeException("constructor new instance error");
+				e.printStackTrace();
+				LogUtil.error("创建"+key+"UI对象时出错",e);
+				throw new RuntimeException("创建"+key+"UI对象时出错，请log或debug此UI中的代码",e);
+			}
+			if (targetUI != null) {
+				targetUI.setBundle(bundle);
+				targetUI.refreshView();
 			}
 		}
-
-		if (targetUI != null) {
-			targetUI.setBundle(bundle);
-		}
-
 		Log.i(TAG, targetUI.toString());
 
 		if (currentUI != null) {
@@ -139,7 +144,7 @@ public class MiddleManager extends Observable {
 //		 FadeUtil.fadeIn(child, 2000, 1000);
 		// 在加载完界面之后——onResume
 		targetUI.onResume();
-
+		oldUI = currentUI;
 		currentUI = targetUI;
 
 		// 将当前显示的界面放到栈顶
@@ -170,6 +175,8 @@ public class MiddleManager extends Observable {
 		if (VIEWCACHE.containsKey(key)) {
 			// 创建了，重用
 			targetUI = VIEWCACHE.get(key);
+			//刷新整个view
+			targetUI.refreshView();
 		} else {
 			// 否则，创建
 			try {
@@ -180,6 +187,9 @@ public class MiddleManager extends Observable {
 				e.printStackTrace();
 				LogUtil.error("创建"+key+"UI对象时出错",e);
 				throw new RuntimeException("创建"+key+"UI对象时出错，请log或debug此UI中的代码",e);
+			}
+			if (targetUI != null) {
+				targetUI.refreshView();
 			}
 		}
 
@@ -203,7 +213,7 @@ public class MiddleManager extends Observable {
 
 		// 在加载完界面之后——onResumes
 		targetUI.onResume();
-
+		oldUI = currentUI;
 		currentUI = targetUI;
 
 		// 将当前显示的界面放到栈顶
@@ -211,8 +221,7 @@ public class MiddleManager extends Observable {
 
 		// 当中间容器切换成功时，处理另外的两个容器的变化
 		changeTitleAndBottom();
-		//刷新整个view
-		currentUI.refreshView();
+
 	}
 
 	private void changeTitleAndBottom() {
@@ -311,4 +320,7 @@ public class MiddleManager extends Observable {
 		HISTORY.clear();
 	}
 
+	public BaseUI getOldUI() {
+		return oldUI;
+	}
 }

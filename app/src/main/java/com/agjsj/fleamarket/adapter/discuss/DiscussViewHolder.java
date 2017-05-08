@@ -58,7 +58,9 @@ public class DiscussViewHolder extends BaseViewHolder {
             tvNickname.setText(discuss.getUserInfo().getNickname());
         }
 
-        tvTime.setText(TimeUtil.getChatTime(false, discuss.getGoodsreplaytime().getTime()));
+        try {
+            tvTime.setText(TimeUtil.getChatTime(false, discuss.getGoodsreplaytime().getTime()));
+        }catch (Exception e){}
         tvContent.setText(discuss.getGoodsreplaycontent());
 
         recyclerview.setLayoutManager(new LinearLayoutManager(context));

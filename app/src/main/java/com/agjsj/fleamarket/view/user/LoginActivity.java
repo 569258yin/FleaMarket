@@ -2,8 +2,11 @@ package com.agjsj.fleamarket.view.user;
 
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -14,6 +17,8 @@ import com.agjsj.fleamarket.engine.UserEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.view.MainActivity;
 import com.agjsj.fleamarket.view.base.BaseActivity;
+import com.agjsj.fleamarket.view.base.BaseApplication;
+import com.agjsj.fleamarket.view.manager.MiddleManager;
 
 /**
  * Created by MyPC on 2017/2/26.
@@ -29,12 +34,21 @@ public class LoginActivity extends BaseActivity{
     EditText etPassword;
     @Bind(R.id.btn_login)
     Button btnLogin;
+    @Bind(R.id.tv_login_register)
+    TextView tvRegister;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+
+        tvRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(RegisterActivity.class,null,false);
+            }
+        });
     }
 
     @OnClick(R.id.btn_login)
@@ -53,10 +67,12 @@ public class LoginActivity extends BaseActivity{
 
     }
 
+
     /**
      * 登录
      */
     private void login() {
+        BaseApplication.INSTANCE().deleteCurrentUser();
         UserAccount userAccount = new UserAccount(etUsername.getText().toString(),etPassword.getText().toString());
         UserEngine userEngine = BeanFactory.getImpl(UserEngine.class);
         userEngine.login(userAccount, new BaseCallBack.SendCallBack() {
@@ -85,7 +101,14 @@ public class LoginActivity extends BaseActivity{
 //                });
 
     }
-
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+//            android.os.Process.killProcess(android.os.Process.myPid());
+            System.exit(0);
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 
 

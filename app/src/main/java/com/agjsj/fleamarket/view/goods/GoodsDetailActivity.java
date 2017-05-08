@@ -80,6 +80,7 @@ public class GoodsDetailActivity extends BaseActivity {
     private List<String> imagePathList;
     private GoodsImageAdapter adapter;
     private LinearLayoutManager linearLayoutManager_dis;
+    private String currentUserName = "";
     //当前回复哪个人评论，默认为本宝贝发布在id
     private String currentToUserID = null;
     //当前回复的哪个评论
@@ -143,10 +144,10 @@ public class GoodsDetailActivity extends BaseActivity {
                 discussAdapter.setOnRecyclerViewListener(new OnRecyclerViewListener() {
                     @Override
                     public void onItemClick(int position) {
-                        String toUserName = goods.getGoodsrepalyList().get(position).getUserInfo().getNickname();
+                        currentUserName = goods.getGoodsrepalyList().get(position).getUserInfo().getNickname();
                         currentToUserID = goods.getGoodsrepalyList().get(position).getUserInfo().getUserid();
                         currentPosition = position;
-                        editText.setHint("@"+toUserName);
+                        editText.setHint("@"+currentUserName);
                         InputMethodManager imm = (InputMethodManager)getApplicationContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                         imm.toggleSoftInput(0,InputMethodManager.HIDE_NOT_ALWAYS);
                     }
@@ -225,9 +226,8 @@ public class GoodsDetailActivity extends BaseActivity {
                     if(currentToUserID == null){
                         ReplayEngine replayEngine = BeanFactory.getImpl(ReplayEngine.class);
                         if (replayEngine != null){
-                            final Goodsrepaly goodsrepaly; goodsrepaly = new Goodsrepaly(goods.getGoodsid(),
+                            final Goodsrepaly goodsrepaly = new Goodsrepaly(goods.getGoodsid(),
                                     BaseApplication.INSTANCE().getCurrentUser().getUserid(),text);
-                            goodsrepaly.setGoodsreplaytime(new Date());
                             goodsrepaly.setUserInfo(BaseApplication.INSTANCE().getCurrentUser());
                             replayEngine.sendReplay(goodsrepaly, new BaseCallBack.SendCallBack() {
                                 @Override
@@ -255,11 +255,19 @@ public class GoodsDetailActivity extends BaseActivity {
                         ReplayEngine replayEngine = BeanFactory.getImpl(ReplayEngine.class);
                         if (replayEngine != null){
                             final Torepaly torepaly = new Torepaly(goodsrepalyList.get(currentPosition).getGoodsreplayid(),BaseApplication.INSTANCE().getCurrentUser().getUserid(),currentToUserID
-                            ,text,new Date());
+                            ,text,null);
                             replayEngine.sendToReplay(torepaly, new BaseCallBack.SendCallBack() {
                                 @Override
                                 public void sendResultCallBack(int responseCode) {
                                     if(responseCode == BaseCallBack.SEND_OK) {
+                                        UserInfo toUserInfo = new UserInfo();
+                                        toUserInfo.setNickname(currentUserName);
+                                        toUserInfo.setUserid(currentToUserID);
+                                        torepaly.setToUserinfo(toUserInfo);
+                                        UserInfo userInfo = new UserInfo();
+                                        userInfo.setNickname(BaseApplication.INSTANCE().getCurrentUser().getNickname());
+                                        userInfo.setUserid(BaseApplication.INSTANCE().getCurrentUser().getUserid());
+                                        torepaly.setUserinfo(userInfo);
                                         if(currentPosition != -1){
                                             Goodsrepaly goodsrepaly = goodsrepalyList.get(currentPosition);
                                             if(goodsrepaly.getTorepalyList() != null) {

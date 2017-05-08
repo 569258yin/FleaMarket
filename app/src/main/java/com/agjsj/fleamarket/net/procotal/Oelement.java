@@ -23,4 +23,12 @@ public class Oelement implements Serializable{
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
+	@Override
+	public String toString() {
+		return "Oelement{" +
+				"code=" + code +
+				", message='" + message + '\'' +
+				'}';
+	}
 }

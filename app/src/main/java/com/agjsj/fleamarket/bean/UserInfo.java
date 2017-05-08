@@ -75,15 +75,29 @@ public class UserInfo implements java.io.Serializable {
 		this.validatenumber = validatenumber;
 	}
 
+	public UserInfo(String userid, String nickname, Integer usersex, Integer userage, String useraddress, String qqnumber, String wxnumber, String colleage, String school, String usericon) {
+		this.userid = userid;
+		this.usersex = usersex;
+		this.userage = userage;
+		this.useraddress = useraddress;
+		this.nickname = nickname;
+		this.qqnumber = qqnumber;
+		this.wxnumber = wxnumber;
+		this.colleage = colleage;
+		this.school = school;
+		this.usericon = usericon;
+	}
 
 	public String getUserid() {
-		return this.userid;
+		return userid;
 	}
+
 	public void setUserid(String userid) {
 		this.userid = userid;
 	}
+
 	public String getUsername() {
-		return this.username;
+		return username;
 	}
 
 	public void setUsername(String username) {
@@ -91,7 +105,7 @@ public class UserInfo implements java.io.Serializable {
 	}
 
 	public String getUserpassword() {
-		return this.userpassword;
+		return userpassword;
 	}
 
 	public void setUserpassword(String userpassword) {
@@ -99,7 +113,7 @@ public class UserInfo implements java.io.Serializable {
 	}
 
 	public Integer getUsersex() {
-		return this.usersex;
+		return usersex;
 	}
 
 	public void setUsersex(Integer usersex) {
@@ -107,7 +121,7 @@ public class UserInfo implements java.io.Serializable {
 	}
 
 	public Integer getUserage() {
-		return this.userage;
+		return userage;
 	}
 
 	public void setUserage(Integer userage) {
@@ -115,7 +129,7 @@ public class UserInfo implements java.io.Serializable {
 	}
 
 	public String getUseraddress() {
-		return this.useraddress;
+		return useraddress;
 	}
 
 	public void setUseraddress(String useraddress) {
@@ -123,7 +137,7 @@ public class UserInfo implements java.io.Serializable {
 	}
 
 	public String getNickname() {
-		return this.nickname;
+		return nickname;
 	}
 
 	public void setNickname(String nickname) {
@@ -131,7 +145,7 @@ public class UserInfo implements java.io.Serializable {
 	}
 
 	public String getSignature() {
-		return this.signature;
+		return signature;
 	}
 
 	public void setSignature(String signature) {
@@ -139,7 +153,7 @@ public class UserInfo implements java.io.Serializable {
 	}
 
 	public String getQqnumber() {
-		return this.qqnumber;
+		return qqnumber;
 	}
 
 	public void setQqnumber(String qqnumber) {
@@ -147,7 +161,7 @@ public class UserInfo implements java.io.Serializable {
 	}
 
 	public String getWxnumber() {
-		return this.wxnumber;
+		return wxnumber;
 	}
 
 	public void setWxnumber(String wxnumber) {
@@ -155,7 +169,7 @@ public class UserInfo implements java.io.Serializable {
 	}
 
 	public String getColleage() {
-		return this.colleage;
+		return colleage;
 	}
 
 	public void setColleage(String colleage) {
@@ -163,7 +177,7 @@ public class UserInfo implements java.io.Serializable {
 	}
 
 	public String getSchool() {
-		return this.school;
+		return school;
 	}
 
 	public void setSchool(String school) {
@@ -171,7 +185,7 @@ public class UserInfo implements java.io.Serializable {
 	}
 
 	public String getUsericon() {
-		return this.usericon;
+		return usericon;
 	}
 
 	public void setUsericon(String usericon) {
@@ -179,7 +193,7 @@ public class UserInfo implements java.io.Serializable {
 	}
 
 	public String getUserphone() {
-		return this.userphone;
+		return userphone;
 	}
 
 	public void setUserphone(String userphone) {
@@ -187,7 +201,7 @@ public class UserInfo implements java.io.Serializable {
 	}
 
 	public String getValidatenumber() {
-		return this.validatenumber;
+		return validatenumber;
 	}
 
 	public void setValidatenumber(String validatenumber) {
@@ -220,14 +234,25 @@ public class UserInfo implements java.io.Serializable {
 
 	@Override
 	public String toString() {
-		return "UserInfo [userid=" + userid + ", username=" + username + ", userpassword=" + userpassword + ", usersex="
-				+ usersex + ", userage=" + userage + ", useraddress=" + useraddress + ", nickname=" + nickname
-				+ ", signature=" + signature + ", qqnumber=" + qqnumber + ", wxnumber=" + wxnumber + ", colleage="
-				+ colleage + ", school=" + school + ", usericon=" + usericon + ", userphone=" + userphone
-				+ ", validatenumber=" + validatenumber + ", uuid=" + uuid + "]";
+		return "UserInfo{" +
+				"userid='" + userid + '\'' +
+				", username='" + username + '\'' +
+				", userpassword='" + userpassword + '\'' +
+				", usersex=" + usersex +
+				", userage=" + userage +
+				", useraddress='" + useraddress + '\'' +
+				", nickname='" + nickname + '\'' +
+				", signature='" + signature + '\'' +
+				", qqnumber='" + qqnumber + '\'' +
+				", wxnumber='" + wxnumber + '\'' +
+				", colleage='" + colleage + '\'' +
+				", school='" + school + '\'' +
+				", usericon='" + usericon + '\'' +
+				", userphone='" + userphone + '\'' +
+				", validatenumber='" + validatenumber + '\'' +
+				", uuid='" + uuid + '\'' +
+				", createTime=" + createTime +
+				", modifyTime=" + modifyTime +
+				'}';
 	}
-
-
-	
-
 }

@@ -37,30 +37,49 @@ public interface ConstantValue {
 
 
 	/**
+	 * 182.254.240.98:8060
+	 * 45.32.86.57
 	 * 请求地址FileMaketServer
 	 */
-	String URL_ROOT = "http://192.168.5.16:8080/FileMaketServer/";
+	String URL_ROOT = "http://192.168.5.5:8080/FileMaketServer/";
+	//=============================================用户相关=========================================================
 	/** 用户登录 */
 	String URL_USER_LOGIN ="account/loginAccount.action";
+	String URL_USER_REGISTER = "account/registerAccount.action";
+	String URL_USER_VIRIFY_PHONE = "account/virifyPhone.action";
 	/** 检测token是否存在或过期 */
 	String URL_CHECK_TOKEN ="account/checkToken.action";
 	/** 获取用户信息 */
 	String URL_GET_USER ="user/getUserInfo.action";
-	String URL_USER_REGISTER = "account/register.action";
-	/** 商品相关 */
+	String URL_SAVE_USER = "user/saveUserInfo.action";
+	String URL_UPDATE_USER = "user/updateUserInfo.action";
+	/**=========================================== 商品相关======================================================= */
     String URL_SEND_GOODS = "goods/sendGoods.action";
 	String URL_GET_GOODSTYPE = "goods/getGoodsType.action";
 	String URL_GET_GOODS_BY_PAGE = "goods/getGoodsByPage.action";
 	/** 根据商品类别获取商品 */
 	String URL_GET_GOODS_BY_GOODSTYPEID = "goods/getGoodsByGoodsTypeId.action";
+	String URL_GET_GOODS_BY_USERID = "goods/getGoodsByUserId.action";
+	String URL_GET_GOODS_BY_ID = "goods/getGoodsByGoodsId.action";
+	String URL_UPDATE_GOODS = "goods/updateGoods.action";
+	String URL_DELETER_GOODS = "goods/deleterGoods.action";
+	String URL_REFRESH_GOODS = "goods/refreshGoods.action";
+	String URL_SEARCH_GOODS = "goods/searchGoods.action";
+	String URL_GET_SEARCH_HOT = "goods/getSearchTop.action";
+
 	/** 发布商品品论 */
 	String URL_SEND_GOODS_REPLAY = "goodsReplay/sendReplay.action";
 	String URL_GET_GOODS_REPLAY = "goodsReplay/getAllGoodsReplay.action";
 	String URL_SEND_GOODS_TO_REPLAY = "goodsReplay/sendToReplay.action";
 
+
 	//=========================================失物招领=======================================================
 	String URL_SEND_FOUNDCASE = "foundCase/sendFoundCase.action";
 	String URL_GET_FOUNDCASE = "foundCase/getFoundCaseByType.action";
+	String URL_DELETER_FOUNDCASE = "foundCase/getFoundCaseByUserId.action";
+	String URL_GET_FOUNDCASE_BY_USERID = "foundCase/getFoundCaseByUserId.action";
+	String URL_REFRESH_FOUNDCASE = "foundCase/refreshFoundCase.action";
+
 
 	/** 上传文件图片 */
 	String IMAGE_UPLOAD = "file/imgUpload.action";

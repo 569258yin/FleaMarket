@@ -5,21 +5,27 @@ package com.agjsj.fleamarket.bean;
  */
 public class UserAccount {
 	
-	private String username;
-	
+	private String useraccount;
 	private String userpassword;
 
+	private String phoneNum;
+
+	private String code;
+
+	public UserAccount() {
+	}
+
 	public UserAccount(String username, String userpassword) {
-		this.username = username;
+		this.useraccount = username;
 		this.userpassword = userpassword;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getUseraccount() {
+		return useraccount;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUseraccount(String useraccount) {
+		this.useraccount = useraccount;
 	}
 
 	public String getUserpassword() {
@@ -29,7 +35,20 @@ public class UserAccount {
 	public void setUserpassword(String userpassword) {
 		this.userpassword = userpassword;
 	}
-	
-	
-	
+
+	public String getPhoneNum() {
+		return phoneNum;
+	}
+
+	public void setPhoneNum(String phoneNum) {
+		this.phoneNum = phoneNum;
+	}
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
 }

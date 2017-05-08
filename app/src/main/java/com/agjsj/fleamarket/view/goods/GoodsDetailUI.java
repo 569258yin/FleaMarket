@@ -101,7 +101,7 @@ public class GoodsDetailUI extends BaseUI {
         scrollView.scrollTo(0,0);
         editText.setText("");
         currentToUserID = null;
-        goods = (Goods) ((MainActivity)context).getMiddleObj();
+        goods = (Goods) bundle.getSerializable("goods");
         if(goods != null) {
             goodsrepalyList.clear();
             getGoodsReplay(goods);

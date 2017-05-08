@@ -141,6 +141,10 @@ public class ShowMegDialog extends BaseDialog {
         }
     }
 
+    public void setHideCancelBtn(){
+        btn_cancek.setVisibility(View.GONE);
+    }
+
     /**
      * 设置是否点击按钮关闭该Dialog
      *

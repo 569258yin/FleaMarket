@@ -123,6 +123,8 @@ public class BottomManager implements Observer,OnClickListener,OnCheckedChangeLi
 			switch (id){
 				case GlobalParams.VIEW_SEARCH:
 				case GlobalParams.VIEW_GOODSDETAIL:
+				case GlobalParams.VIEW_MY_SEND_FOUNDCASE:
+				case GlobalParams.VIEW_MY_SEND_GOODS:
 					changeBottomVisiblity(View.GONE);
 					break;
 				default:

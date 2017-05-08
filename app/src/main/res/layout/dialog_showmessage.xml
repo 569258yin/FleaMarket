@@ -1,49 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_margin="10dp"
-    android:layout_height="match_parent">
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_margin="10dp"
+              android:layout_height="match_parent">
 
     <TextView
-        android:textSize="35sp"
-        android:background="@color/red"
-        android:gravity="center"
-        android:text="提  示"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_title_dialog_showmsg" />
+            android:textSize="35sp"
+            android:background="@color/red"
+            android:gravity="center"
+            android:text="提  示"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_title_dialog_showmsg"/>
 
     <TextView
-        android:textColor="@color/black"
-        android:layout_marginBottom="10dp"
-        android:layout_marginTop="10dp"
-        android:gravity="center"
-        android:textSize="25sp"
-        android:layout_weight="1"
-        android:text="TextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/tv_msg_dialog_showmsg" />
+            android:textColor="@color/black"
+            android:layout_margin="20dp"
+            android:padding="10dp"
+            android:gravity="center"
+            android:textSize="25sp"
+            android:layout_weight="1"
+            android:text="TextView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tv_msg_dialog_showmsg"/>
 
     <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <Button
-            android:visibility="gone"
-            android:text="取消"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_cancel_dialog_showmsg"
-            android:layout_weight="1" />
+                android:text="取消"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_cancel_dialog_showmsg"
+                android:layout_weight="1"/>
 
         <Button
-            android:text="确定"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/btn_ok_dialog_showmsg"
-            android:layout_weight="1" />
+                android:text="确定"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btn_ok_dialog_showmsg"
+                android:layout_weight="1"/>
     </LinearLayout>
 </LinearLayout>

@@ -342,6 +342,27 @@ public class SearchView extends LinearLayout {
         }
     }
 
+    /**
+     * 设置热搜的数据集合
+     *
+     * @param hotSearchDatas
+     */
+    public void updateHotSearchDatas(List<String> hotSearchDatas) {
+        this.hotSearchDatas = hotSearchDatas;
+        if (hotSearchDatas != null && hotSearchDatas.size() > 0) {
+            if(hotAdapter == null) {
+                ll_search_hot.setVisibility(VISIBLE);
+                hotAdapter = new CommonAdapter(context, hotSearchDatas);
+                gv_search_hot.setNumColumns(hotNumColumns);//设置列数
+                gv_search_hot.setAdapter(hotAdapter);//设置热搜数据
+            }else {
+                hotAdapter.updateRecordList(hotSearchDatas);
+            }
+        } else {
+            ll_search_hot.setVisibility(GONE);
+        }
+    }
+
     private List<String> hintDatas;
 
     /**

@@ -89,16 +89,10 @@ public class BaseActivity extends FragmentActivity {
 
     public void toast(final Object obj) {
         try {
-            runOnMain(new Runnable() {
-
-                @Override
-                public void run() {
-                    if (toast == null)
-                        toast = Toast.makeText(BaseActivity.this, NULL, Toast.LENGTH_SHORT);
-                    toast.setText(obj.toString());
-                    toast.show();
-                }
-            });
+            if (toast == null)
+                toast = Toast.makeText(BaseActivity.this, NULL, Toast.LENGTH_SHORT);
+            toast.setText(obj.toString());
+            toast.show();
         } catch (Exception e) {
             e.printStackTrace();
         }

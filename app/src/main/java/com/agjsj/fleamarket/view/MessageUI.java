@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import butterknife.ButterKnife;
 import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.view.manager.BaseUI;
@@ -30,6 +31,7 @@ public class MessageUI extends BaseUI {
 	public void init() {
 		showInMiddle = (LinearLayout) View.inflate(context,
 				R.layout.activity_message, null);
+		ButterKnife.bind(this, showInMiddle);
 	}
 	@Override
 	public void refreshView() {

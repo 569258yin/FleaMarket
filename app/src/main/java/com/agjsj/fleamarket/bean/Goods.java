@@ -3,6 +3,7 @@ package com.agjsj.fleamarket.bean;
 
 import android.content.Intent;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,6 +47,8 @@ public class Goods implements java.io.Serializable {
     private UserInfo userInfo;
 
     private List<Goodsrepaly> goodsrepalyList;
+
+    private Date modifyTime;
 
     /**
      * default constructor
@@ -195,5 +198,13 @@ public class Goods implements java.io.Serializable {
 
     public void setGoodsrepalyList(List<Goodsrepaly> goodsrepalyList) {
         this.goodsrepalyList = goodsrepalyList;
+    }
+
+    public Date getModifyTime() {
+        return modifyTime;
+    }
+
+    public void setModifyTime(Date modifyTime) {
+        this.modifyTime = modifyTime;
     }
 }

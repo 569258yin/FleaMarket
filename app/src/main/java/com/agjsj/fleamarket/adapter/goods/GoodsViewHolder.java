@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Locale;
 
 import butterknife.Bind;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * Created by MyPC on 2017/3/7.
@@ -103,12 +104,12 @@ public class GoodsViewHolder extends BaseViewHolder {
                 goods_time.setText(TimeUtil.getChatTime(true,date.getTime()));
             } catch (ParseException e) {
             }
-            goods_content.setText(goods.getGoodstext()+"");
+            goods_content.setText(goods.getGoodstitle() +"  " + goods.getGoodstext()+"");
             goods_replay_num.setText(goods.getGoodsrepalynum()+"");
             goods_zan_num.setText(goods.getGoodslikenum()+"");
             goods_money.setText(Utility.getMoney(goods.getGoodsoldmoney())+"");
             //加载图片
-            if(goods.getGoodsiconnumber() != null && goods.getGoodsiconnumber() > 0){
+            if(goods.getGoodsiconnumber() != null && goods.getGoodsiconnumber() > 0 && StringUtils.isNotEmpty(goods.getGoodsicon())){
                 List<String> urls = new ArrayList<>(6);
                 String[] strs = goods.getGoodsicon().split(GlobalParams.SPLIT_IMAGE_URL);
                 if(strs != null && strs.length > 0){
@@ -132,8 +133,11 @@ public class GoodsViewHolder extends BaseViewHolder {
                             return onRecyclerViewListener.onItemLongClick(getAdapterPosition());
                         }
                     });
+                    recyclerView.setVisibility(View.VISIBLE);
                     recyclerView.setAdapter(goodsImageAdapter);
                 }
+            }else {
+                recyclerView.setVisibility(View.GONE);
             }
 
         }

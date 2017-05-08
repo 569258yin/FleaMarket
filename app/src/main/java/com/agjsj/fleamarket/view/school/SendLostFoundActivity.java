@@ -20,6 +20,7 @@ import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.FileEngin;
 import com.agjsj.fleamarket.engine.FoundEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
+import com.agjsj.fleamarket.util.CompressHelperUtil;
 import com.agjsj.fleamarket.util.GsonUtil;
 import com.agjsj.fleamarket.view.base.BaseActivity;
 import com.agjsj.fleamarket.view.base.BaseApplication;
@@ -57,7 +58,6 @@ public class SendLostFoundActivity extends BaseActivity{
     private String[] typeValue = new String[]{"物品招领","遗失物品"};
     public static final int IMAGE_PICKER = 1001;
     private GridImageAdapter gridImageAdapter;
-    private CompressHelper compressHelper;
     private boolean isSend = false;
 
     @Override
@@ -76,15 +76,6 @@ public class SendLostFoundActivity extends BaseActivity{
         //设置下拉列表的风格
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(typeAdapter);
-
-        compressHelper = new CompressHelper.Builder(SendLostFoundActivity.this)
-                .setMaxWidth(720)  // 默认最大宽度为720
-                .setMaxHeight(960) // 默认最大高度为960
-                .setQuality(80)    // 默认压缩质量为80
-                .setCompressFormat(Bitmap.CompressFormat.JPEG) // 设置默认压缩为jpg格式
-                .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_PICTURES).getAbsolutePath())
-                .build();
 
         //初始化图片选择器参数
         ImagePicker imagePicker = ImagePicker.getInstance();
@@ -140,7 +131,7 @@ public class SendLostFoundActivity extends BaseActivity{
                         File file = new File(imageItemList.get(i).path);
                         if (file.exists()) {
                             imageCount++;
-                            File newFile = compressHelper.compressToFile(file);
+                            File newFile = CompressHelperUtil.compressToFile(file);
                             fileList.add(newFile);
                         }
                     }

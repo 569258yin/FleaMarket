@@ -4,6 +4,8 @@
               android:layout_width="match_parent"
               android:layout_height="match_parent">
     <RelativeLayout
+            android:id="@+id/rl_me_normal"
+            android:visibility="visible"
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:background="@drawable/menu_bg">
@@ -48,6 +50,29 @@
     </RelativeLayout>
 
     <LinearLayout
+            android:visibility="gone"
+            android:id="@+id/ll_me_login"
+            android:orientation="vertical"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView
+                android:layout_margin="10dp"
+                android:textSize="18sp"
+                android:text="还没有账号，快来登录吧"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+
+        <Button
+                android:id="@+id/btn_me_login"
+                android:layout_gravity="center"
+                android:layout_alignParentRight="true"
+                android:textSize="18sp"
+                android:text="登     录"
+                android:background="@color/yellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
             android:id="@+id/ll_my_send"
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -55,8 +80,8 @@
             android:gravity="center_vertical">
 
         <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/my_info_icon" />
 
@@ -69,17 +94,21 @@
                 android:textSize="18sp" />
 
     </LinearLayout>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
 
     <LinearLayout
-            android:id="@+id/ll_my_appoint"
+            android:id="@+id/ll_my_foundcase"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
             android:gravity="center_vertical">
 
         <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/my_info_icon" />
 
@@ -92,6 +121,10 @@
                 android:textSize="18sp" />
 
     </LinearLayout>
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
 
     <LinearLayout
             android:id="@+id/ll_my_info"
@@ -101,8 +134,8 @@
             android:gravity="center_vertical">
 
         <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/my_info_icon" />
 
@@ -116,6 +149,10 @@
 
     </LinearLayout>
 
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/gray" />
     <LinearLayout
             android:id="@+id/ll_logout"
             android:layout_width="match_parent"
@@ -124,8 +161,8 @@
             android:gravity="center_vertical">
 
         <ImageView
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_marginLeft="20dp"
                 android:src="@drawable/my_info_icon" />
 
@@ -136,6 +173,6 @@
                 android:text="退出登录"
                 android:textColor="@android:color/black"
                 android:textSize="18sp" />
-        <ImageView android:layout_width="30dp" android:layout_height="30dp"/>
+        <ImageView android:layout_width="25dp" android:layout_height="25dp"/>
     </LinearLayout>
 </LinearLayout>

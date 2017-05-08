@@ -15,7 +15,7 @@ public class ViewFactory {
 	/**
 	 * 获取ImageView视图的同时加载显示url
 	 * 
-	 * @param text
+	 * @param context
 	 * @return
 	 */
 	public static ImageView getImageView(Context context, String url) {

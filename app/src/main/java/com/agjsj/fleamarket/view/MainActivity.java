@@ -19,6 +19,7 @@ import com.agjsj.fleamarket.bean.MessageEvent;
 import com.agjsj.fleamarket.dialog.ProgressDialog;
 import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.params.OelementType;
+import com.agjsj.fleamarket.util.LogUtil;
 import com.agjsj.fleamarket.view.base.BaseActivity;
 import com.agjsj.fleamarket.view.manager.BaseUI;
 import com.agjsj.fleamarket.view.manager.BottomManager;
@@ -35,7 +36,6 @@ public class MainActivity extends BaseActivity {
 	private RelativeLayout middle;// 中间占着位置的容器
 	private long lastTime;
 	private ProgressDialog progressDialog;
-	private Object middleObj;
 	private FragmentManager mFragmentManager;
 
 	@RequiresApi(api = Build.VERSION_CODES.M)
@@ -143,11 +143,13 @@ public class MainActivity extends BaseActivity {
 
 	@Subscribe(threadMode = ThreadMode.MAIN)
 	public void onMessageEvent(MessageEvent event) {
+		LogUtil.info("Bus event:"+event.eventCode);
 		switch (event.eventCode){
 			case OelementType.TOKEN_FAILD:
 				toast("身份验证已过期，请重新登录!");
 				Intent intent = new Intent(MainActivity.this, LoginActivity.class);
 				startActivity(intent);
+				finish();
 				break;
 			case OelementType.FAILD:
 				toast("请求失败!");
@@ -175,6 +177,7 @@ public class MainActivity extends BaseActivity {
 			if(MiddleManager.getInstance().getCurrentUI().getClass() == HomeUI.class
 					|| MiddleManager.getInstance().getCurrentUI().getClass() == SchoolUI.class
 					|| MiddleManager.getInstance().getCurrentUI().getClass() == MessageUI.class
+					|| MiddleManager.getInstance().getCurrentUI().getClass() == MeUI.class
 					){
 				// boolean result = MiddleManager.getInstance().goBack();
 				boolean result = false;
@@ -192,22 +195,13 @@ public class MainActivity extends BaseActivity {
 					lastTime = currentTime;
 				}
 			}else{
-				MiddleManager.getInstance().changeUI(HomeUI.class);
+//				MiddleManager.getInstance().changeUI(MiddleManager.getInstance().getOldUI().getClass());
+				MiddleManager.getInstance().goBack();
 			}
 			return false;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
-
-
-	public Object getMiddleObj() {
-		return middleObj;
-	}
-
-	public void setMiddleObj(Object middleObj) {
-		this.middleObj = middleObj;
-	}
-
 	public FragmentManager getmFragmentManager() {
 		return mFragmentManager;
 	}

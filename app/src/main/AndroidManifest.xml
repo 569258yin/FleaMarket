@@ -45,12 +45,27 @@
         <activity
                 android:name=".view.MainActivity"
                 android:configChanges="keyboardHidden|orientation"
+                android:launchMode="singleInstance"
                 android:windowSoftInputMode="adjustPan|stateHidden">
         </activity>
-        <activity android:name=".view.send.SendGoodActivity"/>
+        <activity
+                android:name=".view.send.SendGoodActivity"
+                android:windowSoftInputMode="adjustPan|stateHidden"
+        />
         <activity android:name=".view.goods.GoodsCategoryActivity"/>
         <activity android:name=".view.goods.GoodsDetailActivity" android:launchMode="singleInstance"/>
-        <activity android:name=".view.school.SendLostFoundActivity"/>
+        <activity
+                android:name=".view.school.SendLostFoundActivity"
+                android:windowSoftInputMode="adjustPan|stateHidden"
+        />
+        <activity android:name=".view.me.MyInfoActivity"
+                  android:windowSoftInputMode="adjustPan|stateHidden"
+        />
+
+        <activity
+                android:name=".view.user.RegisterActivity"
+                android:windowSoftInputMode="adjustPan|stateHidden"
+        />
         <!-- 百度定位SDK -->
         <service
                 android:name="com.baidu.location.f"

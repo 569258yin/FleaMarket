@@ -57,10 +57,35 @@ public class FoundEngineImpl extends BaseEngine implements FoundEngine {
 	}
 
 	@Override
-	public void getFoundcaseOfuser(String userid, BaseCallBack.GetAllListCallBack<FoundCase> callBack) {
+	public void getFoundcaseOfuser(String userid, final BaseCallBack.GetAllListCallBack<FoundCase> callBack) {
 		PageJsonData pageJsonData = new PageJsonData(userid);
 		String json = GsonUtil.objectToString(pageJsonData);
 		String content = getMessageToJson(json);
+		foundCaseService.getFoundCaseByUserId(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+					@Override
+					public void onCompleted() {
+					}
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						callBack.getAllResultCallBack(null);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									List<FoundCase> list = (List<FoundCase>) GsonUtil.stringToObjectByType(message.getBody().getElements(),new TypeToken<List<FoundCase>>(){}.getType());
+									callBack.getAllResultCallBack(list);
+								}
+							}
+						}
+					}
+				});
 	}
 
 	@Override
@@ -96,7 +121,64 @@ public class FoundEngineImpl extends BaseEngine implements FoundEngine {
 	}
 
 	@Override
-	public void deleteFoundcase(String fdcid) {
+	public void deleteFoundcase(String fdcid, final BaseCallBack.SendCallBack callBack) {
+		PageJsonData pageJsonData = new PageJsonData(fdcid);
+		String json = GsonUtil.objectToString(pageJsonData);
+		String content = getMessageToJson(json);
+		foundCaseService.deleteFoundCase(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+					@Override
+					public void onCompleted() {
+					}
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						callBack.sendResultCallBack(BaseCallBack.SEND_ERROR);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									callBack.sendResultCallBack(BaseCallBack.SEND_OK);
+								}
+							}
+						}
+					}
+				});
+	}
 
+	@Override
+	public void refreshFoundCase(String fdcid, final BaseCallBack.SendCallBack callBack) {
+		PageJsonData pageJsonData = new PageJsonData(fdcid);
+		String json = GsonUtil.objectToString(pageJsonData);
+		String content = getMessageToJson(json);
+		foundCaseService.refreshFoundCase(content)
+				.subscribeOn(Schedulers.io())  //IO线程加载数据
+				.observeOn(AndroidSchedulers.mainThread())  //主线程显示数据
+				.subscribe(new Subscriber<String>(){
+					@Override
+					public void onCompleted() {
+					}
+					@Override
+					public void onError(Throwable e) {
+						LogUtil.error("Retrofit2:\n"+ e.getMessage());
+						callBack.sendResultCallBack(BaseCallBack.SEND_ERROR);
+					}
+					@Override
+					public void onNext(String result) {
+						if(result != null){
+							IMessage message = getResult(result);
+							if(message != null && message.getBody() != null) {
+								if (OelementType.SUCCESS == message.getBody().getOelement().getCode()) {
+									callBack.sendResultCallBack(BaseCallBack.SEND_OK);
+								}
+							}
+						}
+					}
+				});
 	}
 }

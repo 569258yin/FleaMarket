@@ -9,6 +9,7 @@ import android.view.WindowManager;
 
 import com.agjsj.fleamarket.bean.Goodstype;
 import com.agjsj.fleamarket.bean.UserInfo;
+import com.agjsj.fleamarket.util.CompressHelperUtil;
 import com.agjsj.fleamarket.util.PicassoImageLoader;
 import com.agjsj.fleamarket.util.PicassoUtils;
 import com.agjsj.fleamarket.view.send.MyLocationListener;
@@ -66,6 +67,7 @@ public class BaseApplication extends Application {
             //Picasso初始化
             PicassoUtils.initPicasso(this);
             initImagePicker();
+            CompressHelperUtil.initCompress(this);
 
 //            initBaiDuMap();
 
@@ -162,6 +164,10 @@ public class BaseApplication extends Application {
         return currentUser;
     }
 
+    public void setCurrentUser(UserInfo currentUser) {
+        this.currentUser = currentUser;
+    }
+
     //-------------------------------------获取当前用户------------------------------
     public UserInfo getLocalUser() {
         SharedPreferences sharedPreferences = BaseApplication.INSTANCE().getSharedPreferences("currentUser", Context.MODE_PRIVATE);
@@ -173,7 +179,8 @@ public class BaseApplication extends Application {
             myUser.setUserid(sharedPreferences.getString("id", ""));
             myUser.setUsersex(sharedPreferences.getInt("userSex", -1));
             myUser.setUseraddress(sharedPreferences.getString("userAddress", ""));
-            myUser.setUsername(sharedPreferences.getString("userNickName", ""));
+            myUser.setUsername(sharedPreferences.getString("userName", ""));
+            myUser.setNickname(sharedPreferences.getString("userNickName", ""));
             myUser.setQqnumber(sharedPreferences.getString("qqNumber", ""));
             myUser.setWxnumber(sharedPreferences.getString("wxNumber", ""));
             myUser.setColleage(sharedPreferences.getString("colleage", ""));
@@ -187,24 +194,27 @@ public class BaseApplication extends Application {
 
     //------------------------------------更新当前用户信息----------------------------
     public void updateLocalUser(UserInfo myUser) {
+        currentUser = myUser;
         SharedPreferences sharedPreferences = BaseApplication.INSTANCE().getSharedPreferences("currentUser", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("id", myUser.getUserid());
+        editor.putString("id", myUser.getUserid()+"");
         editor.putInt("userSex", myUser.getUsersex());
-        editor.putString("userAddress", myUser.getUseraddress());
-        editor.putString("userNickName", myUser.getUsername());
-        editor.putString("qqNumber", myUser.getQqnumber());
-        editor.putString("wxNumber", myUser.getWxnumber());
-        editor.putString("colleage", myUser.getColleage());
-        editor.putString("school", myUser.getSchool());
-        editor.putString("userIcon", myUser.getUsericon());
-        editor.putString("userPhone", myUser.getUserphone());
+        editor.putString("userAddress", myUser.getUseraddress()+"");
+        editor.putString("userName", myUser.getUsername()+"");
+        editor.putString("userNickName", myUser.getNickname()+"");
+        editor.putString("qqNumber", myUser.getQqnumber()+"");
+        editor.putString("wxNumber", myUser.getWxnumber()+"");
+        editor.putString("colleage", myUser.getColleage()+"");
+        editor.putString("school", myUser.getSchool()+"");
+        editor.putString("userIcon", myUser.getUsericon()+"");
+        editor.putString("userPhone", myUser.getUserphone()+"");
         editor.commit();
 
     }
 
     //------------------------------------退出登录--------------------------------
     public void deleteCurrentUser() {
+        currentUser = null;
         SharedPreferences sharedPreferences = BaseApplication.INSTANCE().getSharedPreferences("currentUser", Context.MODE_PRIVATE);
         sharedPreferences.edit().clear().commit();
     }

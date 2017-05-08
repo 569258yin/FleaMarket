@@ -25,14 +25,11 @@ public interface GoodsEngine {
 
 
 	/**
-	 * 分页加载指定用户所发布的商品
-	 * 
+	 * 加载指定用户所发布的商品
 	 * @param userid
-	 * @param start
-	 * @param count
 	 * @return
 	 */
-	public List<Goods> getGoodsOfUser(String  userid, int start, int count);
+	public void getGoodsOfUser(String  userid, final BaseCallBack.GetAllListCallBack<Goods> callBack);
 
 	/**
 	 * 分页加载所有的商品
@@ -58,7 +55,7 @@ public interface GoodsEngine {
 	 * @param goods
 	 * @return
 	 */
-	public boolean updateGoods(Goods goods);
+	public void updateGoods(Goods goods, final BaseCallBack.SendCallBack callBack);
 
 	/**
 	 * 删除某条商品信息
@@ -66,7 +63,7 @@ public interface GoodsEngine {
 	 * @param goodsid
 	 * @return
 	 */
-	public boolean deleteGoods(Integer goodsid);
+	public void deleteGoods(String goodsid, final BaseCallBack.SendCallBack callBack);
 
 	/**
 	 * 获取某条商品的详细信息
@@ -74,12 +71,34 @@ public interface GoodsEngine {
 	 * @param goodsid
 	 * @return
 	 */
-	public Goods getGoodsInfo(String goodsid);
+	public void getGoodsInfo(String goodsid, final BaseCallBack.GetObjCallBack<Goods> callBack);
 
 	/**
 	 * 获取所有产品分类
 	 * @return
 	 */
 	public void getAllGoodsType(final BaseCallBack.GetAllListCallBack<Goodstype> callBack);
+
+	/**
+	 * 重新置顶
+	 * @param goodsId
+	 * @param callBack
+	 */
+	public void refreshGoods(String goodsId, final BaseCallBack.SendCallBack callBack);
+
+	/**
+	 * 搜索
+	 * @param text
+	 * @param callBack
+	 */
+	public void searchGoods(String text,final BaseCallBack.GetAllListCallBack<Goods> callBack);
+
+
+	/**
+	 * 获取热搜词汇
+	 * @param num
+	 * @param callBack
+	 */
+	public void getSearchHot(int num,final BaseCallBack.GetAllListCallBack<String> callBack);
 
 }

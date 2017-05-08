@@ -19,6 +19,7 @@ import com.agjsj.fleamarket.bean.ImagePath;
 import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.GoodsEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
+import com.agjsj.fleamarket.util.CompressHelperUtil;
 import com.agjsj.fleamarket.util.GsonUtil;
 import com.agjsj.fleamarket.view.base.BaseActivity;
 import com.agjsj.fleamarket.view.base.BaseApplication;
@@ -61,7 +62,6 @@ public class SendGoodActivity extends BaseActivity {
 
     public static final int IMAGE_PICKER = 1001;
     private GridImageAdapter gridImageAdapter;
-    private CompressHelper compressHelper;
     private List<Goodstype> GoodsTypeList;
 
     //spinner
@@ -137,17 +137,6 @@ public class SendGoodActivity extends BaseActivity {
         //设置下拉列表的风格
         qutityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner_qutity.setAdapter(qutityAdapter);
-
-        compressHelper = new CompressHelper.Builder(SendGoodActivity.this)
-                .setMaxWidth(720)  // 默认最大宽度为720
-                .setMaxHeight(960) // 默认最大高度为960
-                .setQuality(80)    // 默认压缩质量为80
-                .setCompressFormat(Bitmap.CompressFormat.JPEG) // 设置默认压缩为jpg格式
-                .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
-                        Environment.DIRECTORY_PICTURES).getAbsolutePath())
-                .build();
-
-
         //初始化图片选择器参数
         ImagePicker imagePicker = ImagePicker.getInstance();
         imagePicker.setSelectLimit(7);
@@ -209,7 +198,7 @@ public class SendGoodActivity extends BaseActivity {
                         File file = new File(imageItemList.get(i).path);
                         if (file.exists()) {
                             imageCount++;
-                            File newFile = compressHelper.compressToFile(file);
+                            File newFile = CompressHelperUtil.compressToFile(file);
                             fileList.add(newFile);
                         }
                     }
@@ -231,7 +220,7 @@ public class SendGoodActivity extends BaseActivity {
                 goods.setGoodsiconnumber(imageCount);
                 goods.setGoodsquality(qutityValue[spinner_qutity.getSelectedItemPosition()]);
                 ImagePath imageObj = (ImagePath) GsonUtil.stringToObjectByBean(imagePath, ImagePath.class);
-                if(imageObj.getImageUrls() != null && imageObj.getImageUrls().size() > 0){
+                if(imageObj != null && imageObj.getImageUrls() != null && imageObj.getImageUrls().size() > 0){
                     StringBuffer sb = new StringBuffer();
                     for(String imageP : imageObj.getImageUrls()){
                         sb.append(imageP);
@@ -247,8 +236,8 @@ public class SendGoodActivity extends BaseActivity {
                             toast("发布成功");
                             finish();
                         }else {
-                            isSend = false;
                             toast("发布失败");
+                            isSend = false;
                         }
                     }
                 });

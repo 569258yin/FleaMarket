@@ -12,6 +12,11 @@ public interface BaseCallBack {
 
     public interface SendCallBack{
         public void sendResultCallBack(int responseCode);
+
+    }
+
+    public interface ResultCallBack{
+        public void sendResultCallBack(int responseCode,String message);
     }
 
     public interface GetAllListCallBack<T>{

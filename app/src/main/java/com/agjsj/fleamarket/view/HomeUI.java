@@ -1,6 +1,7 @@
 package com.agjsj.fleamarket.view;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -165,8 +166,9 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
     }
     @Override
     public void onItemClick(int position) {
-        ((MainActivity)context).setMiddleObj(goodsList.get(position));
-        MiddleManager.getInstance().changeUI(GoodsDetailUI.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("goods",goodsList.get(position));
+        MiddleManager.getInstance().changeUI(GoodsDetailUI.class,bundle);
     }
 
     @Override
@@ -180,8 +182,9 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
 
     @Override
     public void onImageItemClick(int itemPosition, int imagePosition) {
-        ((MainActivity)context).setMiddleObj(goodsList.get(itemPosition));
-        MiddleManager.getInstance().changeUI(GoodsDetailUI.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("goods",goodsList.get(itemPosition));
+        MiddleManager.getInstance().changeUI(GoodsDetailUI.class,bundle);
     }
     @Override
     public void onFooterRefresh(PullToRefreshView view) {

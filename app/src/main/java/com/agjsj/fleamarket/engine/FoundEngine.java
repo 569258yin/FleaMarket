@@ -36,5 +36,12 @@ public interface FoundEngine {
 	 * @param fdcid
 	 * @return
 	 */
-	public void deleteFoundcase(String fdcid);
+	public void deleteFoundcase(String fdcid, final BaseCallBack.SendCallBack callBack);
+
+	/**
+	 * 重新置顶
+	 * @param fdcid
+	 * @param callBack
+	 */
+	public void refreshFoundCase(String fdcid, final BaseCallBack.SendCallBack callBack);
 }

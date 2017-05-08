@@ -61,6 +61,7 @@ public abstract class BaseEngine {
 					EventBus.getDefault().post(new MessageEvent(body.getOelement().getCode()));
 					result.setHeader(header);
 					result.setBody(body);
+					LogUtil.info(BaseEngine.class,body.toString());
 					return result;
 				}else{
 					EventBus.getDefault().post(new MessageEvent(OelementType.LOCAL_CHECK_MD5_ERROR));
