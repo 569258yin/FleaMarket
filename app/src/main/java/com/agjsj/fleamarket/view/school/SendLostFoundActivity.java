@@ -16,6 +16,7 @@ import com.agjsj.fleamarket.R;
 import com.agjsj.fleamarket.adapter.goods.GridImageAdapter;
 import com.agjsj.fleamarket.bean.FoundCase;
 import com.agjsj.fleamarket.bean.ImagePath;
+import com.agjsj.fleamarket.dialog.ProgressDialog;
 import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.FileEngin;
 import com.agjsj.fleamarket.engine.FoundEngine;
@@ -59,12 +60,12 @@ public class SendLostFoundActivity extends BaseActivity{
     public static final int IMAGE_PICKER = 1001;
     private GridImageAdapter gridImageAdapter;
     private boolean isSend = false;
-
+    private ProgressDialog progressDialog;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_foundcase);
-
+        progressDialog = new ProgressDialog(getApplicationContext());
         initData();
         setListener();
     }
@@ -122,6 +123,7 @@ public class SendLostFoundActivity extends BaseActivity{
                     toast("系统异常");
                     return;
                 }
+                progressDialog.show();
                 int imageCount = 0;
                 String imagePath = "";
                 List<ImageItem> imageItemList = gridImageAdapter.getImageItemList();
@@ -139,6 +141,7 @@ public class SendLostFoundActivity extends BaseActivity{
                         imagePath = fileEngin.uploadImage(fileList);
                         if (StringUtils.isEmpty(imagePath)) {
                             toast("图片上传失败!");
+                            progressDialog.dismiss();
                             return;
                         }
                     }
@@ -166,10 +169,12 @@ public class SendLostFoundActivity extends BaseActivity{
                         if(responseCode == BaseCallBack.SEND_OK){
                             backClearn();
                             toast("发布成功");
+                            progressDialog.dismiss();
                             finish();
                         } else {
                             isSend = false;
                             toast("发布失败");
+                            progressDialog.dismiss();
                         }
                     }
                 });

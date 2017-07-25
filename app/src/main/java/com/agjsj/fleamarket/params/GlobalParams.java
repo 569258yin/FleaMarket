@@ -43,12 +43,33 @@ public class GlobalParams {
 	public static final int VIEW_MY_SEND_GOODS = 40001;
 	public static final int VIEW_MY_SEND_FOUNDCASE = 40002;
 
-	public static final String[] imageUrls = {
-			"http://geekpark-img.qiniudn.com/uploads/reading/seed/71ff810dbe0efafa4ece214c3fa38c6e.png",
-			"http://dimg03.c-ctrip.com/images/tg/161/566/466/dae803b035ac47a1afe2678274629822_C_1600_1200_Mtg_7.jpg",
-			"http://dimg08.c-ctrip.com/images/fd/tg/g1/M0B/EB/A4/CghzflWnH66AEJM2ACw0M6t1KWw818_R_1600_10000_Mtg_7.jpg",
-			"http://pic15.nipic.com/20110722/2912365_092519919000_2.jpg",
-			"http://pic.58pic.com/58pic/12/64/27/55U58PICrdX.jpg" };
+
+	public static final String MESSAGE_ATTR_IS_VOICE_CALL = "is_voice_call";
+	public static final String MESSAGE_ATTR_IS_VIDEO_CALL = "is_video_call";
+
+	public static final String MESSAGE_ATTR_IS_BIG_EXPRESSION = "em_is_big_expression";
+	public static final String MESSAGE_ATTR_EXPRESSION_ID = "em_expression_id";
+
+
+
+	public static final int CHATTYPE_SINGLE = 1;
+	public static final int CHATTYPE_GROUP = 2;
+	public static final int CHATTYPE_CHATROOM = 3;
+
+	public static final String EXTRA_CHAT_TYPE = "chatType";
+	public static final String EXTRA_USER_ID = "userId";
+	public static final String NEW_FRIENDS_USERNAME = "item_new_friends";
+	public static final String GROUP_USERNAME = "item_groups";
+	public static final String CHAT_ROOM = "item_chatroom";
+	public static final String ACCOUNT_REMOVED = "account_removed";
+	public static final String ACCOUNT_CONFLICT = "conflict";
+	public static final String CHAT_ROBOT = "item_robots";
+	public static final String MESSAGE_ATTR_ROBOT_MSGTYPE = "msgtype";
+	public static final String ACTION_GROUP_CHANAGED = "action_group_changed";
+	public static final String ACTION_CONTACT_CHANAGED = "action_contact_changed";
+
+	//Myinfo中保存环信账号
+	public static final String KEY_USERNAME = "username";
 
 
 }

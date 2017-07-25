@@ -41,6 +41,15 @@ public class LostFoundViewHolder extends BaseViewHolder{
 
     public LostFoundViewHolder(Context context, ViewGroup root, OnRecyclerViewListener listener) {
         super(context, root, R.layout.item_lost, listener);
+
+        connect.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(onRecyclerViewListener != null){
+                    onRecyclerViewListener.onItemClick(getAdapterPosition());
+                }
+            }
+        });
     }
 
     @Override
@@ -57,20 +66,13 @@ public class LostFoundViewHolder extends BaseViewHolder{
             } catch (Exception e) {
             }
             title.setText(foundCase.getFdccontext());
-            if (StringUtils.isNoneEmpty(foundCase.getFdcimage())) {
+            if (StringUtils.isNotEmpty(foundCase.getFdcimage())) {
                 image.setVisibility(View.VISIBLE);
                 PicassoUtils.loadResizeImage(foundCase.getFdcimage(),200,480,image);
             }else {
                 image.setVisibility(View.GONE);
             }
-            connect.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if(onRecyclerViewListener != null){
-                        onRecyclerViewListener.onItemClick(getAdapterPosition());
-                    }
-                }
-            });
+
         }
     }
 }

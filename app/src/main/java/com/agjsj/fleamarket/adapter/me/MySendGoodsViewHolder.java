@@ -107,7 +107,7 @@ public class MySendGoodsViewHolder extends BaseViewHolder {
                     String[] strs = goods.getGoodsicon().split(GlobalParams.SPLIT_IMAGE_URL);
                     if (strs != null && strs.length > 0) {
                         imageView.setVisibility(View.VISIBLE);
-                        PicassoUtils.loadResizeImage(strs[0], 120, 120, imageView);
+                        PicassoUtils.loadResizeImage(strs[0], 280, 280, imageView);
                     }
                 } else {
                     imageView.setVisibility(View.GONE);

@@ -46,4 +46,8 @@ public class Utility {
 	public static String getMoney(int money){
 		return new BigDecimal(money).divide(new BigDecimal(100)).setScale(2,BigDecimal.ROUND_CEILING).toString();
 	}
+
+	public static String getEAUserName(String userId){
+		return "EA_"+userId;
+	}
 }

@@ -148,8 +148,8 @@ public class BottomManager implements Observer,OnClickListener,OnCheckedChangeLi
 //						AnimationUtils.loadAnimation(activity.getApplicationContext(), R.anim.iv_send_rotate_rollck));
 //				animal_tag = false;
 //			}
-			Intent intent = new Intent(activity, SendGoodActivity.class);
-			activity.startActivity(intent);
+//			Intent intent = new Intent(activity, SendGoodActivity.class);
+//			activity.startActivity(intent);
 			break;
 
 		default:
@@ -171,6 +171,10 @@ public class BottomManager implements Observer,OnClickListener,OnCheckedChangeLi
 			break;
 		case R.id.rb_main_me:
 			MiddleManager.getInstance().changeUI(MeUI.class);
+			break;
+		case R.id.rb_main_send:
+			Intent intent = new Intent(activity, SendGoodActivity.class);
+			activity.startActivity(intent);
 			break;
 		default:
 			break;

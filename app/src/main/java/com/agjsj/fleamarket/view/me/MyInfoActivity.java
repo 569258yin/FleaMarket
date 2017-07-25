@@ -13,13 +13,16 @@ import android.widget.*;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import com.agjsj.fleamarket.R;
+import com.agjsj.fleamarket.bean.ImagePath;
 import com.agjsj.fleamarket.bean.UserInfo;
+import com.agjsj.fleamarket.dialog.ProgressDialog;
 import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.FileEngin;
 import com.agjsj.fleamarket.engine.UserEngine;
 import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.util.CompressHelperUtil;
+import com.agjsj.fleamarket.util.GsonUtil;
 import com.agjsj.fleamarket.util.PicassoUtils;
 import com.agjsj.fleamarket.view.MainActivity;
 import com.agjsj.fleamarket.view.MeUI;
@@ -77,6 +80,7 @@ public class MyInfoActivity extends BaseActivity {
     private boolean isUploadImage = false;
     public static final int IMAGE_PICKER = 1001;
     private ArrayList<ImageItem> images;
+    private ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,6 +90,7 @@ public class MyInfoActivity extends BaseActivity {
         if (userInfo == null) {
             finish();
         }
+        progressDialog = new ProgressDialog(getApplicationContext());
         initMyView();
 
         setListener();
@@ -132,7 +137,7 @@ public class MyInfoActivity extends BaseActivity {
         tvBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                hideSoftInputView();
+                hideSoftKeyboard();
                 finish();
             }
         });
@@ -153,8 +158,6 @@ public class MyInfoActivity extends BaseActivity {
                     return;
                 }
                 isLoad = true;
-
-
                 String nickName = etName.getText().toString();
                 String age = etAge.getText().toString();
                 int sex = spinner.getSelectedItemPosition();
@@ -180,6 +183,7 @@ public class MyInfoActivity extends BaseActivity {
                     return;
                 }
                 String userIconPath = userInfo.getUsericon();
+                progressDialog.show();
                 if (isUploadImage) {
                     FileEngin fileEngin = BeanFactory.getImpl(FileEngin.class);
                     List<File> files = new ArrayList<>(1);
@@ -189,7 +193,10 @@ public class MyInfoActivity extends BaseActivity {
                         files.add(newFile);
                         String result = fileEngin.uploadImage(files);
                         if (StringUtils.isNotEmpty(result)) {
-                            userIconPath = result;
+                            ImagePath imageObj = (ImagePath) GsonUtil.stringToObjectByBean(result, ImagePath.class);
+                            if(imageObj != null && imageObj.getImageUrls() != null && imageObj.getImageUrls().size() > 0) {
+                                userIconPath = imageObj.getImageUrls().get(0);
+                            }
                         }
                     }
                 }
@@ -203,15 +210,18 @@ public class MyInfoActivity extends BaseActivity {
                             if (responseCode == BaseCallBack.SEND_OK) {
                                 BaseApplication.INSTANCE().updateLocalUser(userInfo);
                                 isLoad = false;
-                                toast("上传成功！");
+                                progressDialog.dismiss();
+                                toast("更新成功！");
                             } else {
-                                toast("上传失败！");
+                                toast("更新失败！");
+                                progressDialog.dismiss();
                                 isLoad = false;
                             }
                         }
                     });
                 } else {
                     isLoad = false;
+                    progressDialog.dismiss();
                     toast("系统异常");
                 }
             }

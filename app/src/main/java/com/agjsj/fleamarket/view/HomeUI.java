@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -27,6 +28,7 @@ import com.agjsj.fleamarket.view.myview.PullToRefreshView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -60,10 +62,10 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
     private GoodsAdapter adapter;
 
     private int currentPageNum = 1;
-    private static final int PAGE_SIZE = 5;
+    private static final int PAGE_SIZE = 10;
     private boolean isLoading = false;
     private int eventMethod = 0 ;
-    private int currentType = ConstantValue.SELECT_GOODS_BY_TIME;
+    private int currentType = ConstantValue.SELECT_GOODS_BY_ADDRESS;
     public static final int ON_REFRESH = 1;
     public static final int ON_LOADING = 2;
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -79,7 +81,7 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
         showInMiddle = (LinearLayout) View.inflate(context, R.layout.activity_home, null);
         ButterKnife.bind(this, showInMiddle);
         initRecycleView();
-        currentType = ConstantValue.SELECT_GOODS_BY_TIME;
+        currentType = ConstantValue.SELECT_GOODS_BY_ADDRESS;
         currentPageNum = 1;
         getGoodsFromServer();
     }
@@ -101,7 +103,7 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
         rb_recommend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                currentPageNum = ConstantValue.SELECT_GOODS_BY_ADDRESS;
+                currentType = ConstantValue.SELECT_GOODS_BY_ADDRESS;
                 onRefresh();
             }
         });
@@ -117,6 +119,18 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
         adapter.setOnRecyclerViewListener(this);
         adapter.setOnRecyclerViewImageListener(this);
         recyclerView.setAdapter(adapter);
+        recyclerView.setOnTouchListener(
+                new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        if (isLoading) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+        );
     }
 
     private void getGoodsFromServer() {
@@ -128,6 +142,9 @@ public class HomeUI extends BaseUI implements OnRecyclerViewListener, OnRecycler
                     @Override
                     public void getAllResultCallBack(List<Goods> list) {
                         if (goodsList != null && list != null) {
+                            if(currentType == ConstantValue.SELECT_GOODS_BY_ADDRESS){
+                                Collections.shuffle(list);
+                            }
                             goodsList.addAll(list);
                             adapter.notifyDataSetChanged();
                             currentPageNum++;

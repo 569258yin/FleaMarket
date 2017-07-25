@@ -5,18 +5,22 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.UserEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
+import com.agjsj.fleamarket.util.LogUtil;
 import com.agjsj.fleamarket.view.base.BaseApplication;
 import com.agjsj.fleamarket.view.user.LoginActivity;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 import java.lang.ref.WeakReference;
 
 /**
  * Description:欢迎页面
- * author: chaohx
+ * author: YH
  * Date: 2016/10/12 16:04
  */
 public class SplashActivity extends AppCompatActivity {
@@ -44,7 +48,25 @@ public class SplashActivity extends AppCompatActivity {
                     @Override
                     public void sendResultCallBack(int responseCode) {
                         if (responseCode == BaseCallBack.SEND_OK){
-                            mActivity.get().toMainActivity();
+                            EMClient.getInstance().login(BaseApplication.INSTANCE().getCurrentUserName(),BaseApplication.INSTANCE().getCurrentUserPasswd(),new EMCallBack() {//回调
+                                @Override
+                                public void onSuccess() {
+                                    EMClient.getInstance().groupManager().loadAllGroups();
+                                    EMClient.getInstance().chatManager().loadAllConversations();
+                                    LogUtil.info("main"+ "登录聊天服务器成功！");
+                                    mActivity.get().toMainActivity();
+                                }
+
+                                @Override
+                                public void onProgress(int progress, String status) {
+
+                                }
+
+                                @Override
+                                public void onError(int code, String message) {
+                                    LogUtil.info("main"+"登录聊天服务器失败！");
+                                }
+                            });
                         }else {
                             mActivity.get().toLoginActivity();
                         }
@@ -69,7 +91,7 @@ public class SplashActivity extends AppCompatActivity {
         //不加载布局,通过主题直接显示欢迎logo
 //      setContentView(R.layout.activity_splash);
         //先展示logo3秒
-        handler.sendEmptyMessageDelayed(0, 2000);
+        handler.sendEmptyMessageDelayed(0, 50);
 
     }
 

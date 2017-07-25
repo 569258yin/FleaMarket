@@ -15,7 +15,7 @@ import java.io.File;
 /**
  * 对picasso的封装
  *
- * @author chx
+ * @author yh
  * @date 2016/10/29
  */
 public class PicassoUtils {
@@ -32,7 +32,7 @@ public class PicassoUtils {
 
         Picasso.Builder builder = new Picasso.Builder(context);
         picasso = builder.memoryCache(new LruCache(10 << 20)).defaultBitmapConfig(Bitmap.Config.RGB_565)
-                .indicatorsEnabled(false).build();
+                .indicatorsEnabled(true).build();
 
         Picasso.setSingletonInstance(picasso);
 

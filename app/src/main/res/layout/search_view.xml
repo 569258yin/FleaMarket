@@ -41,7 +41,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_weight="1"
                 android:background="@null"
-                android:hint="西游记"
+                android:hint="精品男装"
                 android:textColorHint="#aaaaaa" />
 
             <ImageView

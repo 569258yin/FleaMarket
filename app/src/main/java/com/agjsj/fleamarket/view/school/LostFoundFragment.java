@@ -1,5 +1,6 @@
 package com.agjsj.fleamarket.view.school;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -11,7 +12,9 @@ import com.agjsj.fleamarket.bean.FoundCase;
 import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.FoundEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
+import com.agjsj.fleamarket.util.Utility;
 import com.agjsj.fleamarket.view.base.BaseFragment;
+import com.agjsj.fleamarket.view.message.ChatActivity;
 import com.agjsj.fleamarket.view.myview.PullToRefreshView;
 
 import java.text.SimpleDateFormat;
@@ -33,7 +36,7 @@ public class LostFoundFragment extends BaseFragment implements PullToRefreshView
     private LinearLayoutManager layoutManager;
     private LostFoundAdapter adapter;
     private int currentPageNum = 1;
-    private static final int PAGE_SIZE = 5;
+    private static final int PAGE_SIZE = 10;
     private boolean isLoading = false;
     private int eventMethod = 0 ;
     public static final int ON_REFRESH = 1;
@@ -137,6 +140,9 @@ public class LostFoundFragment extends BaseFragment implements PullToRefreshView
 
     @Override
     public void onItemClick(int position) {
+        startActivity(new Intent(getContext(),ChatActivity.class)
+                .putExtra("nickname",foundCaseList.get(position).getUserInfo().getNickname()+"")
+                .putExtra("username", Utility.getEAUserName(foundCaseList.get(position).getUserid())));
     }
 
     @Override

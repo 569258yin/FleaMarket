@@ -5,7 +5,11 @@ import android.os.Environment;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.agjsj.fleamarket.bean.UserAccount;
 import com.agjsj.fleamarket.dialog.ProgressDialog;
+import com.agjsj.fleamarket.engine.BaseCallBack;
+import com.agjsj.fleamarket.engine.UserEngine;
+import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.util.HttpConnectionUtils;
 import com.agjsj.fleamarket.util.LogUtil;
 
@@ -49,5 +53,16 @@ public class ExampleInstrumentedTest {
         Context appContext = InstrumentationRegistry.getTargetContext();
         ProgressDialog progressDialog = new ProgressDialog(appContext);
         progressDialog.show();
+    }
+
+    @Test
+    public void testRegedit(){
+        UserEngine userEngine = BeanFactory.getImpl(UserEngine.class);
+        userEngine.register(new UserAccount("123452", "123456"), new BaseCallBack.ResultCallBack() {
+            @Override
+            public void sendResultCallBack(int responseCode, String message) {
+                System.out.println("SUCCESS");
+            }
+        });
     }
 }

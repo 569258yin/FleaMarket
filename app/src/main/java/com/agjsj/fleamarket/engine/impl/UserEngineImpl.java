@@ -70,10 +70,10 @@ public class UserEngineImpl extends BaseEngine implements UserEngine {
                                         public void getResultCallBack(UserInfo userInfo) {
                                             if (userInfo != null) {
                                                 BaseApplication.INSTANCE().updateLocalUser(userInfo);
+                                                loginCallBack.sendResultCallBack(BaseCallBack.SEND_OK);
                                             }
                                         }
                                     });
-                                    loginCallBack.sendResultCallBack(BaseCallBack.SEND_OK);
                                 }
                             }
                         }

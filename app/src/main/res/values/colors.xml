@@ -44,4 +44,6 @@
     <color name="base_color_text_black">#3e3e39</color>
     <color name="base_color_text_gray">#9fa0a0</color>
     <color name="base_color_text_white">#ffffff</color>
+
+    <color name="common_top_bar_blue">#4ebcd3</color>
 </resources>

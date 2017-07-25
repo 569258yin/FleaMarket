@@ -16,6 +16,7 @@ import com.agjsj.fleamarket.adapter.goods.GridImageAdapter;
 import com.agjsj.fleamarket.bean.Goods;
 import com.agjsj.fleamarket.bean.Goodstype;
 import com.agjsj.fleamarket.bean.ImagePath;
+import com.agjsj.fleamarket.dialog.ProgressDialog;
 import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.GoodsEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
@@ -63,7 +64,7 @@ public class SendGoodActivity extends BaseActivity {
     public static final int IMAGE_PICKER = 1001;
     private GridImageAdapter gridImageAdapter;
     private List<Goodstype> GoodsTypeList;
-
+    private  ProgressDialog progressDialog;
     //spinner
     private ArrayAdapter<String> adapter;
     private String[] texts;
@@ -74,7 +75,7 @@ public class SendGoodActivity extends BaseActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sendgoods);
-
+        progressDialog = new ProgressDialog(getApplicationContext());
         initData();
         setListener();
     }
@@ -188,6 +189,7 @@ public class SendGoodActivity extends BaseActivity {
                     toast("价格不能为空!");
                     return;
                 }
+                progressDialog.show();
                 GoodsEngine goodsEngine = BeanFactory.getImpl(GoodsEngine.class);
                 int imageCount = 0;
                 String imagePath = "";
@@ -206,6 +208,7 @@ public class SendGoodActivity extends BaseActivity {
                         imagePath = goodsEngine.uploadImage(fileList);
                         if (StringUtils.isEmpty(imagePath)) {
                             toast("图片上传失败!");
+                            progressDialog.dismiss();
                             return;
                         }
                     }
@@ -234,9 +237,11 @@ public class SendGoodActivity extends BaseActivity {
                     public void sendResultCallBack(int responseCode) {
                         if(responseCode == BaseCallBack.SEND_OK){
                             toast("发布成功");
+                            progressDialog.dismiss();
                             finish();
                         }else {
                             toast("发布失败");
+                            progressDialog.dismiss();
                             isSend = false;
                         }
                     }

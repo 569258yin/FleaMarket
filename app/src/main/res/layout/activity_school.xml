@@ -20,6 +20,7 @@
             android:src="@drawable/id_bell" />
 
         <TextView
+            android:maxLines="2"
             android:id="@+id/ii_purchase_school_title"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

@@ -9,6 +9,9 @@ import android.view.WindowManager;
 
 import com.agjsj.fleamarket.bean.Goodstype;
 import com.agjsj.fleamarket.bean.UserInfo;
+import com.agjsj.fleamarket.db.EaseUser;
+import com.agjsj.fleamarket.db.UserDao;
+import com.agjsj.fleamarket.params.GlobalParams;
 import com.agjsj.fleamarket.util.CompressHelperUtil;
 import com.agjsj.fleamarket.util.PicassoImageLoader;
 import com.agjsj.fleamarket.util.PicassoUtils;
@@ -16,6 +19,9 @@ import com.agjsj.fleamarket.view.send.MyLocationListener;
 import com.baidu.location.BDLocationListener;
 import com.baidu.location.LocationClient;
 import com.baidu.location.LocationClientOption;
+import com.hyphenate.chat.EMChatManager;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMOptions;
 import com.lzy.imagepicker.ImagePicker;
 import com.lzy.imagepicker.view.CropImageView;
 import com.orhanobut.logger.Logger;
@@ -25,7 +31,9 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 
 public class BaseApplication extends Application {
@@ -46,6 +54,8 @@ public class BaseApplication extends Application {
         BaseApplication.INSTANCE = a;
     }
 
+    private String username = "";
+    private Map<String, EaseUser> contactList;
     private String token = "";
     private UserInfo currentUser;
     private List<Goodstype> goodstypes;
@@ -62,6 +72,16 @@ public class BaseApplication extends Application {
         setInstance(this);
         //初始化
         Logger.init("FleaMarket");
+        EMOptions options = initChatOptions();
+        // 第二步
+        boolean success = initSDK(this, options);
+        if (success) {
+            // 设为调试模式，打成正式包时，最好设为false，以免消耗额外的资源
+            EMClient.getInstance().setDebugMode(true);
+        }
+
+        initDbDao(this);
+
         //只有主进程运行的时候才需要初始化
         if (getApplicationInfo().packageName.equals(getMyProcessName())) {
             //Picasso初始化
@@ -92,7 +112,75 @@ public class BaseApplication extends Application {
         }
     }
 
+    private EMOptions initChatOptions() {
+        // 获取到EMChatOptions对象
+        EMOptions options = new EMOptions();
+        // 默认添加好友时，是不需要验证的，改成需要验证
+        options.setAcceptInvitationAlways(false);
+        // 设置是否需要已读回执
+        options.setRequireAck(true);
+        // 设置是否需要已送达回执
+        options.setRequireDeliveryAck(false);
 
+        return options;
+    }
+
+    private boolean sdkInited = false;
+
+    public synchronized boolean initSDK(Context context, EMOptions options) {
+        if (sdkInited) {
+            return true;
+        }
+        String processAppName = getMyProcessName();
+        // 如果app启用了远程的service，此application:onCreate会被调用2次
+        // 为了防止环信SDK被初始化2次，加此判断会保证SDK被初始化1次
+        // 默认的app会在以包名为默认的process name下运行，如果查到的process name不是app的process
+        // name就立即返回
+        if (processAppName == null || !processAppName.equalsIgnoreCase(this.getPackageName())) {
+            // 则此application::onCreate 是被service 调用的，直接返回
+            return false;
+        }
+        if (options == null) {
+            EMClient.getInstance().init(context, initChatOptions());
+        } else {
+            EMClient.getInstance().init(context, options);
+        }
+        sdkInited = true;
+        return true;
+    }
+
+    private void initDbDao(Context context) {
+        userDao = new UserDao(context);
+    }
+
+    public String getCurrentUserName() {
+        return "EA_"+currentUser.getUserid();
+    }
+
+    public String getCurrentUserPasswd(){
+        return "ea_passwd_"+currentUser.getUserid();
+    }
+
+    public void setContactList(Map<String, EaseUser> contactList) {
+
+        this.contactList = contactList;
+
+        userDao.saveContactList(new ArrayList<EaseUser>(contactList.values()));
+
+    }
+
+    public Map<String, EaseUser> getContactList() {
+
+        if (contactList == null) {
+
+            contactList = userDao.getContactList();
+
+        }
+        return contactList;
+
+    }
+
+    private UserDao userDao;
 
     /**
      * 初始化图片选择器参数
@@ -270,6 +358,8 @@ public class BaseApplication extends Application {
 
         mLocationClient.setLocOption(option);
     }
+
+
 
 
     public List<Goodstype> getGoodstypes() {

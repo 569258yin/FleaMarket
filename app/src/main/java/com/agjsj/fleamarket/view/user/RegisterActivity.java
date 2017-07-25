@@ -15,6 +15,8 @@ import com.agjsj.fleamarket.engine.UserEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
 import com.agjsj.fleamarket.util.LogUtil;
 import com.agjsj.fleamarket.view.base.BaseActivity;
+
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Timer;
@@ -42,7 +44,7 @@ public class RegisterActivity extends BaseActivity {
 
     private Timer timer;
     private int currentSocre = 60;
-    private static final int WAIT_TIME = 10;
+    private static final int WAIT_TIME = 60;
 
     private  boolean isLoad = false;
 
@@ -148,7 +150,7 @@ public class RegisterActivity extends BaseActivity {
 
                 UserAccount account = new UserAccount();
                 account.setUseraccount(userAccount);
-                account.setUserpassword(password);
+                account.setUserpassword( DigestUtils.md5Hex( password));
                 account.setPhoneNum(phone);
                 account.setCode(code);
 

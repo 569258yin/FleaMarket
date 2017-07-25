@@ -26,6 +26,11 @@ import com.agjsj.fleamarket.view.manager.BottomManager;
 import com.agjsj.fleamarket.view.manager.MiddleManager;
 import com.agjsj.fleamarket.view.manager.TitleManager;
 import com.agjsj.fleamarket.view.user.LoginActivity;
+import com.hyphenate.EMConnectionListener;
+import com.hyphenate.EMError;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.util.NetUtils;
+
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
@@ -49,6 +54,8 @@ public class MainActivity extends BaseActivity {
 		DisplayMetrics metrics = new DisplayMetrics();
 		getWindowManager().getDefaultDisplay().getMetrics(metrics);
 		GlobalParams.WIN_WIDTH = metrics.widthPixels;
+		//注册一个监听连接状态的listener
+		EMClient.getInstance().addConnectionListener(new MyEMConnectionListener());
 		init();
 
 //		initPermission();
@@ -171,6 +178,36 @@ public class MainActivity extends BaseActivity {
 		}
 	};
 
+	private class MyEMConnectionListener implements EMConnectionListener {
+		@Override
+		public void onConnected() {
+		}
+		@Override
+		public void onDisconnected(final int error) {
+			runOnUiThread(new Runnable() {
+
+				@Override
+				public void run() {
+					if(error == EMError.USER_REMOVED){
+						// 显示帐号已经被移除
+						toast("帐号已经被移除");
+					}else if (error == EMError.USER_LOGIN_ANOTHER_DEVICE) {
+						// 显示帐号在其他设备登录
+						toast("帐号在其他设备登录");
+					} else {
+						if (NetUtils.hasNetwork(MainActivity.this)){//连接不到聊天服务器
+							toast("连接不到聊天服务器");
+						}
+						else{//当前网络不可用，请检查网络设置
+							toast("当前网络不可用，请检查网络设置");
+						}
+					}
+				}
+			});
+		}
+	}
+
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
@@ -189,6 +226,7 @@ public class MainActivity extends BaseActivity {
 						MiddleManager.getInstance().clear();
 						// PromptManager.showExitSystem(this);
 						android.os.Process.killProcess(android.os.Process.myPid());
+						System.exit(0);
 					} else {
 						Toast.makeText(this, "再按一下退出系统", Toast.LENGTH_SHORT).show();
 					}

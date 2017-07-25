@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion "25.0.0"
+    compileSdkVersion 25
+    buildToolsVersion '25.0.0'
     defaultConfig {
         applicationId "com.agjsj.fleamarket"
-        minSdkVersion 16
-        targetSdkVersion 24
+        minSdkVersion 15
+        targetSdkVersion 25
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -22,6 +22,7 @@ android {
             jniLibs.srcDirs = ['libs']
         }
     }
+    useLibrary 'org.apache.http.legacy'
 }
 
 dependencies {
@@ -38,7 +39,7 @@ dependencies {
     compile 'com.jakewharton:butterknife:7.0.1'
     compile 'commons-codec:commons-codec:20041127.091804'
     compile 'org.apache.commons:commons-lang3:3.5'
-    compile 'com.lzy.widget:imagepicker:+'
+    compile 'com.lzy.widget:imagepicker:0.5.5'
     compile 'org.greenrobot:eventbus:3.0.0'
     compile 'com.github.nanchen2251:CompressHelper:+'
     compile 'com.squareup.retrofit2:retrofit:2.1.0'
@@ -50,4 +51,7 @@ dependencies {
     compile 'io.reactivex:rxjava:1.2.1'
     compile 'devlight.io:navigationtabbar:1.2.5'
     testCompile 'junit:junit:4.12'
+    //Optional compile for GCM (Google Cloud Messaging).
+    compile 'com.google.android.gms:play-services-gcm:9.4.0'
+    compile 'com.hyphenate:hyphenate-sdk:3.3.0'
 }

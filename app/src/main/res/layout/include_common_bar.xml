@@ -9,6 +9,7 @@
 
 
         <LinearLayout
+            android:visibility="gone"
             android:gravity="center_vertical"
             android:id="@+id/ll_goods_repaly"
             android:layout_width="wrap_content"
@@ -25,6 +26,7 @@
                 android:layout_height="30dp"
                 android:src="@drawable/goods_zan" />
             <TextView
+                android:visibility="invisible"
                 android:id="@+id/tv_goods_zan_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -32,6 +34,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:gravity="center_vertical"
             android:layout_width="wrap_content"
@@ -48,6 +51,7 @@
                 android:src="@drawable/goods_replay" />
 
             <TextView
+                android:visibility="invisible"
                 android:id="@+id/tv_goods_replay_number"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -23,6 +23,8 @@ import com.agjsj.fleamarket.view.me.MyInfoActivity;
 import com.agjsj.fleamarket.view.me.MySendFoundcaseUI;
 import com.agjsj.fleamarket.view.me.MySendGoodsUI;
 import com.agjsj.fleamarket.view.user.LoginActivity;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
 
 /**
  * Created by YH on 2017/5/1.
@@ -107,9 +109,26 @@ public class MeUI extends BaseUI {
                 dialog.setOnResultListener(new ShowMegDialog.OnResultListener() {
                     @Override
                     public void onOk() {
-                        BaseApplication.INSTANCE().setCurrentUser(null);
-                        BaseApplication.INSTANCE().deleteCurrentUser();
-                        startActivity(LoginActivity.class);
+
+                        EMClient.getInstance().logout(true, new EMCallBack() {
+                            @Override
+                            public void onSuccess() {
+                                BaseApplication.INSTANCE().setCurrentUser(null);
+                                BaseApplication.INSTANCE().deleteCurrentUser();
+                                startActivity(LoginActivity.class);
+                            }
+
+                            @Override
+                            public void onProgress(int progress, String status) {
+
+                            }
+
+                            @Override
+                            public void onError(int code, String message) {
+                                toast("退出登录失败！");
+                            }
+                        });
+
                       }
 
                     @Override

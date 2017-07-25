@@ -17,14 +17,14 @@
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginTop="50dp"
-            android:src="@drawable/logo" />
+            android:src="@mipmap/ic_launcher" />
 
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
-            android:text="一句话介绍该应用"
+            android:text="校园二手市场信息平台"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
     </LinearLayout>

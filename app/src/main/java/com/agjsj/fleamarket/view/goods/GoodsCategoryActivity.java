@@ -90,8 +90,11 @@ public class GoodsCategoryActivity extends BaseActivity {
             public void OnTextViewClick(Goodstype goodsType, int position) {
                 viewList.get(position).setUserVisibleHint(true);
                 viewPager.setCurrentItem(position);
+                adapter.setCurrentSelectIndex(position);
+                adapter.notifyDataSetChanged();
             }
         });
+
         listView.setAdapter(adapter);
         for (int i = 0; i < goodsTypeList.size(); i++) {
             Goodstype goodsType = goodsTypeList.get(i);
@@ -154,8 +157,10 @@ public class GoodsCategoryActivity extends BaseActivity {
         }
 
         @Override
-        public void onPageSelected(int arg0) {
-            viewList.get(arg0).setUserVisibleHint(true);
+        public void onPageSelected(int position) {
+            viewList.get(position).setUserVisibleHint(true);
+            adapter.setCurrentSelectIndex(position);
+            adapter.notifyDataSetChanged();
         }
     }
 

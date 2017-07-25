@@ -15,10 +15,15 @@ import com.agjsj.fleamarket.bean.UserAccount;
 import com.agjsj.fleamarket.engine.BaseCallBack;
 import com.agjsj.fleamarket.engine.UserEngine;
 import com.agjsj.fleamarket.util.BeanFactory;
+import com.agjsj.fleamarket.util.LogUtil;
 import com.agjsj.fleamarket.view.MainActivity;
 import com.agjsj.fleamarket.view.base.BaseActivity;
 import com.agjsj.fleamarket.view.base.BaseApplication;
 import com.agjsj.fleamarket.view.manager.MiddleManager;
+import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
+
+import org.apache.commons.codec.digest.DigestUtils;
 
 /**
  * Created by MyPC on 2017/2/26.
@@ -73,13 +78,33 @@ public class LoginActivity extends BaseActivity{
      */
     private void login() {
         BaseApplication.INSTANCE().deleteCurrentUser();
-        UserAccount userAccount = new UserAccount(etUsername.getText().toString(),etPassword.getText().toString());
+        UserAccount userAccount = new UserAccount(etUsername.getText().toString(),
+                DigestUtils.md5Hex(etPassword.getText().toString()));
         UserEngine userEngine = BeanFactory.getImpl(UserEngine.class);
         userEngine.login(userAccount, new BaseCallBack.SendCallBack() {
             @Override
             public void sendResultCallBack(int responseCode) {
                 if(responseCode == BaseCallBack.SEND_OK){
-                    startActivity(MainActivity.class,null,true);
+                    EMClient.getInstance().login( BaseApplication.INSTANCE().getCurrentUserName(),BaseApplication.INSTANCE().getCurrentUserPasswd(),new EMCallBack() {//回调
+                        @Override
+                        public void onSuccess() {
+                            EMClient.getInstance().groupManager().loadAllGroups();
+                            EMClient.getInstance().chatManager().loadAllConversations();
+                            LogUtil.info("main"+ "登录聊天服务器成功！");
+                            startActivity(MainActivity.class,null,true);
+                        }
+
+                        @Override
+                        public void onProgress(int progress, String status) {
+
+                        }
+
+                        @Override
+                        public void onError(int code, String message) {
+                            LogUtil.info("main"+"登录聊天服务器失败！");
+                        }
+                    });
+
                 }else {
                     toast("抱歉，登录失败");
                 }
@@ -104,7 +129,7 @@ public class LoginActivity extends BaseActivity{
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-//            android.os.Process.killProcess(android.os.Process.myPid());
+            android.os.Process.killProcess(android.os.Process.myPid());
             System.exit(0);
         }
         return super.onKeyDown(keyCode, event);

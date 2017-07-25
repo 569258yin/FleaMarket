@@ -1,0 +1,185 @@
+TASK com.agjsj.fleamarket id=708
+  ACTIVITY com.agjsj.fleamarket/.view.MainActivity 2dc1d71c pid=26254
+    Local FragmentActivity 1fb82c72 State:
+      mCreated=truemResumed=true mStopped=false mReallyStopped=false
+      mLoadersStarted=true
+    FragmentManager misc state:
+      mHost=android.support.v4.app.FragmentActivity$HostCallbacks@1d94d1a3
+      mContainer=android.support.v4.app.FragmentActivity$HostCallbacks@1d94d1a3
+      mCurState=5 mStateSaved=false mDestroyed=false
+    View Hierarchy:
+      com.android.internal.policy.impl.PhoneWindow$DecorView{374f1ca0 V.E..... ... 0,0-1080,1920}
+        android.widget.LinearLayout{2b282059 V.E..... ... 0,0-1080,1776}
+          android.view.ViewStub{37c7141e G.E..... ... 0,0-0,0 #1020373}
+          android.widget.FrameLayout{1518e4ff V.E..... ... 0,75-1080,1776 #1020002 android:id/content}
+            android.widget.RelativeLayout{2d9962cc V.E..... ... 0,0-1080,1701}
+              android.widget.RelativeLayout{1c316915 V.E..... ... 0,0-1080,150 #7f0e00c8 app:id/il_title}
+                android.widget.RelativeLayout{2a4c542a G.E..... ... 0,0-0,0 #7f0e00cb app:id/ii_common_container}
+                  android.widget.TextView{6a0d21b V.ED..C. ... 0,0-0,0 #7f0e00cc app:id/tv_title_back}
+                  android.widget.TextView{2e5fdfb8 V.ED.... ... 0,0-0,0 #7f0e00cd app:id/tv_title_text}
+                android.widget.RelativeLayout{354c8191 V.E..... ... 0,0-1080,150 #7f0e00ce app:id/ii_search_title}
+                  android.widget.LinearLayout{83388f6 V.E..... ... 0,0-1080,150}
+                    android.widget.LinearLayout{15f074f7 V.E..... ... 90,23-924,126}
+                      android.widget.EditText{90f3f64 VFED..CL F.. 30,15-819,88 #7f0e00cf app:id/et_title_search_content}
+                      android.widget.ImageView{2c26a5cd G.ED.... ... 0,0-0,0 #7f0e00d0 app:id/iv_title_search_clear}
+                    android.widget.TextView{1c873e82 V.ED..C. ... 954,42-1050,107 #7f0e00d1 app:id/tv_title_category}
+              android.widget.RelativeLayout{352d6993 V.E..... ... 0,1491-1080,1701 #7f0e00c9 app:id/il_bottom}
+                android.view.View{3532edd0 V.ED.... ... 0,0-1080,3}
+                android.widget.FrameLayout{2a04d1c9 V.E..... ... 0,0-1080,210}
+                  android.widget.LinearLayout{266ec0ce V.E..... ... 0,0-1080,210}
+                    android.widget.ImageView{93b0bef V.ED..C. ... 450,15-630,195 #7f0e00c1 app:id/iv_main_send}
+                android.widget.LinearLayout{15a116fc V.E..... ... 0,0-1080,210}
+                  android.widget.RadioGroup{d7fc185 V.E..... ... 0,0-1080,210 #7f0e00c2 app:id/rg_main_tab}
+                    android.widget.RadioButton{1e3a1bda VFED..C. ... 0,0-216,210 #7f0e00c3 app:id/rb_main_home}
+                    android.widget.RadioButton{37d6780b VFED..C. ... 216,0-432,210 #7f0e00c4 app:id/rb_main_type}
+                    android.widget.RadioButton{266a6e8 VFED..C. ... 432,210-648,267 #7f0e00c5 app:id/rb_main_send}
+                    android.widget.RadioButton{bfff101 VFED..C. ... 648,0-864,210 #7f0e00c6 app:id/rb_main_message}
+                    android.widget.RadioButton{3f2e1ba6 VFED..C. ... 864,0-1080,210 #7f0e00c7 app:id/rb_main_me}
+              android.widget.RelativeLayout{3b7289e7 V.E..... ... 0,150-1080,1491 #7f0e00ca app:id/il_middle}
+                android.widget.LinearLayout{5734994 V.E..... ... 0,0-1080,1341}
+                  android.widget.RadioGroup{2ef99c3d V.E..... ... 0,0-1080,150}
+                    android.widget.RadioButton{22104c32 VFED..C. ... 90,30-585,120 #7f0e0087 app:id/rb_home_recommend}
+                    android.widget.RadioButton{18d3dd83 VFED..C. ... 585,30-1080,120 #7f0e0088 app:id/rb_home_new}
+                  com.agjsj.fleamarket.view.myview.PullToRefreshView{36056b00 V.E..... ... 0,150-1080,1341 #7f0e0089 app:id/ll_pullToRefresh_home}
+                    android.widget.RelativeLayout{28e8bf39 V.E..... ... 0,-238-1080,0 #7f0e010e app:id/pull_to_refresh_header}
+                      android.widget.ProgressBar{3472f97e G.ED.... ... 0,0-0,0 #7f0e0112 app:id/pull_to_refresh_progress}
+                      android.widget.ImageView{126ccedf V.ED.... ... 90,30-141,156 #7f0e0113 app:id/pull_to_refresh_image}
+                      android.widget.TextView{1ed6372c V.ED.... ... 0,30-1080,103 #7f0e0114 app:id/pull_to_refresh_text}
+                      android.widget.TextView{3e0d15f5 V.ED.... ... 0,103-1080,193 #7f0e0115 app:id/pull_to_refresh_updated_at}
+                    android.widget.ScrollView{18c12f8a VFED.V.. ... 0,0-1080,1191}
+                      android.support.v7.widget.RecyclerView{357979fb VFED.... ... 0,0-1080,4995 #7f0e008a app:id/recyclerview_home}
+                        android.widget.LinearLayout{1b059a18 V.E...CL ... 30,30-1050,999 #7f0e00be app:id/ll_goods_item}
+                          android.widget.LinearLayout{3ce61c71 V.E..... ... 0,0-1020,240}
+                            android.widget.RelativeLayout{3b0aba56 V.E..... ... 15,15-1005,225}
+                              android.widget.LinearLayout{1cdbbad7 V.E..... ... 30,30-411,180}
+                                com.agjsj.fleamarket.view.myview.CircleImageView{11a3de78 V.ED.... ... 0,0-150,150 #7f0e00df app:id/iv_goodsitem_icon}
+                                android.widget.LinearLayout{15c63fc4 V.E..... ... 165,0-381,150}
+                                  android.widget.TextView{26f0ead V.ED.... ... 0,11-216,84 #7f0e00e0 app:id/tv_goodsitem_name}
+                                  android.widget.TextView{269025e2 V.ED.... ... 0,90-170,139 #7f0e00e1 app:id/tv_goodsitem_time}
+                              android.widget.LinearLayout{5b72d73 V.E..... ... 693,64-930,145}
+                                android.widget.TextView{18c99430 V.ED.... ... 0,0-36,81}
+                                android.widget.TextView{61ae8a9 V.ED.... ... 51,0-237,81 #7f0e00e2 app:id/tv_goodsitem_money}
+                          android.widget.LinearLayout{280ebe2e V.E..... ... 15,255-1005,729}
+                            android.support.v7.widget.RecyclerView{11cd2dcf VFED..C. ... 0,0-990,474 #7f0e00bf app:id/recycleview_goods_item}
+                              android.widget.LinearLayout{156bc35c V.E...CL ... 0,0-840,474}
+                                android.widget.ImageView{cbb27b0 V.ED.... ... 15,15-825,459 #7f0e00e9 app:id/iv_goods_item}
+                          android.widget.TextView{29906665 V.ED.... ... 30,774-990,831 #7f0e00c0 app:id/tv_goodsitem_content}
+                          android.view.View{8cc8f3a V.ED.... ... 0,861-1020,864}
+                          android.widget.LinearLayout{1398d7eb V.E..... ... 0,864-1020,969}
+                            android.widget.RelativeLayout{149fb948 V.E..... ... 15,15-1005,90}
+                              android.widget.LinearLayout{82603e1 V.E..... ... 816,0-960,75 #7f0e00d2 app:id/ll_goods_repaly}
+                                android.widget.ImageView{2e646506 V.ED.... ... 15,-7-105,83 #7f0e00d3 app:id/iv_goods_zan}
+                                android.widget.TextView{2b07c7 V.ED.... ... 120,9-144,66 #7f0e00d4 app:id/tv_goods_zan_number}
+                              android.widget.LinearLayout{399b21f4 V.E..... ... 642,0-786,75}
+                                android.widget.ImageView{21dfd1d V.ED.... ... 15,-7-105,83 #7f0e00d5 app:id/iv_goods_replay}
+                                android.widget.TextView{2b51cb92 V.ED.... ... 120,9-144,66 #7f0e00d6 app:id/tv_goods_replay_number}
+                        android.widget.LinearLayout{22c65963 V.E...CL ... 30,1029-1050,1998 #7f0e00be app:id/ll_goods_item}
+                          android.widget.LinearLayout{3426960 V.E..... ... 0,0-1020,240}
+                            android.widget.RelativeLayout{3fa24e19 V.E..... ... 15,15-1005,225}
+                              android.widget.LinearLayout{c3d0ede V.E..... ... 30,30-473,180}
+                                com.agjsj.fleamarket.view.myview.CircleImageView{363e0dca V.ED.... ... 0,0-150,150 #7f0e00df app:id/iv_goodsitem_icon}
+                                android.widget.LinearLayout{2e3b28bf V.E..... ... 165,0-443,150}
+                                  android.widget.TextView{3854bb8c V.ED.... ... 0,11-216,84 #7f0e00e0 app:id/tv_goodsitem_name}
+                                  android.widget.TextView{2780b2d5 V.ED.... ... 0,90-278,139 #7f0e00e1 app:id/tv_goodsitem_time}
+                              android.widget.LinearLayout{2e073aea V.E..... ... 727,64-930,145}
+                                android.widget.TextView{80391db V.ED.... ... 0,0-36,81}
+                                android.widget.TextView{2a580478 V.ED.... ... 51,0-203,81 #7f0e00e2 app:id/tv_goodsitem_money}
+                          android.widget.LinearLayout{5a6a751 V.E..... ... 15,255-1005,729}
+                            android.support.v7.widget.RecyclerView{28961bb6 VFED..C. ... 0,0-990,474 #7f0e00bf app:id/recycleview_goods_item}
+                              android.widget.LinearLayout{291f70b7 V.E...CL ... 0,0-840,474}
+                                android.widget.ImageView{30db12db V.ED.... ... 15,15-825,459 #7f0e00e9 app:id/iv_goods_item}
+                          android.widget.TextView{3b44f024 V.ED.... ... 30,774-990,831 #7f0e00c0 app:id/tv_goodsitem_content}
+                          android.view.View{1d5d678d V.ED.... ... 0,861-1020,864}
+                          android.widget.LinearLayout{1a603d42 V.E..... ... 0,864-1020,969}
+                            android.widget.RelativeLayout{30b06153 V.E..... ... 15,15-1005,90}
+                              android.widget.LinearLayout{11f2ea90 V.E..... ... 816,0-960,75 #7f0e00d2 app:id/ll_goods_repaly}
+                                android.widget.ImageView{2345ef89 V.ED.... ... 15,-7-105,83 #7f0e00d3 app:id/iv_goods_zan}
+                                android.widget.TextView{20b8eb8e V.ED.... ... 120,9-144,66 #7f0e00d4 app:id/tv_goods_zan_number}
+                              android.widget.LinearLayout{455bfaf V.E..... ... 642,0-786,75}
+                                android.widget.ImageView{29441fbc V.ED.... ... 15,-7-105,83 #7f0e00d5 app:id/iv_goods_replay}
+                                android.widget.TextView{1b14fb45 V.ED.... ... 120,9-144,66 #7f0e00d6 app:id/tv_goods_replay_number}
+                        android.widget.LinearLayout{8dc329a V.E...CL ... 30,2028-1050,2997 #7f0e00be app:id/ll_goods_item}
+                          android.widget.LinearLayout{1a48a7cb V.E..... ... 0,0-1020,240}
+                            android.widget.RelativeLayout{26117ba8 V.E..... ... 15,15-1005,225}
+                              android.widget.LinearLayout{150f06c1 V.E..... ... 30,30-473,180}
+                                com.agjsj.fleamarket.view.myview.CircleImageView{364da96d V.ED.... ... 0,0-150,150 #7f0e00df app:id/iv_goodsitem_icon}
+                                android.widget.LinearLayout{5bade66 V.E..... ... 165,0-443,150}
+                                  android.widget.TextView{937f5a7 V.ED.... ... 0,11-216,84 #7f0e00e0 app:id/tv_goodsitem_name}
+                                  android.widget.TextView{1fd6aa54 V.ED.... ... 0,90-278,139 #7f0e00e1 app:id/tv_goodsitem_time}
+                              android.widget.LinearLayout{7444dfd V.E..... ... 659,64-930,145}
+                                android.widget.TextView{36867af2 V.ED.... ... 0,0-36,81}
+                                android.widget.TextView{39e44543 V.ED.... ... 51,0-271,81 #7f0e00e2 app:id/tv_goodsitem_money}
+                          android.widget.LinearLayout{81e17c0 V.E..... ... 15,255-1005,729}
+                            android.support.v7.widget.RecyclerView{3e8cccf9 VFED..C. ... 0,0-990,474 #7f0e00bf app:id/recycleview_goods_item}
+                              android.widget.LinearLayout{9fd543e V.E...CL ... 0,0-840,474}
+                                android.widget.ImageView{375be8ae V.ED.... ... 15,15-825,459 #7f0e00e9 app:id/iv_goods_item}
+                              android.widget.LinearLayout{167bf29f V.E...CL ... 840,0-1680,474}
+                                android.widget.ImageView{1584ca0c V.ED.... ... 15,15-825,459 #7f0e00e9 app:id/iv_goods_item}
+                          android.widget.TextView{1cacefec V.ED.... ... 30,774-990,831 #7f0e00c0 app:id/tv_goodsitem_content}
+                          android.view.View{23443fb5 V.ED.... ... 0,861-1020,864}
+                          android.widget.LinearLayout{a76764a V.E..... ... 0,864-1020,969}
+                            android.widget.RelativeLayout{13b719bb V.E..... ... 15,15-1005,90}
+                              android.widget.LinearLayout{106f1ed8 V.E..... ... 816,0-960,75 #7f0e00d2 app:id/ll_goods_repaly}
+                                android.widget.ImageView{dc62231 V.ED.... ... 15,-7-105,83 #7f0e00d3 app:id/iv_goods_zan}
+                                android.widget.TextView{1eadad16 V.ED.... ... 120,9-144,66 #7f0e00d4 app:id/tv_goods_zan_number}
+                              android.widget.LinearLayout{2fb39697 V.E..... ... 642,0-786,75}
+                                android.widget.ImageView{17235084 V.ED.... ... 15,-7-105,83 #7f0e00d5 app:id/iv_goods_replay}
+                                android.widget.TextView{26a9b06d V.ED.... ... 120,9-144,66 #7f0e00d6 app:id/tv_goods_replay_number}
+                        android.widget.LinearLayout{b4f84a2 V.E...CL ... 30,3027-1050,3996 #7f0e00be app:id/ll_goods_item}
+                          android.widget.LinearLayout{2910533 V.E..... ... 0,0-1020,240}
+                            android.widget.RelativeLayout{3fc6f0f0 V.E..... ... 15,15-1005,225}
+                              android.widget.LinearLayout{ebde669 V.E..... ... 30,30-473,180}
+                                com.agjsj.fleamarket.view.myview.CircleImageView{1f984ea4 V.ED.... ... 0,0-150,150 #7f0e00df app:id/iv_goodsitem_icon}
+                                android.widget.LinearLayout{14548ee V.E..... ... 165,0-443,150}
+                                  android.widget.TextView{3cccc18f V.ED.... ... 0,11-216,84 #7f0e00e0 app:id/tv_goodsitem_name}
+                                  android.widget.TextView{9c22c1c V.ED.... ... 0,90-278,139 #7f0e00e1 app:id/tv_goodsitem_time}
+                              android.widget.LinearLayout{ac58025 V.E..... ... 727,64-930,145}
+                                android.widget.TextView{4c105fa V.ED.... ... 0,0-36,81}
+                                android.widget.TextView{2f5de7ab V.ED.... ... 51,0-203,81 #7f0e00e2 app:id/tv_goodsitem_money}
+                          android.widget.LinearLayout{20d3ee08 V.E..... ... 15,255-1005,729}
+                            android.support.v7.widget.RecyclerView{2ef2f9a1 VFED..C. ... 0,0-990,474 #7f0e00bf app:id/recycleview_goods_item}
+                              android.widget.LinearLayout{390987c6 V.E...CL ... 0,0-840,474}
+                                android.widget.ImageView{346affc2 V.ED.... ... 15,15-825,459 #7f0e00e9 app:id/iv_goods_item}
+                          android.widget.TextView{39915387 V.ED.... ... 30,774-990,831 #7f0e00c0 app:id/tv_goodsitem_content}
+                          android.view.View{2bbde2b4 V.ED.... ... 0,861-1020,864}
+                          android.widget.LinearLayout{6248edd V.E..... ... 0,864-1020,969}
+                            android.widget.RelativeLayout{1d065a52 V.E..... ... 15,15-1005,90}
+                              android.widget.LinearLayout{38a5a123 V.E..... ... 816,0-960,75 #7f0e00d2 app:id/ll_goods_repaly}
+                                android.widget.ImageView{19b07620 V.ED.... ... 15,-7-105,83 #7f0e00d3 app:id/iv_goods_zan}
+                                android.widget.TextView{30e03bd9 V.ED.... ... 120,9-144,66 #7f0e00d4 app:id/tv_goods_zan_number}
+                              android.widget.LinearLayout{48bc99e V.E..... ... 642,0-786,75}
+                                android.widget.ImageView{15272c7f V.ED.... ... 15,-7-105,83 #7f0e00d5 app:id/iv_goods_replay}
+                                android.widget.TextView{1a76d44c V.ED.... ... 120,9-144,66 #7f0e00d6 app:id/tv_goods_replay_number}
+                        android.widget.LinearLayout{380fbc95 V.E...CL ... 30,4026-1050,4995 #7f0e00be app:id/ll_goods_item}
+                          android.widget.LinearLayout{1a66e1aa V.E..... ... 0,0-1020,240}
+                            android.widget.RelativeLayout{a0c119b V.E..... ... 15,15-1005,225}
+                              android.widget.LinearLayout{2d62e938 V.E..... ... 30,30-473,180}
+                                com.agjsj.fleamarket.view.myview.CircleImageView{1eda47c5 V.ED.... ... 0,0-150,150 #7f0e00df app:id/iv_goodsitem_icon}
+                                android.widget.LinearLayout{f7c8d11 V.E..... ... 165,0-443,150}
+                                  android.widget.TextView{37296e76 V.ED.... ... 0,11-216,84 #7f0e00e0 app:id/tv_goodsitem_name}
+                                  android.widget.TextView{1902c77 V.ED.... ... 0,90-278,139 #7f0e00e1 app:id/tv_goodsitem_time}
+                              android.widget.LinearLayout{32f960e4 V.E..... ... 727,64-930,145}
+                                android.widget.TextView{40be94d V.ED.... ... 0,0-36,81}
+                                android.widget.TextView{18b5fc02 V.ED.... ... 51,0-203,81 #7f0e00e2 app:id/tv_goodsitem_money}
+                          android.widget.LinearLayout{23d11913 V.E..... ... 15,255-1005,729}
+                            android.support.v7.widget.RecyclerView{2d5da750 VFED..C. ... 0,0-990,474 #7f0e00bf app:id/recycleview_goods_item}
+                              android.widget.LinearLayout{11bacd49 V.E...CL ... 0,0-840,474}
+                                android.widget.ImageView{f3e9228 V.ED.... ... 15,15-825,459 #7f0e00e9 app:id/iv_goods_item}
+                              android.widget.LinearLayout{68bd64e V.E...CL ... 840,0-1680,474}
+                                android.widget.ImageView{5c218e6 V.ED.... ... 15,15-825,459 #7f0e00e9 app:id/iv_goods_item}
+                          android.widget.TextView{332a336f V.ED.... ... 30,774-990,831 #7f0e00c0 app:id/tv_goodsitem_content}
+                          android.view.View{1b7de87c V.ED.... ... 0,861-1020,864}
+                          android.widget.LinearLayout{1d59f505 V.E..... ... 0,864-1020,969}
+                            android.widget.RelativeLayout{2ed3095a V.E..... ... 15,15-1005,90}
+                              android.widget.LinearLayout{1250978b V.E..... ... 816,0-960,75 #7f0e00d2 app:id/ll_goods_repaly}
+                                android.widget.ImageView{1aff1068 V.ED.... ... 15,-7-105,83 #7f0e00d3 app:id/iv_goods_zan}
+                                android.widget.TextView{e09dc81 V.ED.... ... 120,9-144,66 #7f0e00d4 app:id/tv_goods_zan_number}
+                              android.widget.LinearLayout{8286126 V.E..... ... 642,0-786,75}
+                                android.widget.ImageView{102f2167 V.ED.... ... 15,-7-105,83 #7f0e00d5 app:id/iv_goods_replay}
+                                android.widget.TextView{3ce8cb14 V.ED.... ... 120,9-144,66 #7f0e00d6 app:id/tv_goods_replay_number}
+                    android.widget.RelativeLayout{276bfbd V.E..... ... 0,1191-1080,1377 #7f0e010e app:id/pull_to_refresh_header}
+                      android.widget.ProgressBar{42969b2 G.ED.... ... 0,0-0,0 #7f0e010f app:id/pull_to_load_progress}
+                      android.widget.ImageView{15826d03 V.ED.... ... 90,30-141,156 #7f0e0110 app:id/pull_to_load_image}
+                      android.widget.TextView{39118480 V.ED.... ... 0,30-1080,103 #7f0e0111 app:id/pull_to_load_text}
+        android.view.View{1dd49ab9 V.ED.... ... 0,0-1080,75 #102002f android:id/statusBarBackground}
+        android.view.View{1ec06efe V.ED.... ... 0,1776-1080,1920 #1020030 android:id/navigationBarBackground}
